@@ -3,10 +3,11 @@
     "env": {
         "node": true,
         "es6": true,
-        "jest": true
+        "jest": true,
+        "mocha": true
     },
     "parserOptions": {
-        "ecmaVersion": 2017
+        "ecmaVersion": 2020
     },
     "globals": {
         "SELECT": true,

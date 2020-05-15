@@ -1,0 +1,15 @@
+
+    {
+        "name": "deploy",
+        "dependencies": {
+          "@sap/hdi-deploy": "^3.11.9"
+        },
+        "engines": {
+          "node": "^10"
+        },
+        "scripts": {
+          "postinstall": "node .build.js",
+          "start": "node node_modules/@sap/hdi-deploy/deploy.js  --auto-undeploy"
+        }
+      }   
+    
