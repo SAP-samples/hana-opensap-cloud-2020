@@ -1,15 +1,25 @@
-# Title
+# Getting Started
 
-## Description
+Welcome to your new project.
 
-## Requirements
+It contains these folders and files, following our recommended project layout:
 
-## Download and Installation
+File / Folder | Purpose
+---------|----------
+`app/` | content for UI frontends go here
+`db/` | your domain models and data go here
+`srv/` | your service models and code go here
+`package.json` | project metadata and configuration
+`readme.md` | this getting started guide
 
-## Known Issues
 
-## How to obtain support
+## Next Steps...
 
-## License
-Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. 
-This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSE) file.
+- Open a new terminal and run  `cds watch`
+- ( in VSCode simply choose _**Terminal** > Run Task > cds watch_ )
+- Start adding content, e.g. a [db/schema.cds](db/schema.cds), ...
+
+
+## Learn more...
+
+Learn more at https://cap.cloud.sap/docs/get-started/
