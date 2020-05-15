@@ -28,7 +28,7 @@ entity Headers : managed, cuid {
         Common.Label        : '{i18n>po_id}'
     );
     ITEMS           : Composition of many Items
-                          on ITEMS.POHeader @(
+                          on ITEMS.POHEADER @(
                               title  : '{i18n>po_items}',
                               Common : {Text : {
                                   $value                : ITEMS.PRODUCT,
@@ -73,7 +73,7 @@ entity Headers : managed, cuid {
 }
 
 entity Items : cuid {
-    POHeader     : Association to Headers @title : '{i18n>poService}';
+    POHEADER     : Association to Headers @title : '{i18n>poService}';
     PRODUCT      : BusinessKey            @(
         title               : '{i18n>product}',
         Common.FieldControl : #Mandatory,
