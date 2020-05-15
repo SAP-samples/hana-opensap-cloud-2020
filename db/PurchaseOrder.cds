@@ -21,52 +21,52 @@ type StatusT : String(1);
 
 
 entity Headers : managed, cuid {
-    PURCHASEORDERID : Integer               @(
+    PURCHASEORDERID : Integer                       @(
         title               : '{i18n>po_id}',
         Common.FieldControl : #Mandatory,
         Search.defaultSearchElement,
         Common.Label        : '{i18n>po_id}'
     );
-   items           : Association to many Items
+    items           : Association to many Items
                           on items.POHEADER = $self @(
                               title  : '{i18n>po_items}',
                               Common : {Text : {
-                                  $value                : ITEMS.PRODUCT,
+                                  $value                 : ITEMS.PRODUCT,
                                   ![@UI.TextArrangement] : #TextOnly
                               }}
-                          ); 
-    NOTEID          : BusinessKey null      @title : '{i18n>notes}';
-    PARTNER         : BusinessKey           @title : '{i18n>partner_id}';
+                          );
+    NOTEID          : BusinessKey null              @title : '{i18n>notes}';
+    PARTNER         : BusinessKey                   @title : '{i18n>partner_id}';
     CURRENCY        : Currency;
-    GROSSAMOUNT     : AmountT               @(
+    GROSSAMOUNT     : AmountT                       @(
         title                : '{i18n>grossAmount}',
         Measures.ISOCurrency : currency
     );
-    NETAMOUNT       : AmountT               @(
+    NETAMOUNT       : AmountT                       @(
         title                : '{i18n>netAmount}',
         Measures.ISOCurrency : currency
     );
-    TAXAMOUNT       : AmountT               @(
+    TAXAMOUNT       : AmountT                       @(
         title                : '{i18n>taxAmount}',
         Measures.ISOCurrency : currency
     );
-    LIFECYCLESTATUS : StatusT               @(
+    LIFECYCLESTATUS : StatusT                       @(
         title               : '{i18n>lifecycle}',
         Common.FieldControl : #ReadOnly
     );
-    APPROVALSTATUS  : StatusT               @(
+    APPROVALSTATUS  : StatusT                       @(
         title               : '{i18n>approval}',
         Common.FieldControl : #ReadOnly
     );
-    CONFIRMSTATUS   : StatusT               @(
+    CONFIRMSTATUS   : StatusT                       @(
         title               : '{i18n>confirmation}',
         Common.FieldControl : #ReadOnly
     );
-    ORDERINGSTATUS  : StatusT               @(
+    ORDERINGSTATUS  : StatusT                       @(
         title               : '{i18n>ordering}',
         Common.FieldControl : #ReadOnly
     );
-    INVOICINGSTATUS : StatusT               @(
+    INVOICINGSTATUS : StatusT                       @(
         title               : '{i18n>invoicing}',
         Common.FieldControl : #ReadOnly
     );
@@ -97,3 +97,18 @@ entity Items : cuid {
     QUANTITYUNIT : UnitT;
     DELIVERYDATE : SDate                  @title : '{i18n>deliveryDate}';
 }
+
+
+define view ItemView as
+    select from Items {
+        POHEADER.PURCHASEORDERID,
+        POHEADER.PARTNER,
+        PRODUCT,
+        CURRENCY,
+        GROSSAMOUNT,
+        NETAMOUNT,
+        TAXAMOUNT,
+        QUANTITY,
+        QUANTITYUNIT,
+        DELIVERYDATE
+    };
