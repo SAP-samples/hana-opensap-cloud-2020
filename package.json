@@ -19,6 +19,7 @@
         "sqlite3": "^4"
     },
     "scripts": {
+        "dbbuild": "cds build && cd ./db && npm start",
         "start": "npx cds run",
         "watch": "npx cds watch",
         "mocha": "npx mocha || echo",
@@ -54,12 +55,19 @@
                 }
             ]
         },
+        "features":{
+            "snapi": true
+        },
         "i18n": {
             "folders": [
                 "_i18n"
             ]
         },
+        "odata": {
+            "version": "x4"
+        },
         "hana": {
+            "deploy-format": "hdbtable",
             "syntax": "hdi"
         },
         "requires": {

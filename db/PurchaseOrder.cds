@@ -27,14 +27,14 @@ entity Headers : managed, cuid {
         Search.defaultSearchElement,
         Common.Label        : '{i18n>po_id}'
     );
-    ITEMS           : Composition of many Items
-                          on ITEMS.POHEADER @(
+   items           : Association to many Items
+                          on items.POHEADER = $self @(
                               title  : '{i18n>po_items}',
                               Common : {Text : {
                                   $value                : ITEMS.PRODUCT,
                                   ![@UI.TextArrangement] : #TextOnly
                               }}
-                          );
+                          ); 
     NOTEID          : BusinessKey null      @title : '{i18n>notes}';
     PARTNER         : BusinessKey           @title : '{i18n>partner_id}';
     CURRENCY        : Currency;
