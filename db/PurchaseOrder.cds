@@ -9,7 +9,7 @@ namespace opensap.PurchaseOrder;
 
 type BusinessKey : String(10);
 type SDate : DateTime;
-type AmountT : Decimal(15, 2) @(Measures.ISOCurrency : CURRENCY_code);
+type AmountT : Decimal(15, 2) @(Semantics.amount.currencyCode: 'CURRENCY_code', sap.unit: 'CURRENCY_code');
 
 type QuantityT : Decimal(13, 3)@(
     title         : '{i18n>quantity}',

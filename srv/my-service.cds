@@ -10,6 +10,7 @@ service CatalogService {
 
     entity POs @(
         title        : '{i18n>poService}',
+        odata.draft.enabled: true,
         Capabilities : {
             InsertRestrictions : {Insertable : true},
             UpdateRestrictions : {Updatable : true},
@@ -19,6 +20,7 @@ service CatalogService {
 
     entity POItems @(
         title        : '{i18n>poService}',
+        odata.draft.enabled: true,        
         Capabilities : {
             InsertRestrictions : {Insertable : true},
             UpdateRestrictions : {Updatable : true},
