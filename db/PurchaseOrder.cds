@@ -9,7 +9,7 @@ namespace opensap.PurchaseOrder;
 
 type BusinessKey : String(10);
 type SDate : DateTime;
-type AmountT : Decimal(15, 2);
+type AmountT : Decimal(15, 2) @(Measures.ISOCurrency : CURRENCY_code);
 
 type QuantityT : Decimal(13, 3)@(
     title         : '{i18n>quantity}',
@@ -17,92 +17,146 @@ type QuantityT : Decimal(13, 3)@(
 );
 
 type UnitT : String(3)@title : '{i18n>quantityUnit}';
-type StatusT : String(1);
 
+type StatusT : Integer enum {
+    new        = 1;
+    incomplete = 2;
+    inprocess  = 3;
+    completed  = 4;
+    billed     = 5;
+    received   = 6;
+}
 
-entity Headers : managed, cuid {
-    PURCHASEORDERID : Integer                       @(
+abstract entity amount {
+    CURRENCY    : Currency;
+    GROSSAMOUNT : AmountT;
+    NETAMOUNT   : AmountT;
+    TAXAMOUNT   : AmountT;
+}
+
+annotate amount with {
+    GROSSAMOUNT @(title : '{i18n>grossAmount}');
+    NETAMOUNT   @(title : '{i18n>netAmount}');
+    TAXAMOUNT   @(title : '{i18n>taxAmount}');
+}
+
+abstract entity quantity {
+    QUANTITY     : QuantityT;
+    QUANTITYUNIT : UnitT;
+}
+
+entity Headers : managed, cuid, amount {
+    PURCHASEORDERID : Integer;
+    items           : Association to many Items
+                          on items.POHEADER = $self;
+    NOTEID          : BusinessKey null;
+    PARTNER         : BusinessKey @title : '{i18n>partner_id}';
+    LIFECYCLESTATUS : StatusT default 1;
+    APPROVALSTATUS  : StatusT;
+    CONFIRMSTATUS   : StatusT;
+    ORDERINGSTATUS  : StatusT;
+    INVOICINGSTATUS : StatusT;
+}
+
+annotate Headers with @(
+    title       : '{i18n>poService}',
+    description : '{i18n>poService}'
+) {
+    ID              @(
+        title       : '{i18n>internal_id}',
+        description : '{i18n>internal_id}',
+    );
+
+    PURCHASEORDERID @(
         title               : '{i18n>po_id}',
+        description         : '{i18n>po_id}',
         Common.FieldControl : #Mandatory,
         Search.defaultSearchElement,
         Common.Label        : '{i18n>po_id}'
     );
-    items           : Association to many Items
-                          on items.POHEADER = $self @(
-                              title  : '{i18n>po_items}',
-                              Common : {Text : {
-                                  $value                 : ITEMS.PRODUCT,
-                                  ![@UI.TextArrangement] : #TextOnly
-                              }}
-                          );
-    NOTEID          : BusinessKey null              @title : '{i18n>notes}';
-    PARTNER         : BusinessKey                   @title : '{i18n>partner_id}';
-    CURRENCY        : Currency;
-    GROSSAMOUNT     : AmountT                       @(
-        title                : '{i18n>grossAmount}',
-        Measures.ISOCurrency : currency
+
+    items           @(
+        title       : '{i18n>po_items}',
+        description : '{i18n>po_items}',
+        Common      : {Text : {
+            $value                 : ITEMS.PRODUCT,
+            ![@UI.TextArrangement] : #TextOnly
+        }}
     );
-    NETAMOUNT       : AmountT                       @(
-        title                : '{i18n>netAmount}',
-        Measures.ISOCurrency : currency
+
+    NOTEID          @(
+        title       : '{i18n>notes}',
+        description : '{i18n>notes}'
     );
-    TAXAMOUNT       : AmountT                       @(
-        title                : '{i18n>taxAmount}',
-        Measures.ISOCurrency : currency
+
+    PARTNER         @(
+        title       : '{i18n>partner_id}',
+        description : '{i18n>partner_id}'
     );
-    LIFECYCLESTATUS : StatusT                       @(
+
+    LIFECYCLESTATUS @(
         title               : '{i18n>lifecycle}',
+        description         : '{i18n>lifecycle}',
         Common.FieldControl : #ReadOnly
     );
-    APPROVALSTATUS  : StatusT                       @(
+
+    APPROVALSTATUS  @(
         title               : '{i18n>approval}',
+        description         : '{i18n>approval}',
         Common.FieldControl : #ReadOnly
     );
-    CONFIRMSTATUS   : StatusT                       @(
+
+    CONFIRMSTATUS   @(
         title               : '{i18n>confirmation}',
+        description         : '{i18n>confirmation}',
         Common.FieldControl : #ReadOnly
     );
-    ORDERINGSTATUS  : StatusT                       @(
+
+    ORDERINGSTATUS  @(
         title               : '{i18n>ordering}',
+        description         : '{i18n>ordering}',
         Common.FieldControl : #ReadOnly
     );
-    INVOICINGSTATUS : StatusT                       @(
+
+    INVOICINGSTATUS @(
         title               : '{i18n>invoicing}',
+        description         : '{i18n>invoicing}',
         Common.FieldControl : #ReadOnly
     );
+
+};
+
+entity Items : cuid, amount, quantity {
+    POHEADER     : Association to Headers;
+    PRODUCT      : BusinessKey;
+    NOTEID       : BusinessKey null;
+    DELIVERYDATE : SDate;
 }
 
-entity Items : cuid {
-    POHEADER     : Association to Headers @title : '{i18n>poService}';
-    PRODUCT      : BusinessKey            @(
+annotate Items with {
+    ID           @(
+        title       : '{i18n>internal_id}',
+        description : '{i18n>internal_id}',
+    );
+
+    PRODUCT      @(
         title               : '{i18n>product}',
+        description         : '{i18n>product}',
         Common.FieldControl : #Mandatory,
         Search.defaultSearchElement
     );
-    NOTEID       : BusinessKey null;
-    CURRENCY     : Currency;
-    GROSSAMOUNT  : AmountT                @(
-        title                : '{i18n>grossAmount}',
-        Measures.ISOCurrency : currency
-    );
-    NETAMOUNT    : AmountT                @(
-        title                : '{i18n>netAmount}',
-        Measures.ISOCurrency : currency
-    );
-    TAXAMOUNT    : AmountT                @(
-        title                : '{i18n>taxAmount}',
-        Measures.ISOCurrency : currency
-    );
-    QUANTITY     : QuantityT;
-    QUANTITYUNIT : UnitT;
-    DELIVERYDATE : SDate                  @title : '{i18n>deliveryDate}';
+
+    DELIVERYDATE @(
+        title       : '{i18n>deliveryDate}',
+        description : '{i18n>deliveryDate}'
+    )
 }
 
 
 define view ItemView as
     select from Items {
-        POHEADER.PURCHASEORDERID,
-        POHEADER.PARTNER,
+        POHEADER.PURCHASEORDERID as![PURCHASEORDERID],
+        POHEADER.PARTNER         as![PARTNER],
         PRODUCT,
         CURRENCY,
         GROSSAMOUNT,

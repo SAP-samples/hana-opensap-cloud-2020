@@ -1,8 +1,3 @@
-using from './PurchaseOrder';
-
-entity Base {
-  key ID : Integer;
-}
 
 using { sap } from '@sap/cds/common';
 

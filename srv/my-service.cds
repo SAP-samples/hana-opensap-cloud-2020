@@ -1,5 +1,5 @@
-using opensap.PurchaseOrder.Headers as Headers from '../db/data-model';
-using opensap.PurchaseOrder.Items as Items from '../db/data-model';
+using opensap.PurchaseOrder.Headers as Headers from '../db/schema';
+using opensap.PurchaseOrder.Items as Items from '../db/schema';
 
 service CatalogService {
 
