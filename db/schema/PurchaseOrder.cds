@@ -5,57 +5,22 @@ using {
     cuid
 } from '@sap/cds/common';
 
+using { opensap.common } from './common';
 namespace opensap.PurchaseOrder;
 
-type BusinessKey : String(10);
-type SDate : DateTime;
-type AmountT : Decimal(15, 2) @(Semantics.amount.currencyCode: 'CURRENCY_code', sap.unit: 'CURRENCY_code');
 
-type QuantityT : Decimal(13, 3)@(
-    title         : '{i18n>quantity}',
-    Measures.Unit : Units.Quantity
-);
 
-type UnitT : String(3)@title : '{i18n>quantityUnit}';
-
-type StatusT : Integer enum {
-    new        = 1;
-    incomplete = 2;
-    inprocess  = 3;
-    completed  = 4;
-    billed     = 5;
-    received   = 6;
-}
-
-abstract entity amount {
-    CURRENCY    : Currency;
-    GROSSAMOUNT : AmountT;
-    NETAMOUNT   : AmountT;
-    TAXAMOUNT   : AmountT;
-}
-
-annotate amount with {
-    GROSSAMOUNT @(title : '{i18n>grossAmount}');
-    NETAMOUNT   @(title : '{i18n>netAmount}');
-    TAXAMOUNT   @(title : '{i18n>taxAmount}');
-}
-
-abstract entity quantity {
-    QUANTITY     : QuantityT;
-    QUANTITYUNIT : UnitT;
-}
-
-entity Headers : managed, cuid, amount {
+entity Headers : managed, cuid, common.amount {
     PURCHASEORDERID : Integer;
     items           : Association to many Items
                           on items.POHEADER = $self;
-    NOTEID          : BusinessKey null;
-    PARTNER         : BusinessKey @title : '{i18n>partner_id}';
-    LIFECYCLESTATUS : StatusT default 1;
-    APPROVALSTATUS  : StatusT;
-    CONFIRMSTATUS   : StatusT;
-    ORDERINGSTATUS  : StatusT;
-    INVOICINGSTATUS : StatusT;
+    NOTEID          : common.BusinessKey null;
+    PARTNER         : common.BusinessKey @title : '{i18n>partner_id}';
+    LIFECYCLESTATUS : common.StatusT default 1;
+    APPROVALSTATUS  : common.StatusT;
+    CONFIRMSTATUS   : common.StatusT;
+    ORDERINGSTATUS  : common.StatusT;
+    INVOICINGSTATUS : common.StatusT;
 }
 
 annotate Headers with @(
@@ -126,11 +91,11 @@ annotate Headers with @(
 
 };
 
-entity Items : cuid, amount, quantity {
+entity Items : cuid, common.amount, common.quantity {
     POHEADER     : Association to Headers;
-    PRODUCT      : BusinessKey;
-    NOTEID       : BusinessKey null;
-    DELIVERYDATE : SDate;
+    PRODUCT      : common.BusinessKey;
+    NOTEID       : common.BusinessKey null;
+    DELIVERYDATE : common.SDate;
 }
 
 annotate Items with {

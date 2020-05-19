@@ -1,4 +1,4 @@
-using {sap} from '@sap/cds/common';
+using {sap, Currency} from '@sap/cds/common';
 
 extend sap.common.Currencies with {
   // Currencies.code = ISO 4217 alphabetic three-letter code
@@ -55,6 +55,49 @@ annotate sap.common.Countries with {
   );
 };
 
+context opensap.common {
+  type BusinessKey : String(10);
+  type SDate : DateTime;
+
+  type AmountT : Decimal(15, 2)@(
+    Semantics.amount.currencyCode : 'CURRENCY_code',
+    sap.unit                      : 'CURRENCY_code'
+  );
+
+  type QuantityT : Decimal(13, 3)@(
+    title         : '{i18n>quantity}',
+    Measures.Unit : Units.Quantity
+  );
+
+  type UnitT : String(3)@title : '{i18n>quantityUnit}';
+
+  type StatusT : Integer enum {
+    new        = 1;
+    incomplete = 2;
+    inprocess  = 3;
+    completed  = 4;
+    billed     = 5;
+    received   = 6;
+  }
+
+  abstract entity amount {
+    CURRENCY    : Currency;
+    GROSSAMOUNT : AmountT;
+    NETAMOUNT   : AmountT;
+    TAXAMOUNT   : AmountT;
+  }
+
+  annotate amount with {
+    GROSSAMOUNT @(title : '{i18n>grossAmount}');
+    NETAMOUNT   @(title : '{i18n>netAmount}');
+    TAXAMOUNT   @(title : '{i18n>taxAmount}');
+  }
+
+  abstract entity quantity {
+    QUANTITY     : QuantityT;
+    QUANTITYUNIT : UnitT;
+  }
+}
 
 context sap.common_countries {
 
@@ -91,28 +134,28 @@ context sap.common_countries {
 }
 
 
-  define view iso_countries_regions as
-    select from sap.common_countries.Regions {
-      country          as COUNTRY_CODE,
-      toCountries.name as COUNTRY_NAME,
-      sub_code,
-      name,
-      type
-    };
+define view iso_countries_regions as
+  select from sap.common_countries.Regions {
+    country          as COUNTRY_CODE,
+    toCountries.name as COUNTRY_NAME,
+    sub_code,
+    name,
+    type
+  };
 
-  define view iso_us_states as
-    select from sap.common_countries.Regions {
-      sub_code,
-      name
-    }
-    where
-          country = 'US'
-      and type    = 'State';
+define view iso_us_states as
+  select from sap.common_countries.Regions {
+    sub_code,
+    name
+  }
+  where
+        country = 'US'
+    and type    = 'State';
 
-  define view iso_us_states_and_territories as
-    select from sap.common_countries.Regions {
-      sub_code,
-      name
-    }
-    where
-      country = 'US';
+define view iso_us_states_and_territories as
+  select from sap.common_countries.Regions {
+    sub_code,
+    name
+  }
+  where
+    country = 'US';
