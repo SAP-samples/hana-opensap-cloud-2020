@@ -1,0 +1,5 @@
+TYPE "Procedures.tt_scookie" AS TABLE ( 
+     "SESSIONID" NVARCHAR(32),
+	 "NAME" NVARCHAR(30),
+	 "APPLICATION" NVARCHAR(128),
+	 "EXPIRY" LONGDATE ) 

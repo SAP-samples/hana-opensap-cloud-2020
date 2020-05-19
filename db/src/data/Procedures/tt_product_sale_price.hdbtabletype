@@ -1,0 +1,5 @@
+TYPE  "Procedures.tt_product_sale_price" AS TABLE ( 
+     "PRODUCTID" NVARCHAR(10),
+	 "CATEGORY" NVARCHAR(40),
+	 "PRICE" DECIMAL(15,2),
+	 "SALEPRICE" DECIMAL(15,2) ) 

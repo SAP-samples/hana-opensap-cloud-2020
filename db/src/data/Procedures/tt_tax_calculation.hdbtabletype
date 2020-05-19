@@ -1,0 +1,4 @@
+TYPE "Procedures.tt_tax_calculation" AS TABLE ( 
+     "PARTNERID" NVARCHAR(10),
+	 "COMPANYNAME" NVARCHAR(80),
+	 "PRODUCTID" NVARCHAR(10) )

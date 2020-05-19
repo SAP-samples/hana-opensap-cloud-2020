@@ -1,0 +1,4 @@
+TYPE "Procedures.tt_errors" AS TABLE ( 
+     "HTTP_STATUS_CODE" INT,
+	 "ERROR_MESSAGE" NVARCHAR(100),
+	 "DETAIL" NVARCHAR(100) ) 
