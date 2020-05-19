@@ -3,11 +3,6 @@ using opensap.PurchaseOrder.Items as Items from '../db/schema';
 
 service CatalogService {
 
-    entity MyEntity {
-        key ID : Integer;
-    }
-
-
     entity POs @(
         title        : '{i18n>poService}',
         odata.draft.enabled: true,

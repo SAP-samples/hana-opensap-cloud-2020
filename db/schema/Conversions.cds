@@ -24,7 +24,7 @@ entity![T006]{
        ![PRESS_UNIT] : String(3)    @title : 'PRESS_UNIT';
 }
 
-entity ![T006A]{
+entity![T006A]{
     key![MANDT] : String(3) @title : 'MANDT';
     key![SPRAS] : String(1) @title : 'SPRAS';
     key![MSEHI] : String(3) @title : 'MSEHI';
@@ -34,7 +34,7 @@ entity ![T006A]{
        ![MSEHL] : String(30)@title : 'MSEHL';
 }
 
-entity ![TCURC]{
+entity![TCURC]{
     key![MANDT]    : String(3)@title : 'MANDT';
     key![WAERS]    : String(5)@title : 'WAERS';
        ![ISOCD]    : String(3)@title : 'ISOCD';
@@ -43,7 +43,7 @@ entity ![TCURC]{
        ![XPRIMARY] : String(1)@title : 'XPRIMARY';
 }
 
-entity ![TCURF]{
+entity![TCURF]{
     key![MANDT] : String(3)    @title : 'MANDT';
     key![KURST] : String(4)    @title : 'KURST';
     key![FCURR] : String(5)    @title : 'FCURR';
@@ -55,7 +55,7 @@ entity ![TCURF]{
        ![ABWGA] : String(8)    @title : 'ABWGA';
 }
 
-entity ![TCURN]{
+entity![TCURN]{
     key![MANDT]    : String(3)@title : 'MANDT';
     key![FCURR]    : String(5)@title : 'FCURR';
     key![TCURR]    : String(5)@title : 'TCURR';
@@ -63,7 +63,7 @@ entity ![TCURN]{
        ![NOTATION] : String(1)@title : 'NOTATION';
 }
 
-entity ![TCURR]{
+entity![TCURR]{
     key![MANDT] : String(3)    @title : 'MANDT';
     key![KURST] : String(4)    @title : 'KURST';
     key![FCURR] : String(5)    @title : 'FCURR';
@@ -74,7 +74,7 @@ entity ![TCURR]{
        ![TFACT] : Decimal(9, 0)@title : 'TFACT';
 }
 
-entity ![TCURT]{
+entity![TCURT]{
     key![MANDT] : String(3) @title : 'MANDT';
     key![SPRAS] : String(1) @title : 'SPRAS';
     key![WAERS] : String(5) @title : 'WAERS';
@@ -82,7 +82,7 @@ entity ![TCURT]{
        ![KTEXT] : String(15)@title : 'KTEXT';
 }
 
-entity ![TCURV]{
+entity![TCURV]{
     key![MANDT] : String(3)@title : 'MANDT';
     key![KURST] : String(4)@title : 'KURST';
        ![XINVR] : String(1)@title : 'XINVR';
@@ -94,15 +94,14 @@ entity ![TCURV]{
        ![XEURO] : String(1)@title : 'XEURO';
 }
 
-entity ![TCURW]{
+entity![TCURW]{
     key![MANDT] : String(3) @title : 'MANDT';
     key![SPRAS] : String(1) @title : 'SPRAS';
     key![KURST] : String(4) @title : 'KURST';
        ![CURVW] : String(40)@title : 'CURVW';
 }
 
-entity ![TCURX]{
+entity![TCURX]{
     key![CURRKEY] : String(5)@title : 'CURRKEY';
        ![CURRDEC] : Integer  @title : 'CURRDEC';
 }
-
