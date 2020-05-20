@@ -1,5 +1,5 @@
-using {sap, Currency} from '@sap/cds/common';
-
+using {sap, Currency, temporal, managed} from '@sap/cds/common';
+using {opensap.MD} from './masterData';
 extend sap.common.Currencies with {
   // Currencies.code = ISO 4217 alphabetic three-letter code
   // with the first two letters being equal to ISO 3166 alphabetic country codes
@@ -11,6 +11,11 @@ extend sap.common.Currencies with {
   exponent : Integer; //> e.g. 2 --> 1 Dollar = 10^2 Cent
   minor    : String; //> e.g. 'Cent'
 }
+
+annotate temporal with {
+  validFrom @( title: '{i18n>validFrom}');
+  validTo  @( title: '{i18n>validTo}')
+};
 
 extend sap.common.Countries {
   code1           : Integer;
@@ -82,22 +87,22 @@ context opensap.common {
     Cancelled  = 'X';
   }
 
-  abstract entity amount {
-    CURRENCY    : Currency;
-    GROSSAMOUNT : AmountT;
-    NETAMOUNT   : AmountT;
-    TAXAMOUNT   : AmountT;
+  abstract entity Amount {
+    currency    : Currency;
+    grossAmount : AmountT;
+    netAmount   : AmountT;
+    taxAmount   : AmountT;
   }
 
-  annotate amount with {
-    GROSSAMOUNT @(title : '{i18n>grossAmount}');
-    NETAMOUNT   @(title : '{i18n>netAmount}');
-    TAXAMOUNT   @(title : '{i18n>taxAmount}');
+  annotate Amount with {
+    grossAmount @(title : '{i18n>grossAmount}');
+    netAmount   @(title : '{i18n>netAmount}');
+    taxAmount   @(title : '{i18n>taxAmount}');
   }
 
-  abstract entity quantity {
-    QUANTITY     : QuantityT;
-    QUANTITYUNIT : UnitT;
+  abstract entity Quantity {
+    quantity     : QuantityT;
+    quantityUnit : UnitT;
   }
 }
 

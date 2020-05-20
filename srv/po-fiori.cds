@@ -15,18 +15,22 @@ annotate pos.POs with @( // header-level annotations
         },
         {
             $Type             : 'UI.DataField',
-            Value             : PARTNER,
+            Value             : partner,
             ![@UI.Importance] : #High
         },
         {
             $Type             : 'UI.DataField',
-            Value             : GROSSAMOUNT,
+            Value             : grossAmount,
             ![@UI.Importance] : #High
         },
         {
             $Type             : 'UI.DataField',
-            Value             : CURRENCY_code,
+            Value             : currency_code,
             ![@UI.Importance] : #Medium
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : currency.symbol
         },
         ],
         PresentationVariant : {SortOrder : [
@@ -37,7 +41,7 @@ annotate pos.POs with @( // header-level annotations
         },
         {
             $Type      : 'Common.SortOrderType',
-            Property   : PARTNER,
+            Property   : partner,
             Descending : false
         }
         ]}
@@ -72,31 +76,36 @@ annotate pos.POs with @( // header-level annotations
         },
         {
             $Type : 'UI.DataField',
-            Value : PARTNER
+            Value : partner
         }
         ]},
         FieldGroup #Details            : {Data : [
 
         {
             $Type             : 'UI.DataField',
-            Value             : NOTEID,
+            Value             : noteId,
             ![@UI.Importance] : #Medium
         },
         {
             $Type : 'UI.DataField',
-            Value : GROSSAMOUNT
+            Value : grossAmount
         },
         {
             $Type : 'UI.DataField',
-            Value : NETAMOUNT
+            Value : netAmount
         },
         {
             $Type : 'UI.DataField',
-            Value : TAXAMOUNT
+            Value : taxAmount
         },
         {
             $Type : 'UI.DataField',
-            Value : CURRENCY_code
+            Value : currency_code
+        },
+        {
+            $Type                   : 'UI.DataField',
+            Value                   : currency.symbol,
+            ![@Common.FieldControl] : #ReadOnly
         },
         ]},
         FieldGroup #AdministrativeData : {Data : [
@@ -105,12 +114,43 @@ annotate pos.POs with @( // header-level annotations
             Value : createdBy
         },
         {
+            $Type                   : 'UI.DataField',
+            Value                   : createdByEmployee.nameFirst,
+            ![@Common.FieldControl] : #ReadOnly,
+            ![@Core.Computed]
+        },
+        {
+            $Type                   : 'UI.DataField',
+            Value                   : createdByEmployee.nameLast,
+            ![@Common.FieldControl] : #ReadOnly
+        },
+        {
+            $Type                   : 'UI.DataField',
+            Value                   : createdByEmployee.address.city,
+            ![@Common.FieldControl] : #ReadOnly
+        },
+        {
             $Type : 'UI.DataField',
             Value : createdAt
         },
         {
             $Type : 'UI.DataField',
             Value : modifiedBy
+        },
+        {
+            $Type                   : 'UI.DataField',
+            Value                   : modifiedByEmployee.nameFirst,
+            ![@Common.FieldControl] : #ReadOnly
+        },
+        {
+            $Type                   : 'UI.DataField',
+            Value                   : modifiedByEmployee.nameLast,
+            ![@Common.FieldControl] : #ReadOnly
+        },
+        {
+            $Type                   : 'UI.DataField',
+            Value                   : modifiedByEmployee.address.city,
+            ![@Common.FieldControl] : #ReadOnly
         },
         {
             $Type : 'UI.DataField',
@@ -133,7 +173,7 @@ annotate pos.POs with @( // header-level annotations
     {
         $Type  : 'UI.ReferenceFacet',
         Label  : '{i18n>po_items}',
-        Target : 'items/@UI.LineItem'
+        Target : 'item/@UI.LineItem'
     }
     ]
 );
@@ -147,28 +187,28 @@ UI : {
     LineItem            : [
     {
         $Type             : 'UI.DataField',
-        Value             : PRODUCT,
+        Value             : product,
         ![@UI.Importance] : #High
     },
     {
         $Type             : 'UI.DataField',
-        Value             : DELIVERYDATE,
+        Value             : deliveryDate,
         ![@UI.Importance] : #High
     },
     {
         $Type             : 'UI.DataField',
-        Value             : QUANTITY,
+        Value             : quantity,
         ![@UI.Importance] : #High
     },
     {
         $Type             : 'UI.DataField',
-        Value             : QUANTITYUNIT,
+        Value             : quantityUnit,
         ![@UI.Importance] : #High
     }
     ],
     PresentationVariant : {SortOrder : [{
         $Type      : 'Common.SortOrderType',
-        Property   : PRODUCT,
+        Property   : product,
         Descending : false
     }]}
 });

@@ -5,21 +5,26 @@ using {
     cuid
 } from '@sap/cds/common';
 
-using { opensap.common } from './common';
+using {opensap.common} from './common';
+using {opensap.MD} from './masterData';
+
 namespace opensap.PurchaseOrder;
 
 
-
-entity Headers : managed, cuid, common.amount {
-    items           : Association to many Items
-                          on items.POHEADER = $self;
-    NOTEID          : common.BusinessKey null;
-    PARTNER         : UUID @title : '{i18n>partner_id}';
-    LIFECYCLESTATUS : common.StatusT default 1;
-    APPROVALSTATUS  : common.StatusT;
-    CONFIRMSTATUS   : common.StatusT;
-    ORDERINGSTATUS  : common.StatusT;
-    INVOICINGSTATUS : common.StatusT;
+entity Headers : managed, cuid, common.Amount {
+    item               : Association to many Items
+                             on item.poHeader = $self;
+    noteId             : common.BusinessKey null;
+    partner            : UUID @title : '{i18n>partner_id}';
+    lifecycleStatus    : common.StatusT default 1;
+    approvalStatus     : common.StatusT;
+    confirmStatus      : common.StatusT;
+    orderingStatus     : common.StatusT;
+    invoicingStatus    : common.StatusT;
+    createdByEmployee  : Association to one MD.Employees
+                             on createdByEmployee.email = createdBy @Core.Computed;
+    modifiedByEmployee : Association to one MD.Employees
+                             on modifiedByEmployee.email = modifiedBy @Core.Computed;
 }
 
 annotate Headers with @(
@@ -27,16 +32,8 @@ annotate Headers with @(
     description : '{i18n>poService}'
 ) {
     ID              @(
-        title       : '{i18n>internal_id}',
-        description : '{i18n>internal_id}',
-    );
-
-    PURCHASEORDERID @(
-        title               : '{i18n>po_id}',
-        description         : '{i18n>po_id}',
-        Common.FieldControl : #Mandatory,
-        Search.defaultSearchElement,
-        Common.Label        : '{i18n>po_id}'
+        title       : '{i18n>po_id}',
+        description : '{i18n>po_id}',
     );
 
     items           @(
@@ -48,41 +45,41 @@ annotate Headers with @(
         }}
     );
 
-    NOTEID          @(
+    noteId          @(
         title       : '{i18n>notes}',
         description : '{i18n>notes}'
     );
 
-    PARTNER         @(
+    partner         @(
         title       : '{i18n>partner_id}',
         description : '{i18n>partner_id}'
     );
 
-    LIFECYCLESTATUS @(
+    lifecycleStatus @(
         title               : '{i18n>lifecycle}',
         description         : '{i18n>lifecycle}',
         Common.FieldControl : #ReadOnly
     );
 
-    APPROVALSTATUS  @(
+    approvalStatus  @(
         title               : '{i18n>approval}',
         description         : '{i18n>approval}',
         Common.FieldControl : #ReadOnly
     );
 
-    CONFIRMSTATUS   @(
+    confirmStatus   @(
         title               : '{i18n>confirmation}',
         description         : '{i18n>confirmation}',
         Common.FieldControl : #ReadOnly
     );
 
-    ORDERINGSTATUS  @(
+    orderingStatus  @(
         title               : '{i18n>ordering}',
         description         : '{i18n>ordering}',
         Common.FieldControl : #ReadOnly
     );
 
-    INVOICINGSTATUS @(
+    invoicingStatus @(
         title               : '{i18n>invoicing}',
         description         : '{i18n>invoicing}',
         Common.FieldControl : #ReadOnly
@@ -90,11 +87,11 @@ annotate Headers with @(
 
 };
 
-entity Items : cuid, common.amount, common.quantity {
-    POHEADER     : Association to Headers;
-    PRODUCT      : common.BusinessKey;
-    NOTEID       : common.BusinessKey null;
-    DELIVERYDATE : common.SDate;
+entity Items : cuid, common.Amount, common.Quantity {
+    poHeader     : Association to Headers;
+    product      : common.BusinessKey;
+    noteId       : common.BusinessKey null;
+    deliveryDate : common.SDate;
 }
 
 annotate Items with {
@@ -103,14 +100,14 @@ annotate Items with {
         description : '{i18n>internal_id}',
     );
 
-    PRODUCT      @(
+    product      @(
         title               : '{i18n>product}',
         description         : '{i18n>product}',
         Common.FieldControl : #Mandatory,
         Search.defaultSearchElement
     );
 
-    DELIVERYDATE @(
+    deliveryDate @(
         title       : '{i18n>deliveryDate}',
         description : '{i18n>deliveryDate}'
     )
@@ -119,13 +116,13 @@ annotate Items with {
 
 define view ItemView as
     select from Items {
-        POHEADER.PARTNER         as![PARTNER],
-        PRODUCT,
-        CURRENCY,
-        GROSSAMOUNT,
-        NETAMOUNT,
-        TAXAMOUNT,
-        QUANTITY,
-        QUANTITYUNIT,
-        DELIVERYDATE
+        poHeader.partner as![partner],
+        product,
+        currency,
+        grossAmount,
+        netAmount,
+        taxAmount,
+        quantity,
+        quantityUnit,
+        deliveryDate
     };
