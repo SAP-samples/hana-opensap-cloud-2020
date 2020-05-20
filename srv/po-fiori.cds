@@ -114,20 +114,16 @@ annotate pos.POs with @( // header-level annotations
             Value : createdBy
         },
         {
-            $Type                   : 'UI.DataField',
-            Value                   : createdByEmployee.nameFirst,
-            ![@Common.FieldControl] : #ReadOnly,
-            ![@Core.Computed]
+            $Type : 'UI.DataField',
+            Value : createdByEmployee.nameFirst
         },
         {
-            $Type                   : 'UI.DataField',
-            Value                   : createdByEmployee.nameLast,
-            ![@Common.FieldControl] : #ReadOnly
+            $Type : 'UI.DataField',
+            Value : createdByEmployee.nameLast
         },
         {
-            $Type                   : 'UI.DataField',
-            Value                   : createdByEmployee.address.city,
-            ![@Common.FieldControl] : #ReadOnly
+            $Type : 'UI.DataField',
+            Value : createdByEmployee.address.city
         },
         {
             $Type : 'UI.DataField',
@@ -138,19 +134,16 @@ annotate pos.POs with @( // header-level annotations
             Value : modifiedBy
         },
         {
-            $Type                   : 'UI.DataField',
-            Value                   : modifiedByEmployee.nameFirst,
-            ![@Common.FieldControl] : #ReadOnly
+            $Type : 'UI.DataField',
+            Value : modifiedByEmployee.nameFirst
         },
         {
-            $Type                   : 'UI.DataField',
-            Value                   : modifiedByEmployee.nameLast,
-            ![@Common.FieldControl] : #ReadOnly
+            $Type : 'UI.DataField',
+            Value : modifiedByEmployee.nameLast
         },
         {
-            $Type                   : 'UI.DataField',
-            Value                   : modifiedByEmployee.address.city,
-            ![@Common.FieldControl] : #ReadOnly
+            $Type : 'UI.DataField',
+            Value : modifiedByEmployee.address.city
         },
         {
             $Type : 'UI.DataField',

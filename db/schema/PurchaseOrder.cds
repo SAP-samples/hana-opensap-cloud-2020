@@ -12,19 +12,19 @@ namespace opensap.PurchaseOrder;
 
 
 entity Headers : managed, cuid, common.Amount {
-    item               : Association to many Items
-                             on item.poHeader = $self;
-    noteId             : common.BusinessKey null;
-    partner            : UUID @title : '{i18n>partner_id}';
-    lifecycleStatus    : common.StatusT default 1;
-    approvalStatus     : common.StatusT;
-    confirmStatus      : common.StatusT;
-    orderingStatus     : common.StatusT;
-    invoicingStatus    : common.StatusT;
-    createdByEmployee  : Association to one MD.Employees
-                             on createdByEmployee.email = createdBy @Core.Computed;
-    modifiedByEmployee : Association to one MD.Employees
-                             on modifiedByEmployee.email = modifiedBy @Core.Computed;
+    item                         : Association to many Items
+                                       on item.poHeader = $self;
+    noteId                       : common.BusinessKey null;
+    partner                      : UUID @title : '{i18n>partner_id}';
+    lifecycleStatus              : common.StatusT default 1;
+    approvalStatus               : common.StatusT;
+    confirmStatus                : common.StatusT;
+    orderingStatus               : common.StatusT;
+    invoicingStatus              : common.StatusT;
+    @readonly createdByEmployee  : Association to one MD.Employees
+                                       on createdByEmployee.email = createdBy;
+    @readonly modifiedByEmployee : Association to one MD.Employees
+                                       on modifiedByEmployee.email = modifiedBy;
 }
 
 annotate Headers with @(
