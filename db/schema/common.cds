@@ -71,13 +71,15 @@ context opensap.common {
 
   type UnitT : String(3)@title : '{i18n>quantityUnit}';
 
-  type StatusT : Integer enum {
-    new        = 1;
-    incomplete = 2;
-    inprocess  = 3;
-    completed  = 4;
-    billed     = 5;
-    received   = 6;
+  type StatusT : String(1) enum {
+    New        = 'N';
+    Incomplete = 'I';
+    Approved   = 'A';
+    Rejected   = 'R';
+    Confirmed  = 'C';
+    Saved      = 'S';
+    Delivered  = 'D';
+    Cancelled  = 'X';
   }
 
   abstract entity amount {

@@ -11,11 +11,10 @@ namespace opensap.PurchaseOrder;
 
 
 entity Headers : managed, cuid, common.amount {
-    PURCHASEORDERID : Integer;
     items           : Association to many Items
                           on items.POHEADER = $self;
     NOTEID          : common.BusinessKey null;
-    PARTNER         : common.BusinessKey @title : '{i18n>partner_id}';
+    PARTNER         : UUID @title : '{i18n>partner_id}';
     LIFECYCLESTATUS : common.StatusT default 1;
     APPROVALSTATUS  : common.StatusT;
     CONFIRMSTATUS   : common.StatusT;
@@ -120,7 +119,6 @@ annotate Items with {
 
 define view ItemView as
     select from Items {
-        POHEADER.PURCHASEORDERID as![PURCHASEORDERID],
         POHEADER.PARTNER         as![PARTNER],
         PRODUCT,
         CURRENCY,

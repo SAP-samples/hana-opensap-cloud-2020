@@ -10,7 +10,7 @@ annotate cats.POs with @( // header-level annotations
         LineItem            : [
         {
             $Type             : 'UI.DataField',
-            Value             : PURCHASEORDERID,
+            Value             : ID,
             ![@UI.Importance] : #High
         },
         {
@@ -32,7 +32,7 @@ annotate cats.POs with @( // header-level annotations
         PresentationVariant : {SortOrder : [
         {
             $Type      : 'Common.SortOrderType',
-            Property   : PURCHASEORDERID,
+            Property   : ID,
             Descending : false
         },
         {
@@ -51,7 +51,7 @@ annotate cats.POs with @( // header-level annotations
         HeaderInfo                     : {
             TypeName       : '{i18n>poService}',
             TypeNamePlural : '{i18n>poServices}',
-            Title          : {Value : PURCHASEORDERID},
+            Title          : {Value : ID},
         },
         HeaderFacets                   : [
         {
@@ -68,7 +68,7 @@ annotate cats.POs with @( // header-level annotations
         FieldGroup #Description        : {Data : [
         {
             $Type : 'UI.DataField',
-            Value : PURCHASEORDERID
+            Value : ID
         },
         {
             $Type : 'UI.DataField',
