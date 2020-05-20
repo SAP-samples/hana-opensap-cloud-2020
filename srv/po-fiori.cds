@@ -1,7 +1,7 @@
-using CatalogService as cats from './my-service';
+using POService as pos from './my-service';
 
 
-annotate cats.POs with @( // header-level annotations
+annotate pos.POs with @( // header-level annotations
     // ---------------------------------------------------------------------------
     // List Report
     // ---------------------------------------------------------------------------
@@ -138,7 +138,7 @@ annotate cats.POs with @( // header-level annotations
     ]
 );
 
-annotate cats.POItems with @( // header-level annotations
+annotate pos.POItems with @( // header-level annotations
 // ---------------------------------------------------------------------------
 // List Report
 // ---------------------------------------------------------------------------
