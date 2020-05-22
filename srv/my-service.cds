@@ -6,10 +6,11 @@ using {
     opensap.MD.Addresses as Addr,
     opensap.MD.Employees as Empl,
     opensap.MD.BusinessPartners as BP,
+    opensap.MD.Products as Prod,
     opensap.MD
 } from '../db/schema';
 
-service POService {
+service POService @(requires:'authenticated-user') {
 
     @readonly
     entity Addresses        as projection on Addr;
@@ -19,6 +20,9 @@ service POService {
 
     @readonly
     entity BusinessPartners as projection on BP;
+
+    @readonly
+    entity Products as projection on Prod;
 
     entity POs @(
         title               : '{i18n>poService}',
@@ -32,7 +36,7 @@ service POService {
 
 }
 
-service MasterDataService {
+service MasterDataService @(requires:'authenticated-user')  {
     entity Addresses as projection on Addr;
     entity Employees as projection on Empl;
 
@@ -40,4 +44,9 @@ service MasterDataService {
         title               : '{i18n>businessParnters}',
         odata.draft.enabled : true
     )                as projection on BP;
+
+    entity Products @(
+        title               : '{i18n>products}'
+    )                as projection on Prod;
+   
 }

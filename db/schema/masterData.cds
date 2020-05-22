@@ -121,3 +121,84 @@ annotate BusinessPartners with @(
         description : '{i18n>legal}'
     );
 }
+
+
+entity Products : managed, common.Quantity {
+    key productId                    : String(10);
+        typeCode                     : String(2);
+        category                     : String(40);
+        name                         : localized String;
+        desc                         : localized String;
+        partner                      : Association to one MD.BusinessPartners;
+        weightMeasure                : Decimal(13, 3);
+        weightUnit                   : String(3);
+        currency                     : Currency;
+        price                        : Decimal(15, 2);
+        picUrl                       : String(255);
+        width                        : Decimal(13, 3);
+        depth                        : Decimal(13, 3);
+        height                       : Decimal(13, 3);
+        dimensionUnit                : String(3);
+        @readonly createdByEmployee  : Association to one Employees
+                                           on createdByEmployee.email = createdBy;
+        @readonly modifiedByEmployee : Association to one Employees
+                                           on modifiedByEmployee.email = modifiedBy;
+}
+
+annotate Products with @(
+    title       : '{i18n>products}',
+    description : '{i18n>products}'
+) {
+    typeCode      @(
+        title       : '{i18n>typeCode}',
+        description : '{i18n>typeCode}'
+    );
+    category      @(
+        title       : '{i18n>category}',
+        description : '{i18n>category}'
+    );
+    name          @(
+        title       : '{i18n>name}',
+        description : '{i18n>name}'
+    );
+    desc          @(
+        title       : '{i18n>desc}',
+        description : '{i18n>desc}'
+    );
+    partner       @(
+        title       : '{i18n>supplier}',
+        description : '{i18n>supplier}'
+    );
+    weightMeasure @(
+        title       : '{i18n>weightMeasure}',
+        description : '{i18n>weightMeasure}'
+    );
+    weightUnit    @(
+        title       : '{i18n>weightUnit}',
+        description : '{i18n>weightUnit}'
+    );
+    price         @(
+        title       : '{i18n>price}',
+        description : '{i18n>price}'
+    );
+    picUrl        @(
+        title       : '{i18n>picUrl}',
+        description : '{i18n>picUrl}'
+    );
+    width         @(
+        title       : '{i18n>width}',
+        description : '{i18n>width}'
+    );
+    depth         @(
+        title       : '{i18n>depth}',
+        description : '{i18n>depth}'
+    );
+    height        @(
+        title       : '{i18n>height}',
+        description : '{i18n>height}'
+    );
+    dimensionUnit @(
+        title       : '{i18n>dimensionUnit}',
+        description : '{i18n>dimensionUnit}'
+    );
+}

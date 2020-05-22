@@ -90,7 +90,7 @@ annotate Headers with @(
 
 entity Items : cuid, common.Amount, common.Quantity {
     poHeader     : Association to Headers;
-    product      : common.BusinessKey;
+    product      : Association to one MD.Products; //common.BusinessKey;
     noteId       : common.BusinessKey null;
     deliveryDate : common.SDate;
 }
@@ -118,7 +118,7 @@ annotate Items with {
 define view ItemView as
     select from Items {
         poHeader.partner as![partner],
-        product,
+        product.productId as ![productId],
         currency,
         grossAmount,
         netAmount,
