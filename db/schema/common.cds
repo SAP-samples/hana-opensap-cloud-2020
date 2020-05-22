@@ -1,5 +1,11 @@
-using {sap, Currency, temporal, managed} from '@sap/cds/common';
+using {
+  sap,
+  Currency,
+  temporal,
+  managed
+} from '@sap/cds/common';
 using {opensap.MD} from './masterData';
+
 extend sap.common.Currencies with {
   // Currencies.code = ISO 4217 alphabetic three-letter code
   // with the first two letters being equal to ISO 3166 alphabetic country codes
@@ -13,8 +19,8 @@ extend sap.common.Currencies with {
 }
 
 annotate temporal with {
-  validFrom @( title: '{i18n>validFrom}');
-  validTo  @( title: '{i18n>validTo}')
+  validFrom @(title : '{i18n>validFrom}');
+  validTo   @(title : '{i18n>validTo}')
 };
 
 extend sap.common.Countries {
@@ -104,6 +110,23 @@ context opensap.common {
     quantity     : QuantityT;
     quantityUnit : UnitT;
   }
+
+  
+  type Gender : String(1) enum {
+    male         = 'M';
+    female       = 'F';
+    nonBinary    = 'N';
+    noDisclosure = 'D';
+    selfDescribe = 'S';
+  }
+
+  annotate Gender with @(
+    title       : '{i18n>gender}',
+    description : '{i18n>gender}'
+  );
+
+  type Email : String(255)  @title : '{i18n>email}';
+  type PhoneNumber: String(30) @title : '{i18n>phoneNumber}';
 }
 
 context sap.common_countries {
@@ -138,6 +161,7 @@ context sap.common_countries {
       Common.Label : '{i18n>type}'
     );
   }
+
 }
 
 

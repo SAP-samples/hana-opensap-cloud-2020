@@ -15,7 +15,8 @@ entity Headers : managed, cuid, common.Amount {
     item                         : Association to many Items
                                        on item.poHeader = $self;
     noteId                       : common.BusinessKey null;
-    partner                      : UUID @title : '{i18n>partner_id}';
+//    partner                      : UUID;
+    partner                      : Association to one MD.BusinessPartners;
     lifecycleStatus              : common.StatusT default 1;
     approvalStatus               : common.StatusT;
     confirmStatus                : common.StatusT;

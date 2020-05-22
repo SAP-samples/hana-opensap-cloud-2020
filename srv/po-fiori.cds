@@ -15,7 +15,7 @@ annotate pos.POs with @( // header-level annotations
         },
         {
             $Type             : 'UI.DataField',
-            Value             : partner,
+            Value             : partner.companyName,
             ![@UI.Importance] : #High
         },
         {
@@ -76,7 +76,7 @@ annotate pos.POs with @( // header-level annotations
         },
         {
             $Type : 'UI.DataField',
-            Value : partner
+            Value : partner.companyName
         }
         ]},
         FieldGroup #Details            : {Data : [

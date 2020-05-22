@@ -36,29 +36,15 @@ annotate Addresses with {
 };
 
 
-type Gender : String(1) enum {
-    male         = 'M';
-    female       = 'F';
-    nonBinary    = 'N';
-    noDisclosure = 'D';
-    selfDescribe = 'S';
-}
-
-annotate Gender with @(
-    title       : '{i18n>gender}',
-    description : '{i18n>gender}'
-);
-
-
 entity Employees : cuid, temporal {
     nameFirst      : String(40);
     nameMiddle     : String(40);
     nameLast       : String(40);
     nameInitials   : String(10);
-    sex            : Gender;
+    sex            : common.Gender;
     language       : String(1);
-    phoneNumber    : String(30);
-    email          : String(255);
+    phoneNumber    : common.PhoneNumber;
+    email          : common.Email;
     loginName      : String(12);
     address        : Association to one Addresses;
     currency       : Currency;
@@ -76,8 +62,6 @@ annotate Employees with {
     nameLast       @title : '{i18n>lname}';
     nameInitials   @title : '{i18n>initials}';
     language       @title : '{i18n>language}';
-    phoneNumber    @title : '{i18n>phoneNumber}';
-    email          @title : '{i18n>email}';
     loginName      @title : '{i18n>loginName}';
     address        @title : '{i18n>address}';
     salaryAmount   @title : '{i18n>salaryAmount}';
@@ -86,3 +70,54 @@ annotate Employees with {
     bankName       @title : '{i18n>bankName}';
     employeePicUrl @title : '{i18n>employeePicUrl}';
 };
+
+type PartnerRole : Integer enum {
+    Customer = 1;
+    Supplier = 2;
+}
+
+entity BusinessPartners : cuid, managed {
+    partnerRole                  : PartnerRole;
+    email                        : common.Email;
+    phoneNumber                  : common.PhoneNumber;
+    webAddress                   : String(1024);
+    address                      : Association to one Addresses;
+    companyName                  : String(80);
+    legalForm                    : String(10);
+    currency                     : Currency;
+    @readonly createdByEmployee  : Association to one Employees
+                                       on createdByEmployee.email = createdBy;
+    @readonly modifiedByEmployee : Association to one Employees
+                                       on modifiedByEmployee.email = modifiedBy;
+}
+
+
+annotate BusinessPartners with @(
+    title       : '{i18n>businessParnters}',
+    description : '{i18n>businessParnters}'
+) {
+    ID          @(
+        title       : '{i18n>partnerId}',
+        description : '{i18n>partnerId}'
+    );
+    partnerRole @(
+        title       : '{i18n>partnerRole}',
+        description : '{i18n>partnerRole}'
+    );
+    webAddress  @(
+        title       : '{i18n>web}',
+        description : '{i18n>web}'
+    );
+    address     @(
+        title       : '{i18n>address}',
+        description : '{i18n>address}'
+    );
+    companyName @(
+        title       : '{i18n>company}',
+        description : '{i18n>company}'
+    );
+    legalForm   @(
+        title       : '{i18n>legal}',
+        description : '{i18n>legal}'
+    );
+}
