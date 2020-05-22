@@ -30,6 +30,24 @@
         "testEnvironment": "node"
     },
     "cds": {
+        "auth": {
+            "passport": {
+                "strategy": "mock",
+                "users": {
+                    "alice": {
+                        "roles": [
+                            "admin"
+                        ],
+                        "ID": "alice@sap.com",
+                        "password": "secret",
+                        
+                        "userAttributes": {
+                            "country": "US"
+                        }
+                    }
+                }
+            }
+        },
         "build": {
             "target": ".",
             "tasks": [
@@ -55,7 +73,7 @@
                 }
             ]
         },
-        "features":{
+        "features": {
             "snapi": true
         },
         "i18n": {
