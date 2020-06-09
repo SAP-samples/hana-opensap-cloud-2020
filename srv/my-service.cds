@@ -10,8 +10,8 @@ using {
     opensap.MD
 } from '../db/schema';
 
-service POService @(requires:'authenticated-user') {
-
+service POService @(requires:'authenticated-user') @(impl: './po-service.js') {
+    
     @readonly
     entity Addresses        as projection on Addr;
 
@@ -28,6 +28,10 @@ service POService @(requires:'authenticated-user') {
         title               : '{i18n>poService}',
         odata.draft.enabled : true
     )                       as projection on Headers;
+
+   event poChange : {
+       po:  POs;
+   }
 
     entity POItems @(
         title               : '{i18n>poService}',
@@ -48,5 +52,5 @@ service MasterDataService @(requires:'authenticated-user')  {
     entity Products @(
         title               : '{i18n>products}'
     )                as projection on Prod;
-   
+
 }

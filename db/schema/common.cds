@@ -91,7 +91,7 @@ context opensap.common {
     Saved      = 'S';
     Delivered  = 'D';
     Cancelled  = 'X';
-  }
+  } 
 
   abstract entity Amount {
     currency    : Currency;
@@ -122,11 +122,12 @@ context opensap.common {
 
   annotate Gender with @(
     title       : '{i18n>gender}',
-    description : '{i18n>gender}'
+    description : '{i18n>gender}',
+    assert.enum
   );
 
-  type Email : String(255)  @title : '{i18n>email}';
-  type PhoneNumber: String(30) @title : '{i18n>phoneNumber}';
+  type Email : String(255)  @title : '{i18n>email}'  @assert.format: '[\\w|-]+@\\w[\\w|-]*\\.[a-z]{2,3}';
+  type PhoneNumber: String(30) @title : '{i18n>phoneNumber}' @assert.format: '((?:\+|00)[17](?: |\-)?|(?:\+|00)[1-9]\d{0,2}(?: |\-)?|(?:\+|00)1\-\d{3}(?: |\-)?)?(0\d|\([0-9]{3}\)|[1-9]{0,3})(?:((?: |\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\-)[0-9]{3}(?: |\-)[0-9]{4})|([0-9]{7}))';
 }
 
 context sap.common_countries {

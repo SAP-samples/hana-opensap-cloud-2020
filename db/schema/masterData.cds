@@ -102,7 +102,8 @@ annotate BusinessPartners with @(
     );
     partnerRole @(
         title       : '{i18n>partnerRole}',
-        description : '{i18n>partnerRole}'
+        description : '{i18n>partnerRole}',
+        assert.enum
     );
     webAddress  @(
         title       : '{i18n>web}',
