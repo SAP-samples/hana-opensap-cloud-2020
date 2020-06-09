@@ -1,4 +1,4 @@
-using POService as pos from './my-service';
+using POService as pos from './service';
 
 
 annotate pos.POs with @( // header-level annotations

@@ -20,6 +20,9 @@
     },
     "scripts": {
         "dbbuild": "cds build && cd ./db && npm start",
+        "srv": "cds build && cd ./srv && npm start",
+        "env": "cp ./default-env.json ./db/default-env.json && cp ./default-env.json ./srv/default-env.json",
+        "build": "npx cds build/all --clean",
         "start": "npx cds run",
         "watch": "npx cds watch",
         "mocha": "npx mocha || echo",
@@ -56,7 +59,8 @@
                     "options": {
                         "model": [
                             "db",
-                            "srv"
+                            "srv",
+                            "srv/cds"
                         ]
                     }
                 },
@@ -66,7 +70,8 @@
                     "options": {
                         "model": [
                             "db",
-                            "srv"
+                            "srv",
+                            "srv/cds"
                         ]
                     }
                 }

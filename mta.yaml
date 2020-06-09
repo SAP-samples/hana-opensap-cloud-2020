@@ -22,7 +22,7 @@ modules:
  - name: hana-opensap-cloud-2020-srv
  # ------------------------------------------------------------
    type: nodejs
-   path: gen/srv
+   path: srv
    properties:
      EXIT: 1  # required by deploy.js task to terminate 
    requires:
@@ -37,7 +37,7 @@ modules:
  - name: db
  # ------------------------------------------------------------
    type: hdb
-   path: gen/db  
+   path: db  
    parameters:
      app-name: hana-opensap-cloud-2020-db  
    requires:

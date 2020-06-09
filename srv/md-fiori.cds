@@ -1,4 +1,4 @@
-using MasterDataService as mds from './my-service';
+using MasterDataService as mds from './service';
 
 
 annotate mds.Addresses with @( // header-level annotations

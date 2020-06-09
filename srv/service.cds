@@ -10,7 +10,7 @@ using {
     opensap.MD
 } from '../db/schema';
 
-service POService @(requires:'authenticated-user') @(impl: './po-service.js') {
+service POService @(requires:'authenticated-user') @(impl: './handlers/po-service.js') @(path: '/POService') {
     
     @readonly
     entity Addresses        as projection on Addr;
@@ -42,7 +42,7 @@ service POService @(requires:'authenticated-user') @(impl: './po-service.js') {
 
 }
 
-service MasterDataService @(requires:'authenticated-user')  {
+service MasterDataService @(requires:'authenticated-user') @(path: '/MasterDataService') {
     entity Addresses as projection on Addr;
     entity Employees as projection on Empl;
 
