@@ -38,6 +38,8 @@ service POService @(requires:'authenticated-user') @(impl: './po-service.js') {
         odata.draft.enabled : true
     )                       as projection on Items;
 
+    function sleep() returns Boolean;
+
 }
 
 service MasterDataService @(requires:'authenticated-user')  {
