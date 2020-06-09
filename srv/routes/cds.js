@@ -57,10 +57,8 @@ module.exports = async (app) => {
     })
         .to("fiori")
         .in(app)
-        // .with(require("../lib/handlers/my-service"))        
         .catch((err) => {
             app.logger.error(err);
-            //    process.exit(1);
         });
 
     const odatav2proxy = require("@sap/cds-odata-v2-adapter-proxy");
