@@ -5,7 +5,7 @@
 _schema-version: '3.1'
 ID: hana-opensap-cloud-2020
 version: 1.0.0
-description: "A simple CAP project."
+description: "HANA Cloud 2020 openSAP example"
 parameters:
   enable-parallel-deployments: true
   
@@ -28,12 +28,13 @@ modules:
    requires:
     # Resources extracted from CAP configuration
     - name: hana-opensap-cloud-2020-db
+    - name: openSAPHANA-uaa
    provides:
     - name: srv-binding      # required by consumers of CAP services (e.g. approuter)
       properties:
         srv-url: ${default-url}
 
- # -------------------- SIDECAR MODULE ------------------------
+ # -------------------- DB MODULE ------------------------
  - name: db
  # ------------------------------------------------------------
    type: hdb
@@ -44,6 +45,16 @@ modules:
     # 'hana' and 'xsuaa' resources extracted from CAP configuration
     - name: hana-opensap-cloud-2020-db
 
+ # -------------------- DB MODULE ------------------------
+ - name: user_db
+ # ------------------------------------------------------------
+   type: hdb
+   path: user_db  
+   parameters:
+     app-name: hana-opensap-cloud-2020-user-db  
+   requires:
+    # 'hana' and 'xsuaa' resources extracted from CAP configuration
+    - name: hana-opensap-cloud-2020-user-db
 
 resources:
  # services extracted from CAP configuration
@@ -58,3 +69,23 @@ resources:
    properties:
      hdi-service-name: ${service-name}
 
+# ------------------------------------------------------------
+ - name: openSAPHANA-uaa
+# ------------------------------------------------------------ 
+   type: org.cloudfoundry.managed-service
+   parameters:
+      service-plan: application
+      service: xsuaa
+      config:
+        xsappname: 'openSAPHANA-${space}'
+        tenant-mode: dedicated
+      path: xs-security.json
+
+# ------------------------------------------------------------
+ - name: hana-opensap-cloud-2020-user-db
+# ------------------------------------------------------------  
+   parameters:
+     config:
+       schema: OPENSAP_HANA_USER
+   properties:
+     user-container-name: '${service-name}'      

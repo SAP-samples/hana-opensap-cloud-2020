@@ -1,0 +1,21 @@
+PROCEDURE "initTestUsers" (IN in_counter integer default 10 )
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY DEFINER
+   AS
+   lv_counter integer := 0; 
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+   WHILE :lv_counter < :in_counter DO 
+    lv_counter := :lv_counter + 1;
+    insert into "USERDATA_USER" 
+             (ID, FIRSTNAME, LASTNAME, EMAIL)
+             values ((select SYSUUID from dummy),
+                     'Test', 
+                     'User', 
+                     'test.user@sap.com');
+   END WHILE;
+
+   COMMIT;                   
+END

@@ -20,6 +20,7 @@
     },
     "scripts": {
         "dbbuild": "cds build && cd ./db && npm start",
+        "userbuild": "cds build && cd ./user_db && npm start",
         "srv": "cds build && cd ./srv && npm start",
         "env": "cp ./default-env.json ./db/default-env.json && cp ./default-env.json ./srv/default-env.json",
         "build": "npx cds build/all --clean",
@@ -39,7 +40,8 @@
                 "users": {
                     "alice": {
                         "roles": [
-                            "admin", "Admin"
+                            "admin",
+                            "Admin"
                         ],
                         "ID": "alice@sap.com",
                         "password": "secret",
@@ -61,6 +63,15 @@
                             "db",
                             "srv",
                             "srv/cds"
+                        ]
+                    }
+                },
+                {
+                    "src": "user_db",
+                    "for": "hana",
+                    "options": {
+                        "model": [
+                            "user_db"
                         ]
                     }
                 },
