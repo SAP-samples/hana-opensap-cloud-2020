@@ -39,7 +39,7 @@
                 "users": {
                     "alice": {
                         "roles": [
-                            "admin"
+                            "admin", "Admin"
                         ],
                         "ID": "alice@sap.com",
                         "password": "secret",

@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 module.exports = function (app) {
 
 
-	let logging = require('@sap/logging');
+	let logging = require('@sap/logging')
 	let appContext = logging.createAppContext({})
 	app.logger = appContext.createLogContext().getLogger('/Application')
 
@@ -19,22 +19,22 @@ module.exports = function (app) {
 		hana: {
 			tag: "hana"
 		}
-	});
-	hanaOptions.hana.pooling = true;
+	})
+	hanaOptions.hana.pooling = true
 
 	app.use(bodyParser.json())
 
-	//require('./healthCheck')(app, { hdbext: HDBConn, hanaOptions: hanaOptions })
-	//require('./overloadProtection')(app)
+	require('./healthCheck')(app, { hdbext: HDBConn, hanaOptions: hanaOptions })
+	require('./overloadProtection')(app)
 	//require('./expressSecurity')(app)
 	app.use(require('express-status-monitor')())
 
 //	app.use(express.static('../app/webapp'))
-	app.use(logging.middleware({ appContext: appContext, logNetwork: true }));
+	app.use(logging.middleware({ appContext: appContext, logNetwork: true }))
 
 	app.use(
 		HDBConn.middleware(hanaOptions.hana)
-	);
+	)
 	
 	//require('./fioriPreview')(app)
 };
