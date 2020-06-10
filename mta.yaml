@@ -23,6 +23,9 @@ modules:
  # ------------------------------------------------------------
    type: nodejs
    path: srv
+   parameters:
+     memory: 512M
+     disk-quota: 1024M   
    properties:
      EXIT: 1  # required by deploy.js task to terminate 
    requires:
@@ -30,9 +33,9 @@ modules:
     - name: hana-opensap-cloud-2020-db
     - name: openSAPHANA-uaa
    provides:
-    - name: srv-binding      # required by consumers of CAP services (e.g. approuter)
+    - name: srv_api      # required by consumers of CAP services (e.g. approuter)
       properties:
-        srv-url: ${default-url}
+        url: ${default-url}
 
  # -------------------- DB MODULE ------------------------
  - name: db
@@ -44,8 +47,20 @@ modules:
    requires:
     # 'hana' and 'xsuaa' resources extracted from CAP configuration
     - name: hana-opensap-cloud-2020-db
+      properties:
+        TARGET_CONTAINER: '~{hdi-service-name}'
+    - name: cross-container-service-1
+      group: SERVICE_REPLACEMENTS
+      properties:
+        key: ServiceName_1
+        service: '~{the-service-name}'
+    - name: hdi_user_db
+      group: SERVICE_REPLACEMENTS
+      properties:
+        key: hdi-user-service
+        service: '~{user-container-name}'
 
- # -------------------- DB MODULE ------------------------
+ # -------------------- USER DB MODULE ------------------------
  - name: user_db
  # ------------------------------------------------------------
    type: hdb
@@ -89,3 +104,28 @@ resources:
        schema: OPENSAP_HANA_USER
    properties:
      user-container-name: '${service-name}'      
+
+# ------------------------------------------------------------
+ - name: cross-container-service-1
+# ------------------------------------------------------------  
+   type: org.cloudfoundry.existing-service
+   parameters:
+     service-name: CROSS_SCHEMA_SFLIGHT
+   properties:
+     the-service-name: '${service-name}'   
+
+# ------------------------------------------------------------
+ - name: sap.hana.democontent.epm.services.images
+# ------------------------------------------------------------  
+   type: org.cloudfoundry.existing-service
+   parameters:
+     service-name: sap.hana.democontent.epm.services.images.00
+   properties:
+     xshttpdest-images-service-name: '${service-name}'
+
+# ------------------------------------------------------------
+ - name: CROSS_SCHEMA_SFLIGHT
+# ------------------------------------------------------------ 
+   type: org.cloudfoundry.existing-service
+   parameters:
+     service-name: CROSS_SCHEMA_SFLIGH       
