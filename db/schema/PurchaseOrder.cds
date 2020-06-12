@@ -88,6 +88,22 @@ annotate Headers with @(
 
 };
 
+define view![HeaderView] as
+    select from Headers {
+        ID                          as![PurchaseOrderId],
+        createdByEmployee.ID        as![CreatedByEmployeeID],
+        createdByEmployee.nameFirst as![CreatedByFirstName],
+        createdByEmployee.nameLast  as![CreatedByLastName],
+        createdByEmployee.loginName as![CreatedByLoginName],
+        createdAt                   as![CreatedAt],
+        partner.ID                  as![PartnerId],
+        partner.companyName         as![CompanyName],
+        currency.code               as![Currency],
+        grossAmount                 as![GrossAmount],
+        netAmount                   as![NetAmount],
+        taxAmount                   as![TaxAmount]
+    };
+
 entity Items : cuid, common.Amount, common.Quantity {
     poHeader     : Association to Headers;
     product      : Association to one MD.Products; //common.BusinessKey;
@@ -115,19 +131,72 @@ annotate Items with {
 }
 
 
-define view ItemView as
+define view![ItemView] as
     select from Items {
         poHeader.partner  as![partner],
-        product.productId as![productId],
-        currency,
-        grossAmount,
-        netAmount,
-        taxAmount,
-        quantity,
-        quantityUnit,
-        deliveryDate
+        product.productId as![ProductId],
+        currency.code     as![CurrencyCode],
+        grossAmount       as![Amount],
+        netAmount         as![NetAmount],
+        taxAmount         as![TaxAmount],
+        quantity          as![Quantity],
+        quantityUnit      as![QuantityUnit],
+        deliveryDate      as![DeliveryDate1]
     };
 
+define view![POView] as
+    select from Headers {
+        ID                     as![PURCHASEORDERID],
+        partner.ID             as![PARTNERID],
+        item.product.productId as![PRODUCTID],
+        item.currency.code     as![CURRENCY],
+        item.grossAmount       as![GROSSAMOUNT],
+        item.netAmount         as![NETAMOUNT],
+        item.taxAmount         as![TAXAMOUNT],
+        item.quantity          as![QUANTITY],
+        item.quantityUnit      as![QUANTITYUNIT],
+        item.deliveryDate      as![DELIVERYDATE]
+    };
+
+define view![POWorklist] as
+    select from Headers {
+        ID                         as![PurchaseOrderId],
+        partner.ID                 as![PartnerId],
+        partner.companyName        as![CompanyName],
+        grossAmount                as![GrossAmount],
+        currency.code              as![Currency],
+        lifecycleStatus            as![LIFECYCLESTATUS],
+        approvalStatus             as![APPROVALSTATUS],
+        confirmStatus              as![CONFIRMSTATUS],
+        orderingStatus             as![ORDERINGSTATUS],
+        item.product.productId     as![ProductId],
+        item.product.name          as![ProductName],
+        item.product.desc          as![ProductDesc],
+        item.product.price         as![ProductPrice],
+        item.product.picUrl        as![ProductURL],
+        partner.address.city       as![ParnterCity],
+        partner.address.postalCode as![ParnterPostalCode],
+        item.grossAmount           as![GrossAmount_1],
+        item.netAmount             as![NetAmount],
+        item.taxAmount             as![TaxAmount],
+        item.quantity              as![Quantity],
+        item.quantityUnit          as![QuantityUnit],
+        item.deliveryDate          as![DeliveryDate]
+    };
+
+define view![PURCHASE_ORDER_ITEM_VIEW] as
+    select from Items {
+        poHeader.ID         as![PO_ITEM_ID],
+        poHeader.partner.ID as![PARTNER_ID],
+        product             as![PRODUCT_ID],
+        currency.code       as![CURRENCY_CODE],
+        grossAmount         as![AMOUNT],
+        netAmount           as![NET_AMOUNT],
+        taxAmount           as![TAX_AMOUNT],
+        quantity            as![QUANTITY],
+        quantityUnit        as![QUANTITY_UNIT],
+        deliveryDate        as![DELIVERY_DATE]
+    };
 
 define view POHeaderConsumption as
     select from Headers {

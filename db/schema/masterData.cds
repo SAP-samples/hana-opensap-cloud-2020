@@ -386,7 +386,7 @@ define view ProductView as
     select from Products
     mixin {
         PO_ORDERS : Association[ * ] to PurchaseOrder.ItemView
-                        on PO_ORDERS.productId = $projection.![Product_Id];
+                        on PO_ORDERS.ProductId = $projection.![Product_Id];
     }
     into {
         productId                  as![Product_Id],
@@ -582,11 +582,11 @@ define view ProductsConsumption as
 define view ProductValuesView as
     select from ProductView {
         Product_Id,
-        PO_ORDERS.currency.code as![CurrencyCode],
+        PO_ORDERS.CurrencyCode as![CurrencyCode],
         sum(
-            PO_ORDERS.grossAmount
+            PO_ORDERS.Amount
         )                       as![POGrossAmount]
     }
     group by
         Product_Id,
-        PO_ORDERS.currency.code;
+        PO_ORDERS.CurrencyCode;

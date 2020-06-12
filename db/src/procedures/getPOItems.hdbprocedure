@@ -1,0 +1,14 @@
+PROCEDURE "getPOItems" (OUT ex_items OPENSAP_PURCHASEORDER_ITEMS )
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   READS SQL DATA AS
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+   ex_items = 
+     select *
+              from OPENSAP_PURCHASEORDER_ITEMS;
+
+END
