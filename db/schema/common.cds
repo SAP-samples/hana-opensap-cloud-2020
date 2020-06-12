@@ -91,7 +91,7 @@ context opensap.common {
     Saved      = 'S';
     Delivered  = 'D';
     Cancelled  = 'X';
-  } 
+  }
 
   abstract entity Amount {
     currency    : Currency;
@@ -111,7 +111,7 @@ context opensap.common {
     quantityUnit : UnitT;
   }
 
-  
+
   type Gender : String(1) enum {
     male         = 'M';
     female       = 'F';
@@ -126,8 +126,8 @@ context opensap.common {
     assert.enum
   );
 
-  type Email : String(255)  @title : '{i18n>email}'  @assert.format: '[\\w|-]+@\\w[\\w|-]*\\.[a-z]{2,3}';
-  type PhoneNumber: String(30) @title : '{i18n>phoneNumber}' @assert.format: '((?:\+|00)[17](?: |\-)?|(?:\+|00)[1-9]\d{0,2}(?: |\-)?|(?:\+|00)1\-\d{3}(?: |\-)?)?(0\d|\([0-9]{3}\)|[1-9]{0,3})(?:((?: |\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\-)[0-9]{3}(?: |\-)[0-9]{4})|([0-9]{7}))';
+  type Email : String(255)@title : '{i18n>email}'  @assert.format : '[\\w|-]+@\\w[\\w|-]*\\.[a-z]{2,3}';
+  type PhoneNumber : String(30)@title : '{i18n>phoneNumber}'  @assert.format : '((?:\+|00)[17](?: |\-)?|(?:\+|00)[1-9]\d{0,2}(?: |\-)?|(?:\+|00)1\-\d{3}(?: |\-)?)?(0\d|\([0-9]{3}\)|[1-9]{0,3})(?:((?: |\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\-)[0-9]{3}(?: |\-)[0-9]{4})|([0-9]{7}))';
 }
 
 context sap.common_countries {
@@ -191,3 +191,22 @@ define view iso_us_states_and_territories as
   }
   where
     country = 'US';
+
+define view counties as
+  select from sap.common.Countries {
+    @UI.lineItem       : [{importance : Importance.High}]
+    @UI.fieldGroup     : [{position : 10}]
+    @EndUserText.label : [{
+      language : 'EN',
+      text     : 'Country Name'
+    }]
+    name,
+
+    @UI.lineItem       : [{importance : Importance.High}]
+    @UI.fieldGroup     : [{position : 20}]
+    @EndUserText.label : [{
+      language : 'EN',
+      text     : 'Country Code'
+    }]
+    code
+  };

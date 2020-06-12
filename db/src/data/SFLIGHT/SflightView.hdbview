@@ -1,0 +1,25 @@
+VIEW "SflightView" ( 
+     "Client",
+	 "CarrierId",
+	 "ConnectionId",
+	 "FlightDate",
+	 "Price",
+	 "Currency",
+	 "PlaneType",
+	 "BookingId",
+	 "CustomerId",
+	 "CustomerType",
+	 "PassengerName" ) AS SELECT
+	 Client AS "Client" ,
+	 CarrierId AS "CarrierId" ,
+	 ConnectionId AS "ConnectionId" ,
+	 FlightDate AS "FlightDate" ,
+	 Price AS "Price" ,
+	 Currency AS "Currency" ,
+	 PlaneType AS "PlaneType" ,
+	 BookingId AS "BookingId" ,
+	 CustomerId AS "CustomerId" ,
+	 CustomerType AS "CustomerType" ,
+	 PassengerName AS "PassengerName" 
+     from FLIGHT_SFLIGHTEXT
+     with structured privilege check

@@ -7,6 +7,7 @@ using {
 } from '@sap/cds/common';
 
 using {opensap.common} from './common';
+using {opensap.PurchaseOrder} from './purchaseOrder';
 
 namespace opensap.MD;
 
@@ -71,6 +72,16 @@ annotate Employees with {
     employeePicUrl @title : '{i18n>employeePicUrl}';
 };
 
+define view NewYorkEmployees as
+    select from Employees as emp {
+        nameFirst,
+        nameLast,
+        address.ID   as ![ADDID],
+        address.city as CITY
+    }
+    where
+        'New York' = address.city;
+
 type PartnerRole : Integer enum {
     Customer = 1;
     Supplier = 2;
@@ -123,6 +134,159 @@ annotate BusinessPartners with @(
     );
 }
 
+define view BPAddrExt as
+    select from BusinessPartners {
+        ID,
+        address.street || ', ' || address.city as FULLADDRESS
+    };
+
+define view BPView as
+    select from BusinessPartners
+    mixin {
+        ORDERS : Association[ * ] to PurchaseOrder.Headers
+                     on ORDERS.partner.ID = $projection.ID;
+    }
+    into {
+        BusinessPartners.ID,
+        ORDERS
+    };
+
+view BPOrdersView as
+    select from BPView {
+        ID,
+        ORDERS[lifecycleStatus = 'N'].ID as orderId
+    };
+
+view BPOrders2View as
+    select from BPView {
+        ID,
+        ORDERS[lifecycleStatus = 'N'].ID          as orderId,
+        ORDERS[lifecycleStatus = 'N'].grossAmount as grossAmt
+
+    };
+
+view BPOrders3View as
+    select from BPView {
+        ID,
+        ORDERS[lifecycleStatus = 'N'].ID          as orderId,
+        ORDERS[lifecycleStatus = 'N'].grossAmount as grossAmt,
+        ORDERS[lifecycleStatus = 'N'].item[netAmount > 200].product.productId,
+        ORDERS[lifecycleStatus = 'N'].item[netAmount > 200].netAmount
+
+    };
+
+define view BuyerView as
+    select from BusinessPartners {
+        ID                          as![Id],
+        email                       as![EmailAddress],
+        companyName                 as![CompanyName],
+        address.city                as![City],
+        address.postalCode          as![PostalCode],
+        address.street              as![Street],
+        address.building            as![Building],
+        address.country.code        as![Country],
+        address.country.name        as![CountryName],
+        address.region              as![Region],
+        createdByEmployee.loginName as![CreatedBy]
+    }
+    where
+        partnerRole = 1;
+
+define view SupplierView as
+    select from BusinessPartners {
+        ID                          as![Id],
+        email                       as![EmailAddress],
+        companyName                 as![CompanyName],
+        address.city                as![City],
+        address.postalCode          as![PostalCode],
+        address.street              as![Street],
+        address.building            as![Building],
+        address.country.code        as![Country],
+        address.country.name        as![CountryName],
+        address.region              as![Region],
+        createdByEmployee.loginName as![CreatedBy]
+    }
+    where
+        partnerRole = 2;
+
+define view BPViewWithDesc as
+    select from BusinessPartners {
+        ID,
+        partnerRole,
+        case
+            when
+                partnerRole = 1
+            then
+                'Buyer'
+            when
+                partnerRole = 2
+            then
+                'Supplier'
+        end as![PartnerRoleDesc],
+        email,
+        companyName
+    };
+
+define view BusinessPartnersView with parameters IM_PR : String(1) as
+    select from BPViewWithDesc {
+        ID,
+        partnerRole,
+        PartnerRoleDesc email,
+        companyName
+    }
+    where
+        partnerRole = : IM_PR;
+
+define view partnerRoles as
+    select from BusinessPartners {
+        @UI.lineItem       : [{importance : Importance.High}]
+        @UI.fieldGroup     : [{position : 10}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Partner Role'
+        }]
+        partnerRole,
+
+        @UI.lineItem       : [{importance : Importance.High}]
+        @UI.fieldGroup     : [{position : 20}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Role Description'
+        }]
+        case
+            when
+                partnerRole = 1
+            then
+                'Buyer'
+            when
+                partnerRole = 2
+            then
+                'Supplier'
+        end as![PARTNERDESC],
+    }
+    group by
+        partnerRole
+    order by
+        partnerRole;
+
+define view SupplierViewVH as
+    select from SupplierView {
+        @UI.lineItem       : [{importance : Importance.High}]
+        @UI.fieldGroup     : [{position : 10}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Supplier ID'
+        }]
+        Id          as![Supplier_Id],
+
+        @UI.lineItem       : [{importance : Importance.High}]
+        @UI.fieldGroup     : [{position : 20}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Supplier Name'
+        }]
+        CompanyName as![Supplier_CompanyName]
+    };
 
 entity Products : managed, common.Quantity {
     key productId                    : String(10);
@@ -203,3 +367,226 @@ annotate Products with @(
         description : '{i18n>dimensionUnit}'
     );
 }
+
+define view ProductViewSub as
+    select from Products as prod {
+        productId as ![Product_Id],
+        (
+            select from PurchaseOrder.Items as a {
+                sum(
+                    grossAmount
+                ) as SUM
+            }
+            where
+                a.product.productId = prod.productId
+        )         as PO_SUM
+    };
+
+define view ProductView as
+    select from Products
+    mixin {
+        PO_ORDERS : Association[ * ] to PurchaseOrder.ItemView
+                        on PO_ORDERS.productId = $projection.![Product_Id];
+    }
+    into {
+        productId                  as![Product_Id],
+        name,
+        desc,
+        category                   as![Product_Category],
+        currency.code              as![Product_Currency],
+        price                      as![Product_Price],
+        typeCode                   as![Product_TypeCode],
+        weightMeasure              as![Product_WeightMeasure],
+        weightUnit                 as![Product_WeightUnit],
+        partner.ID                 as![Supplier_Id],
+        partner.companyName        as![Supplier_CompanyName],
+        partner.address.city       as![Supplier_City],
+        partner.address.postalCode as![Supplier_PostalCode],
+        partner.address.street     as![Supplier_Street],
+        partner.address.building   as![Supplier_Building],
+        partner.address.country    as![Supplier_Country],
+        PO_ORDERS
+    };
+
+define view ProductsValueHelp as
+    select from Products {
+        @UI.lineItem       : [{importance : Importance.High}]
+        @UI.fieldGroup     : [{position : 10}]
+        @EndUserText.label : [
+        {
+            language : 'EN',
+            text     : 'Product ID'
+        },
+        {
+            language : 'DE',
+            text     : 'Produkt ID'
+        }
+        ]
+        productId,
+
+        @UI.lineItem       : [{importance : Importance.High}]
+        @UI.fieldGroup     : [{position : 20}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Product Name'
+        }]
+        name
+    };
+
+define view productCategoryVH as
+    select from Products distinct {
+        @UI.lineItem       : [{importance : Importance.High}]
+        @UI.fieldGroup     : [{position : 10}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Product Category'
+        }]
+        category as![Product_Category]
+    };
+
+define view ProductsConsumption as
+    select from Products {
+        @UI.lineItem       : [{importance : Importance.High}]
+        @UI.fieldGroup     : [{position : 10}]
+        @EndUserText.label : [
+        {
+            language : 'EN',
+            text     : 'Product ID'
+        },
+        {
+            language : 'DE',
+            text     : 'Produkt ID'
+        }
+        ]
+        @valueList         : {
+            collectionPath       : 'ProductsVH',
+            searchSupported      : false,
+            parameterInOut       : [{
+                localDataProperty : 'Product_Id',
+                valueListProperty : 'Product_Id'
+            }],
+            parameterDisplayOnly : [{valueListProperty : 'Product_Name'}]
+        }
+        productId                  as![Product_Id],
+
+        @UI.lineItem       : [{importance : Importance.High}]
+        @UI.fieldGroup     : [{position : 20}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Product Category'
+        }]
+        @valueList         : {
+            collectionPath  : 'ProductCatVh',
+            searchSupported : false,
+            parameterInOut  : [{
+                localDataProperty : 'Product_Category',
+                valueListProperty : 'Product_Category'
+            }]
+        }
+        category                   as![Product_Category],
+
+        @UI.lineItem       : [{importance : Importance.Medium}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Currency'
+        }]
+        @UI.fieldGroup     : [{position : 30}]
+        currency.code              as![Product_Currency],
+
+        @UI.lineItem       : [{importance : Importance.Medium}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Product Price'
+        }]
+        @UI.fieldGroup     : [{exclude : true}]
+        price                      as![Product_Price],
+
+        @UI.lineItem       : [{importance : Importance.Medium}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Type Code'
+        }]
+        @UI.fieldGroup     : [{position : 40}]
+        typeCode                   as![Product_TypeCode],
+
+        @UI.lineItem       : [{importance : Importance.Medium}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Weight'
+        }]
+        @UI.fieldGroup     : [{exclude : true}]
+        weightMeasure              as![Product_WeightMeasure],
+
+        @UI.lineItem       : [{importance : Importance.Low}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Weight Unit'
+        }]
+        @UI.fieldGroup     : [{exclude : true}]
+        weightUnit                 as![Product_WeightUnit],
+
+        @UI.lineItem       : [{importance : Importance.Medium}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Supplier ID'
+        }]
+        @UI.fieldGroup     : [{position : 50}]
+        @valueList         : {
+            collectionPath       : 'SupplierVH',
+            searchSupported      : false,
+            parameterInOut       : [{
+                localDataProperty : 'Supplier_Id',
+                valueListProperty : 'Supplier_Id'
+            }],
+            parameterDisplayOnly : [{valueListProperty : 'Supplier_CompanyName'}]
+        }
+        partner.ID                 as![Supplier_Id],
+
+        @UI.lineItem       : [{importance : Importance.High}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Supplier'
+        }]
+        @UI.fieldGroup     : [{position : 60}]
+        partner.companyName        as![Supplier_CompanyName],
+
+        @UI.lineItem       : [{importance : Importance.Medium}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Supplier City'
+        }]
+        @UI.fieldGroup     : [{position : 70}]
+        partner.address.city       as![Supplier_City],
+        partner.address.postalCode as![Supplier_PostalCode],
+        partner.address.street     as![Supplier_Street],
+        partner.address.building   as![Supplier_Building],
+
+        @UI.lineItem       : [{importance : Importance.Medium}]
+        @EndUserText.label : [{
+            language : 'EN',
+            text     : 'Supplier Country'
+        }]
+        @UI.fieldGroup     : [{position : 80}]
+        @valueList         : {
+            collectionPath       : 'Countries',
+            searchSupported      : false,
+            parameterInOut       : [{
+                localDataProperty : 'Supplier_Country',
+                valueListProperty : 'CODE'
+            }],
+            parameterDisplayOnly : [{valueListProperty : 'NAME'}]
+        }
+        partner.address.country    as![Supplier_Country]
+    };
+
+define view ProductValuesView as
+    select from ProductView {
+        Product_Id,
+        PO_ORDERS.currency.code as![CurrencyCode],
+        sum(
+            PO_ORDERS.grossAmount
+        )                       as![POGrossAmount]
+    }
+    group by
+        Product_Id,
+        PO_ORDERS.currency.code;
