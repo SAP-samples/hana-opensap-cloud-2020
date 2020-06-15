@@ -1,0 +1,14 @@
+TRIGGER "add_insert_to_log"
+    AFTER INSERT ON 
+    OPENSAP_MD_PRODUCTS
+    REFERENCING NEW ROW newrow FOR EACH ROW
+ BEGIN
+
+  INSERT INTO OPENSAP_MD_PRODUCTLOG
+           VALUES(:newrow."PRODUCTID",
+              (select IFNULL(MAX(logid), 0) + 1 from
+                  OPENSAP_MD_PRODUCTLOG where productid = :newrow.PRODUCTID), 
+                  now(), 
+                  CURRENT_USER,
+                  :newrow."PRODUCTID" || ' has been created');
+ END;

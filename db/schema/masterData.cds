@@ -368,6 +368,14 @@ annotate Products with @(
     );
 }
 
+    entity ProductLog {
+        key PRODUCTID : String(10);
+        key LOGID     : Integer;
+        key DATETIME  : DateTime;
+        key USERNAME  : String(80);
+            LOGTEXT   : String(500);
+    };
+
 define view ProductViewSub as
     select from Products as prod {
         productId as ![Product_Id],
