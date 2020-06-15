@@ -1,0 +1,60 @@
+LIBRARY "MasterData"
+  LANGUAGE SQLSCRIPT AS
+ BEGIN 
+ 
+   public variable rowcount int; 
+
+   public function "employee_exists"( 
+                in im_employee_id nvarchar(32) )
+                returns res boolean as
+   begin
+       declare lv_count int;
+       select count(*) into lv_count from OPENSAP_MD_EMPLOYEES
+                              where ID = im_employee_id;
+       if  lv_count > 0 then
+        res = true;
+       else
+        res = false;
+       end if;
+   end;
+
+   public function "get_product_ids_tf"
+                returns table (productid nvarchar(20) )
+      LANGUAGE SQLSCRIPT
+      SQL SECURITY INVOKER
+     AS
+   begin
+     return select productid from OPENSAP_MD_PRODUCTS;
+   end;
+
+   public procedure "get_employee_data"( 
+                out ex_employees OPENSAP_MD_EMPLOYEES ) 
+      LANGUAGE SQLSCRIPT
+      SQL SECURITY INVOKER
+      AS
+   begin
+     ex_employees = select * from OPENSAP_MD_EMPLOYEES;
+     rowcount = record_count(:ex_employees);
+   end;
+
+   public procedure "get_product_data"(
+                out ex_products OPENSAP_MD_PRODUCTS ) 
+      LANGUAGE SQLSCRIPT
+      SQL SECURITY INVOKER
+     AS
+   begin
+     ex_products = select * from OPENSAP_MD_PRODUCTS;
+     rowcount = record_count(:ex_products);
+   end;
+
+   public procedure "get_business_partner_data"( 
+                out ex_businesspartners OPENSAP_MD_BUSINESSPARTNERS ) 
+      LANGUAGE SQLSCRIPT
+      SQL SECURITY INVOKER
+       AS
+   begin
+     ex_businesspartners = select * from OPENSAP_MD_BUSINESSPARTNERS;
+     rowcount = record_count(:ex_businesspartners);
+   end;
+
+END;
