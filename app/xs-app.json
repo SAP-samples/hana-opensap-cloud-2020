@@ -1,0 +1,134 @@
+{
+	"welcomeFile": "index.html",
+	"authenticationMethod": "route",
+	"logout": {
+		"logoutPage": "/logout.html",
+		"logoutEndpoint": "/my/logout"
+	},
+	"websockets": {
+		"enabled": true
+	},
+	"routes": [
+    {
+		"source": "/status(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+    },   
+    {
+		"source": "/socket.io/(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+    },     
+    {
+		"source": "/api/(.*)",
+		"destination": "srv_api",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa",
+		"scope": {
+			"GET": "$XSAPPNAME.Display",
+			"POST": [
+				"$XSAPPNAME.Create"
+			],
+			"PUT": [
+				"$XSAPPNAME.Create"
+			],
+			"DELETE": [
+				"$XSAPPNAME.Delete"
+			],
+			"default": "$XSAPPNAME.Display"
+		}
+
+    },
+    {
+		"source": "/admin(.*)",
+		"destination": "srv_api",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa",
+		"scope": {
+			"GET": "$XSAPPNAME.Display",
+			"POST": [
+				"$XSAPPNAME.Create"
+			],
+			"PUT": [
+				"$XSAPPNAME.Create"
+			],
+			"DELETE": [
+				"$XSAPPNAME.Delete"
+			],
+			"default": "$XSAPPNAME.Display"
+		}
+
+	},    
+    {
+		"source": "/odata(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa",
+		"scope": {
+			"GET": "$XSAPPNAME.Display",
+			"POST": [
+				"$XSAPPNAME.Create"
+			],
+			"PUT": [
+				"$XSAPPNAME.Create"
+			],
+			"DELETE": [
+				"$XSAPPNAME.Delete"
+			],
+			"default": "$XSAPPNAME.Display"
+		}
+
+    },
+    {
+		"source": "/rest(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa",
+		"scope": {
+			"GET": "$XSAPPNAME.Display",
+			"POST": [
+				"$XSAPPNAME.Create"
+			],
+			"PUT": [
+				"$XSAPPNAME.Create"
+			],
+			"DELETE": [
+				"$XSAPPNAME.Delete"
+			],
+			"default": "$XSAPPNAME.Display"
+		}
+
+	}, {
+		"source": "/sap/bc/lrep(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa",
+		"scope": {
+			"GET": "$XSAPPNAME.Display",
+			"POST": [
+				"$XSAPPNAME.Display"
+			],
+			"PUT": [
+				"$XSAPPNAME.Display"
+			],
+			"DELETE": [
+				"$XSAPPNAME.Display"
+			],
+			"default": "$XSAPPNAME.Display"
+		}
+	}, {
+		"source": "^/logout.html$",
+		"localDir": "resources",
+		"authenticationType": "none"
+	}, {
+		"source": "/(.*)",
+		"localDir": "resources",
+		"authenticationType": "xsuaa",
+		"scope": {
+			"GET": "$XSAPPNAME.Display",
+			"default": "$XSAPPNAME.Display"
+		}
+	}]
+}

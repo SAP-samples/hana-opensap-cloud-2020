@@ -4,7 +4,7 @@ module.exports = function (app) {
 	/**
 	 * @swagger
 	 *
-	 * /srv_api/user:
+	 * /rest/user:
 	 *   get:
 	 *     summary: User/Member INformation
 	 *     tags:
@@ -13,7 +13,7 @@ module.exports = function (app) {
 	 *       '200':
 	 *         description: User Details
 	 */
-	app.get('/user', async (req, res) => {
+	app.get('/rest/user', async (req, res) => {
         const { getSafe } = require(global.__base + "utils/general")
         try {            
             let body = JSON.stringify({

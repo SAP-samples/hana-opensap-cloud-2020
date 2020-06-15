@@ -13,7 +13,7 @@ using {
 using BUYER as BuyerView from '../db/schema';
 using USER_DETAILS as UserDetails from '../db/schema';
 
-service POService @(requires : 'authenticated-user')@(impl : './handlers/po-service.js')@(path : '/POService') {
+service POService @(impl : './handlers/po-service.js')@(path : '/POService') {
 
     @readonly
     entity Addresses        as projection on Addr;
@@ -48,7 +48,7 @@ service POService @(requires : 'authenticated-user')@(impl : './handlers/po-serv
 
 }
 
-service MasterDataService @(requires : 'authenticated-user')@(path : '/MasterDataService') {
+service MasterDataService @(path : '/MasterDataService') {
     entity Addresses                             as projection on Addr;
     entity Employees                             as projection on Empl;
     entity User                                  as projection on UserDetails;

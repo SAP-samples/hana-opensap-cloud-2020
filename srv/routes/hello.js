@@ -4,7 +4,7 @@ module.exports = function (app) {
 	/**
 	 * @swagger
 	 *
-	 * /srv_api/hello:
+	 * /rest/hello:
 	 *   get:
 	 *     summary: Test Endpoint
 	 *     tags:
@@ -13,7 +13,7 @@ module.exports = function (app) {
 	 *       '200':
 	 *         description: Hello World
 	 */
-	app.get('/hello', function (req, res) {
+	app.get('/rest/hello', function (req, res) {
 		return res.send('Hello World!')
 	})
 }

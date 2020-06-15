@@ -1,0 +1,10 @@
+{
+	"name": "web-approuter",
+	"dependencies": {
+		"@sap/approuter": "^8.0",
+		"dotenv": "^8.2.0"
+	},
+	"scripts": {
+		"start": "node node_modules/@sap/approuter/approuter.js"
+	}
+}

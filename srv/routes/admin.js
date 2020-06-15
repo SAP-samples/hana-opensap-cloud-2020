@@ -5,7 +5,7 @@ module.exports = function (app) {
 	/**
 	 * @swagger
 	 *
-	 * /srv_api/admin:
+	 * /admin:
 	 *   get:
 	 *     summary: Test Admin Endpoint
 	 *     tags:
@@ -37,7 +37,7 @@ module.exports = function (app) {
 	/**
 	 * @swagger
 	 *
-	 * /srv_api/admin/tables:
+	 * /admin/tables:
 	 *   get:
 	 *     summary: Get a list of all tables in the Roadmap Schema
 	 *     tags:
@@ -79,7 +79,7 @@ module.exports = function (app) {
 	/**
 	 * @swagger
 	 *
-	 * /srv_api/admin/export:
+	 * /admin/export:
 	 *   get:
 	 *     summary: Export all table content as JSON in a ZIP file
 	 *     tags:
@@ -131,7 +131,7 @@ module.exports = function (app) {
 	/**
 	 * @swagger
 	 *
-	 * /srv_api/admin/import:
+	 * /admin/import:
 	 *   post:
 	 *     summary: Import all table content as JSON in a ZIP file
 	 *     tags:
