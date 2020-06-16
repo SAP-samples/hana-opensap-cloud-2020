@@ -1,4 +1,4 @@
-CLASS zcl_rh_file_manager DEFINITION
+class ZCL_A4C_FILE_UPLOADER definition
   PUBLIC
   CREATE PUBLIC .
 
@@ -6,53 +6,42 @@ CLASS zcl_rh_file_manager DEFINITION
 
     INTERFACES if_http_service_extension .
 
-
   PROTECTED SECTION.
   PRIVATE SECTION.
 
-    DATA: lv_tablename TYPE string.
-    DATA: lv_filename TYPE string.
-    DATA: lv_fileext TYPE string.
-    DATA: lv_content TYPE string.
+    DATA: tablename TYPE string.
+    DATA: filename TYPE string.
+    DATA: fileext TYPE string.
+    DATA: data TYPE string.
 
-    METHODS: parse_body IMPORTING im_content  TYPE string.
-    METHODS: get_tablename RETURNING VALUE(r_tablename) TYPE string.
-    METHODS: get_content RETURNING VALUE(r_content) TYPE string.
-    METHODS: get_filename RETURNING VALUE(r_filename) TYPE string.
-    METHODS: get_fileext RETURNING VALUE(r_fileext) TYPE string.
-    METHODS: load_table.
-    METHODS: get_html RETURNING VALUE(html) TYPE string.
+    METHODS: parse_request IMPORTING request_content  TYPE string.
+    METHODS: get_html RETURNING VALUE(ui_html) TYPE string.
 
 ENDCLASS.
 
-
-
-CLASS zcl_rh_file_manager IMPLEMENTATION.
-
+CLASS ZCL_A4C_FILE_UPLOADER  IMPLEMENTATION.
 
   METHOD if_http_service_extension~handle_request.
 
     CASE request->get_method(  ).
       WHEN CONV string( if_web_http_client=>get ).
 
-*        response->set_text( `<form action="upload.php" method="post" enctype="multipart/form-data"> Select image to upload:  <input type="file" name="fileToUpload" id="fileToUpload">` &&
-*                            ` Enter table to upload to: <input type="field" name="tablename" id="tablename">   <input type="submit" value="Upload File" name="submit"> </form>'` ).
         DATA(sap_table_request) = request->get_header_field( 'sap-table-request' ).
         IF sap_table_request IS INITIAL.
           response->set_text( get_html(   ) ).
         ELSE.
-          DATA(name_filter) = xco_cp_abap_repository=>object_name->get_filter( xco_cp_abap_sql=>constraint->contains_pattern(  sap_table_request && '%' )  ).
+          DATA(name_filter) = xco_cp_abap_repository=>object_name->get_filter(
+                               xco_cp_abap_sql=>constraint->contains_pattern( to_upper( sap_table_request ) && '%' )  ).
           DATA(objects) = xco_cp_abap_repository=>objects->tabl->where( VALUE #(
                               ( name_filter ) ) )->in( xco_cp_abap=>repository  )->get(  ).
 
-          data res type string.
+          DATA res TYPE string.
           res = `[`.
-
-          loop at objects INTO data(object).
+          LOOP AT objects INTO DATA(object).
             res &&= |\{ "TABLE_NAME": "{ object->name }" \}|.
-            if sy-tabix ne lines( objects ).
+            IF sy-tabix NE lines( objects ).
               res &&= `,`.
-            endif.
+            ENDIF.
           ENDLOOP.
           res &&= `]`.
           response->set_text( res ).
@@ -60,106 +49,100 @@ CLASS zcl_rh_file_manager IMPLEMENTATION.
 
       WHEN CONV string( if_web_http_client=>post ).
 
-        me->parse_body( im_content = request->get_text(  ) ).
+        me->parse_request( request->get_text(  ) ).
 
-        DATA(formfields) = request->get_form_fields( ).
-        DATA(headers) = request->get_header_fields( ).
+* Unpack input field values such as tablename, etc.
+        DATA(lv_ui_data) = request->get_form_field(  `filetoupload-data` ).
+        DATA: lr_ui_data TYPE REF TO data.
+        FIELD-SYMBOLS: <fs_data>  TYPE data,
+                       <fs_field> TYPE any.
 
-        lv_tablename = request->get_form_field(  `filetoupload-data` ).
-        IF lv_tablename IS INITIAL.
-          response->set_status( i_code = if_web_http_status=>bad_request i_reason = |Table name { lv_tablename } not valid or does not exist| ).
-          response->set_text( |Table name { lv_tablename } not valid or does not exist| ).
+        lr_ui_data = /ui2/cl_json=>generate( json = lv_ui_data ).
+        IF lr_ui_data IS BOUND.
+          ASSIGN lr_ui_data->* TO <fs_data>.
+          ASSIGN COMPONENT `TABLENAME` OF STRUCTURE <fs_data> TO <fs_field>.
+          IF <fs_field> IS ASSIGNED.
+            ASSIGN <fs_field>->* TO <fs_data>.
+            tablename = <fs_data>.
+          ENDIF.
+        ENDIF.
+
+* Check table name is valid.
+        IF xco_cp_abap_repository=>object->tabl->database_table->for(
+                             iv_name =  CONV #( tablename ) )->exists(  ) = abap_false
+          OR tablename IS INITIAL.
+          response->set_status( i_code = if_web_http_status=>bad_request
+                                i_reason = |Table name { tablename } not valid or does not exist| ).
+          response->set_text( |Table name { tablename } not valid or does not exist| ).
           RETURN.
         ENDIF.
 
-
-        IF me->get_fileext( ) <> `json`.
-*          and me->get_fileext( ) <> `txt`
-*          and me->get_fileext( ) <> 'csv'.
-          response->set_status( i_code = if_web_http_status=>bad_request i_reason = `File type not supported` ).
+* Check file extension is valid, only json today.
+        IF fileext <> `json`.
+          response->set_status( i_code = if_web_http_status=>bad_request
+                                i_reason = `File type not supported` ).
           response->set_text( `File type not supported` ).
           RETURN.
         ENDIF.
 
-        me->load_table(  ).
-        response->set_status( i_code = if_web_http_status=>ok i_reason = `Table updated successfully` ).
-        response->set_text( `Table updated successfully` ).
-*        response->set_text( me->get_content( ) ).
+* Still here?  Load the data to the table via dynamic internal table
+        DATA: dynamic_table TYPE REF TO data.
+        FIELD-SYMBOLS: <table_structure> TYPE table.
+
+        TRY.
+            CREATE DATA dynamic_table TYPE TABLE OF (tablename).
+            ASSIGN dynamic_table->* TO <table_structure>.
+          CATCH cx_sy_create_data_error.
+        ENDTRY.
+
+        /ui2/cl_json=>deserialize( EXPORTING json = data
+                                   pretty_name = /ui2/cl_json=>pretty_mode-none
+                                   CHANGING data = <table_structure> ).
+
+        DELETE FROM (tablename).
+
+        INSERT (tablename) FROM TABLE @<table_structure>.
+        IF sy-subrc = 0.
+          response->set_status( i_code = if_web_http_status=>ok
+                                i_reason = `Table updated successfully` ).
+          response->set_text( `Table updated successfully` ).
+        ENDIF.
 
     ENDCASE.
 
   ENDMETHOD.
 
-  METHOD parse_body.
+  METHOD parse_request.
 
-* what a freakin mess...
-    SPLIT im_content AT cl_abap_char_utilities=>cr_lf INTO TABLE DATA(lt_body).
-
-    READ TABLE lt_body REFERENCE INTO DATA(lr_body) INDEX 2.
+* the request comes in with metadata around the actual file data,
+* extract the filename and fileext from this metadata as well as the raw file data.
+    SPLIT request_content AT cl_abap_char_utilities=>cr_lf INTO TABLE DATA(content).
+    READ TABLE content REFERENCE INTO DATA(content_item) INDEX 2.
     IF sy-subrc = 0.
 
-      SPLIT lr_body->* AT ';' INTO TABLE DATA(lt_contentdis).
-
-      READ TABLE lt_contentdis REFERENCE INTO DATA(lr_contentdis) INDEX 3.
+      SPLIT content_item->* AT ';' INTO TABLE DATA(content_dis).
+      READ TABLE content_dis REFERENCE INTO DATA(content_dis_item) INDEX 3.
       IF sy-subrc = 0.
-        SPLIT lr_contentdis->* AT '=' INTO DATA(lv_fn) lv_filename.
-        REPLACE ALL OCCURRENCES OF `"` IN lv_filename WITH space.
-        CONDENSE lv_filename NO-GAPS.
-        SPLIT lv_filename AT '.' INTO lv_filename lv_fileext.
+        SPLIT content_dis_item->* AT '=' INTO DATA(fn) filename.
+        REPLACE ALL OCCURRENCES OF `"` IN filename WITH space.
+        CONDENSE filename NO-GAPS.
+        SPLIT filename AT '.' INTO filename fileext.
       ENDIF.
 
     ENDIF.
 
-    DELETE lt_body FROM 1 TO 4.  " Get rid of the first 4 lines of the body
-    DELETE lt_body FROM ( lines( lt_body ) - 8 ) TO lines( lt_body ).  " get rid of the last 9 lines of the body
+    DELETE content FROM 1 TO 4.  " Get rid of the first 4 lines
+    DELETE content FROM ( lines( content ) - 8 ) TO lines( content ).  " get rid of the last 9 lines
 
-    LOOP AT lt_body REFERENCE INTO lr_body.
-      CASE lv_fileext.
-        WHEN `json`.
-          lv_content = lv_content && lr_body->*.
-        WHEN OTHERS.
-          lv_content = lv_content && lr_body->* && cl_abap_char_utilities=>cr_lf.
-      ENDCASE.
+    LOOP AT content REFERENCE INTO content_item.  " put it all back together again humpdy dumpdy....
+          data = data && content_item->*.
     ENDLOOP.
 
-
   ENDMETHOD.
 
-  METHOD load_table.
-
-    DATA: lr_dynamic_table TYPE REF TO data.
-    FIELD-SYMBOLS: <lt_table_structure> TYPE table.
-
-    CREATE DATA lr_dynamic_table TYPE TABLE OF (lv_tablename).
-    ASSIGN lr_dynamic_table->* TO <lt_table_structure>.
-
-    /ui2/cl_json=>deserialize( EXPORTING json = lv_content
-                               pretty_name = /ui2/cl_json=>pretty_mode-none
-                               CHANGING data = <lt_table_structure> ).
-
-    DELETE FROM (lv_tablename).
-
-    INSERT (lv_tablename) FROM TABLE @<lt_table_structure>.
-
-  ENDMETHOD.
-
-  METHOD get_tablename.
-    r_tablename = lv_tablename.
-  ENDMETHOD.
-
-  METHOD get_content.
-    r_content = lv_content.
-  ENDMETHOD.
-  METHOD get_filename.
-    r_filename = lv_filename.
-  ENDMETHOD.
-
-  METHOD get_fileext.
-    r_fileext = lv_fileext.
-  ENDMETHOD.
 
   METHOD get_html.
-    html =
+    ui_html =
     |<!DOCTYPE HTML> \n| &&
      |<html> \n| &&
      |<head> \n| &&
@@ -189,6 +172,8 @@ CLASS zcl_rh_file_manager IMPLEMENTATION.
      |                    let layout = new sap.ui.layout.VerticalLayout("layout") \n| &&
      |                    layout.placeAt("uiArea") \n| &&
      |                    let line2 = new sap.ui.layout.HorizontalLayout("line2") \n| &&
+     |                    let line3 = new sap.ui.layout.HorizontalLayout("line3") \n| &&
+     |                    let line4 = new sap.ui.layout.HorizontalLayout("line4") \n| &&
      |                    sap.ui.getCore().loadLibrary("sap.m", \{ \n| &&
      |                        async: true \n| &&
      |                    \}).then(() => \{\}) \n| &&
@@ -201,6 +186,7 @@ CLASS zcl_rh_file_manager IMPLEMENTATION.
      |                            return \n| &&
      |                        \} \n| &&
      |                        let oInput = oCore.byId("tablename") \n| &&
+     |                        let oGroup = oCore.byId("grpDataOptions") \n| &&
      |                        if (!oInput.getValue())\{ \n| &&
      |                            sap.m.MessageToast.show("Target Table is Required") \n| &&
      |                            return \n| &&
@@ -208,7 +194,8 @@ CLASS zcl_rh_file_manager IMPLEMENTATION.
      |                       let param = oCore.byId("uploadParam") \n| &&
      |                       param.setValue( oInput.getValue() ) \n| &&
      |                       oFileUploader.getParameters() \n| &&
-     |                       oFileUploader.setAdditionalData(oInput.getValue()) \n| &&
+     |                       oFileUploader.setAdditionalData(JSON.stringify(\{tablename: oInput.getValue(), \n| &&
+     |                           dataOption: oGroup.getSelectedIndex() \})) \n| &&
      |                       oFileUploader.upload() \n| &&
      |                    \}) \n| &&
      |                    let input = new sap.m.Input("tablename") \n| &&
@@ -218,7 +205,9 @@ CLASS zcl_rh_file_manager IMPLEMENTATION.
      |                    input.setPlaceholder("Target ABAP Table") \n| &&
      |                    input.setShowSuggestion(true) \n| &&
      |                    input.attachSuggest(function (oEvent)\{ \n| &&
-     |                      jQuery.ajax(\{headers: \{ "sap-table-request": oEvent.getParameter("suggestValue") \},error: function(oErr)\{ alert( JSON.stringify(oErr))\}, timeout: 30000, method:"GET",dataType: "json",success: function(myJSON) \{ \n| &&
+     |                      jQuery.ajax(\{headers: \{ "sap-table-request": oEvent.getParameter("suggestValue") \n | &&
+     |                          \}, \n| &&
+     |                         error: function(oErr)\{ alert( JSON.stringify(oErr))\}, timeout: 30000, method:"GET",dataType: "json",success: function(myJSON) \{ \n| &&
   "   |                      alert( 'test' ) \n| &&
      |                      let input = oCore.byId("tablename") \n | &&
      |                      input.destroySuggestionItems() \n | &&
@@ -230,6 +219,22 @@ CLASS zcl_rh_file_manager IMPLEMENTATION.
      |                    \} \}) \n| &&
      |                    \}) \n| &&
      |                    line2.placeAt("layout") \n| &&
+     |                    line3.placeAt("layout") \n| &&
+     |                    line4.placeAt("layout") \n| &&
+     |                    let groupDataOptions = new sap.m.RadioButtonGroup("grpDataOptions") \n| &&
+     |                    let lblGroupDataOptions = new sap.m.Label("lblDataOptions") \n| &&
+     |                    lblGroupDataOptions.setLabelFor(groupDataOptions) \n| &&
+     |                    lblGroupDataOptions.setText("Data Upload Options") \n| &&
+     |                    lblGroupDataOptions.placeAt("line3") \n| &&
+     |                    groupDataOptions.placeAt("line4") \n| &&
+     |                    rbAppend = new sap.m.RadioButton("rbAppend") \n| &&
+     |                    rbReplace = new sap.m.RadioButton("rbReplace") \n| &&
+     |                    rbAppend.setText("Append") \n| &&
+     |                    rbReplace.setText("Replace") \n| &&
+     |                    groupDataOptions.addButton(rbAppend) \n| &&
+     |                    groupDataOptions.addButton(rbReplace) \n| &&
+     |                    rbAppend.setGroupName("grpDataOptions") \n| &&
+     |                    rbReplace.setGroupName("grpDataOptions") \n| &&
      |                    sap.ui.getCore().loadLibrary("sap.ui.unified", \{ \n| &&
      |                        async: true \n| &&
      |                    \}).then(() => \{ \n| &&

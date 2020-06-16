@@ -39,18 +39,20 @@ function ExpressServer() {
             await require(expressFile)(app)
         }
 
+        
+        httpServer = app.listen(this.port)
+        console.log(`Express Server Now Running On localhost:${this.port}/`)
+
         //Load routes
         let routesDir = path.join(this.baseDir, 'routes/**/*.js')
         let files = glob.sync(routesDir)
         this.routerFiles = files;
         if (files.length !== 0) {
             for (let file of files) {
-                await require(file)(app)
+                await require(file)(app, httpServer)
             }
         }
 
-        httpServer = app.listen(this.port)
-        console.log(`Express Server Now Running On localhost:${this.port}/`)
     }
 
     this.stop = async function () {

@@ -35,6 +35,4 @@ module.exports = function (app) {
 	app.use(
 		HDBConn.middleware(hanaOptions.hana)
 	)
-	
-	//require('./fioriPreview')(app)
 };

@@ -2,6 +2,8 @@
 module.exports = async (app) => {
 
     const cds = require("@sap/cds")
+    const {index} = require ('@sap/cds/lib/utils/app/index_html')
+    //console.log(index)
 
     let odataURL = "/odata/v4/"
     let restURL = "/rest/"
@@ -64,4 +66,6 @@ module.exports = async (app) => {
     const odatav2proxy = require("@sap/cds-odata-v2-adapter-proxy");
     app.use(odatav2proxy({ model: global.__base + "/gen/csn.json", path: "odata/v2", port: process.env.PORT || 4000 }));
 
+
+    app.get ('/odata/test',(_,res) => res.send (index.html))
 } 
