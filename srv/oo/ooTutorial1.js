@@ -2,15 +2,15 @@
 /*eslint-env node, es6 */
 module.exports = class {
 	constructor(id) {
-		this.id = id;
+		this.id = id
 	}
 	myFirstMethod(import1) {
 		if (import1 === 20) {
-			let error = {};
-			error.message = "Something Bad Happend";
-			error.value = import1;
-			throw error;
+			let error = {}
+			error.message = "Something Bad Happend"
+			error.value = import1
+			throw error
 		}
-		return import1;
+		return import1
 	}
-};
+}

@@ -25,8 +25,6 @@ module.exports = {
             "<a href=\"/rest/await/\">/rest/await</a> - Node.js Async/Await</br>" +
             "<a href=\"/rest/es6/\">/rest/es6</a> - Node.js ES6 & ES2017 Examples</br>" +
             "<a href=\"/rest/es2018/\">/rest/es2018</a> - Node.js ES2018 Examples</br>" +
-            "<a href=\"/rest/dcl/\">/rest/dcl</a> - HDBCDS DCL (Data Control Language)</br>" +
-            "<a href=\"/rest/codeCoverage/\">/rest/codeCoverage</a> - SQLScript Code Coverage</br>" +
 
             "</p>" +
             "<H1>Node.js CD&S Services Table of Contents</H1></br>" +

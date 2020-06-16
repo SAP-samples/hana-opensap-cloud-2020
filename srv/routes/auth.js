@@ -7,6 +7,7 @@ module.exports = function (app) {
 		let output =
 			`<H1>Authorizations Demo</H1></br>
 			<a href="./passport">/passport</a> - Security Context via Passport</br>
+			<a href="./userinfo2">/userinfo2</a> - Security Context From the DB Level</br>			
 			<a href="./xssec">/xssec</a> - Build the Security Context Via XSSEC</br>` +
 			require(global.__base + "utils/exampleTOC").fill()
 		res.type("text/html").status(200).send(output)
@@ -47,6 +48,36 @@ module.exports = function (app) {
 	 */
 	app.get("/rest/auth/passport", (req, res) => {
 		res.type("application/json").status(200).send(mapSecurityContext(req.authInfo))
+	})
+
+	/**
+	 * @swagger
+	 *
+	 * /rest/auth/userinfo2:
+	 *   get:
+	 *     summary: Security Context From the DB Level 
+	 *     tags:
+	 *       - auth
+	 *     responses:
+	 *       '200':
+	 *         description: authInfo
+	 */
+	app.get("/rest/auth/userinfo2", async(req, res) => {
+		try {
+			let dbPromises = require("sap-hdbext-promisfied");
+			let db = new dbPromises(req.db);
+			const statement = await db.preparePromisified(
+				`SELECT TOP 1 CURRENT_USER, SESSION_USER, SESSION_CONTEXT('XS_APPLICATIONUSER') as APPLICATION_USER,  SESSION_CONTEXT('APPLICATION') as APPLICATION, SESSION_CONTEXT('XS_COUNTRY') as XS_COUNTRY
+				   FROM DUMMY`);
+			const results = await db.statementExecPromisified(statement, []);
+			let result = JSON.stringify({
+				"hdbCurrentUser": results,
+				"user": req.user
+			});
+			return res.type("application/json").status(200).send(result);
+		} catch (e) {
+			return res.type("text/plain").status(500).send(`ERROR: ${e.toString()}`);
+		}
 	})
 
 
