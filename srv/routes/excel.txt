@@ -20,7 +20,7 @@ module.exports = function() {
 	//Simple Database Select - In-line Callbacks
 	app.get("/download", async(req, res) => {
 		try {
-			const dbClass = require(global.__base + "utils/dbPromises");
+			const dbClass = require("sap-hdbext-promisfied");
 			let client = new dbClass(req.db);
 			const statement = await client.preparePromisified(
 				`SELECT TOP 10 "HEADER.PURCHASEORDERID" as "ID",  

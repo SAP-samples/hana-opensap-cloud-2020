@@ -1,0 +1,20 @@
+PROCEDURE "get_bp_addresses_by_role" ( in im_partnerrole integer DEFAULT 1,
+    out ex_bp_addresses "Procedures.tt_bp_addresses" 
+)
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   READS SQL DATA AS
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+ex_bp_addresses = 
+     select a.ID as PARTNERID, a.PARTNERROLE, a.EMAIL as EMAILADDRESS, a.COMPANYNAME,
+            a.ADDRESS_ID as ADDRESSID, b.CITY, b.POSTALCODE, b.STREET
+              from OPENSAP_MD_BUSINESSPARTNERS as a 
+                 inner join OPENSAP_MD_ADDRESSES as b
+                     on a.ADDRESS_ID = b.ID 
+                              where a.PARTNERROLE = :im_partnerrole;
+
+END

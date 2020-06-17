@@ -6,7 +6,7 @@ module.exports = function (app) {
 	 *
 	 * /rest/user:
 	 *   get:
-	 *     summary: User/Member INformation
+	 *     summary: User/Member Information
 	 *     tags:
 	 *       - User
 	 *     responses:

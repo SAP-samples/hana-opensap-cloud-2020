@@ -244,7 +244,7 @@ module.exports = () => {
 			let me = this;
 			return new Promise(async(resolve, reject) => {
 				try {
-					let dbPromises = require(global.__base + "utils/dbPromises");
+					let dbPromises = require("sap-hdbext-promisfied");
 					let dbConn = new dbPromises(req.db);
 					const statement = await dbConn.preparePromisified(
 						`SELECT * 
@@ -314,7 +314,7 @@ module.exports = () => {
 		class POFactory {
 			static async create(id) {
 				async function load(id) {
-					let dbPromises = require(global.__base + "utils/dbPromises");
+					let dbPromises = require("sap-hdbext-promisfied");
 					let dbConn = new dbPromises(req.db);
 					const statement = await dbConn.preparePromisified(
 						`SELECT * 
