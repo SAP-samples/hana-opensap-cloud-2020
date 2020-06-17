@@ -36,7 +36,18 @@ module.exports = (app) => {
 		res.type("text/html").status(200).send(output)
 	})
 
-	//ES6 Constants
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/constants:
+	 *   get:
+	 *     summary: ES6 Constants
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/constants", (req, res) => {
 		const fixVal = 10
 		let newVal = fixVal
@@ -50,7 +61,18 @@ module.exports = (app) => {
 		}
 	})
 
-	//Block Scoped
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/blockScoped:
+	 *   get:
+	 *     summary: Block Scoped
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/blockScoped", (req, res) => {
 		let output
 
@@ -67,8 +89,19 @@ module.exports = (app) => {
 		res.type("text/html").status(200).send(output)
 	})
 
-	//Parameter Defaults
-	app.get("/rest/es6/parameterDefaults",  (req, res) => {
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/parameterDefaults:
+	 *   get:
+	 *     summary: Parameter Defaults
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
+	app.get("/rest/es6/parameterDefaults", (req, res) => {
 		function math(a, b = 10, c = 12) {
 			return a + b + c
 		}
@@ -76,8 +109,19 @@ module.exports = (app) => {
 
 	})
 
-	//Parameter Defaults
-	app.get("/rest/es6/parameterMultiple",  (req, res) => {
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/parameterMultiple:
+	 *   get:
+	 *     summary: Multiple Parameter
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
+	app.get("/rest/es6/parameterMultiple", (req, res) => {
 		function getLength(a, b, ...p) {
 			return a + b + p.length
 		}
@@ -85,18 +129,53 @@ module.exports = (app) => {
 
 	})
 
-	//Unicode Strings and Literals
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/unicode:
+	 *   get:
+	 *     summary: Unicode Strings and Literals
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/unicode", (req, res) => {
 		if ("𠮷".length === 2) {
 			res.type("text/html").status(200).send(`Output: ${"𠮷".toString()}, Code Points: ${"𠮷".codePointAt(0)}`)
 		}
 	})
 
-	app.get("/rest/es6/classes1", (req, res)=> {
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/classes1:
+	 *   get:
+	 *     summary: OO - First Method Call
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
+	app.get("/rest/es6/classes1", (req, res) => {
 		let class1 = new ooTutorial1("first example");
 		res.type("text/html").status(200).send(`Call First Method: ${class1.myFirstMethod(5)}`)
 	})
 
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/classes1Error:
+	 *   get:
+	 *     summary: OO - Call and catch errors
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/classes1Error", (req, res) => {
 		let class1 = new ooTutorial1("first example")
 		try {
@@ -106,6 +185,18 @@ module.exports = (app) => {
 		}
 	})
 
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/classes2a:
+	 *   get:
+	 *     summary: OO - Call static method
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/classes2a", (req, res) => {
 		ooTutorial2.getFlightDetails(req.db, "AA", "0017", "20100421").then(results => {
 			res.type("text/html").status(200).send(
@@ -114,9 +205,20 @@ module.exports = (app) => {
 			.catch(e => {
 				res.type("text/html").status(200).send(`Call and catch errors: ${JSON.stringify(e)}`)
 			})
-
 	})
 
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/classes2b:
+	 *   get:
+	 *     summary: OO - Call Satic Method #2
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/classes2b", (req, res) => {
 		ooTutorial2.calculateFlightPrice(req.db, "AA", "0017", "20100421").then(results => {
 			res.type("text/html").status(200).send(
@@ -127,6 +229,18 @@ module.exports = (app) => {
 			})
 	})
 
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/classes3a:
+	 *   get:
+	 *     summary: OO - Call Instance Method
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/classes3a", (req, res) => {
 		let class3 = new ooTutorial3(req.db)
 		class3.getFlightDetails("AA", "0017", "20100421").then(results => {
@@ -139,6 +253,18 @@ module.exports = (app) => {
 
 	})
 
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/classes3b:
+	 *   get:
+	 *     summary: OO - Call Instance Method #2
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/classes3b", (req, res) => {
 		let class3 = new ooTutorial3(req.db)
 		class3.calculateFlightPrice("AA", "0017", "20100421").then(results => {
@@ -150,6 +276,18 @@ module.exports = (app) => {
 			})
 	})
 
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/classes4a:
+	 *   get:
+	 *     summary: OO - Call Inherited Method
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/classes4a", (req, res) => {
 		let class4 = new ooTutorial4(req.db)
 		class4.getFlightDetails("AA", "0017", "20100421").then(results => {
@@ -161,7 +299,19 @@ module.exports = (app) => {
 			})
 	})
 
-	app.get("/rest/es6/classes4b", (req, res) =>  {
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/classes4b:
+	 *   get:
+	 *     summary: OO - Call Overridden Method
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
+	app.get("/rest/es6/classes4b", (req, res) => {
 		let class4 = new ooTutorial4(req.db)
 		class4.calculateFlightPrice("AA", "0017", "20100421").then(results => {
 			res.type("text/html").status(200).send(
@@ -172,21 +322,54 @@ module.exports = (app) => {
 			})
 	})
 
-	//Number 
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/numFormat:
+	 *   get:
+	 *     summary: Number Format
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/numFormat", (req, res) => {
 		let numEN = new Intl.NumberFormat("en-US")
 		let numDE = new Intl.NumberFormat("de-DE")
 		res.type("text/html").status(200).send(`US: ${numEN.format(123456789.10)}, DE: ${numDE.format(123456789.10)}`)
-	});
+	})
 
-	//Currency Formatting
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/currFormat:
+	 *   get:
+	 *     summary: Currency Formatting
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/currFormat", (req, res) => {
 		let curUS = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" })
 		let curDE = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" })
 		res.type("text/html").status(200).send(`US: ${curUS.format(123456789.10)}, DE: ${curDE.format(123456789.10)}`)
-	});
+	})
 
-	//Date/Time Formatting
+	/**
+	 * @swagger
+	 *
+	 * /rest/es6/dateFormat:
+	 *   get:
+	 *     summary: Date/Time Formatting
+	 *     tags:
+	 *       - es6
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/es6/dateFormat", (req, res) => {
 		let dateUS = new Intl.DateTimeFormat("en-US")
 		let dateDE = new Intl.DateTimeFormat("de-DE")

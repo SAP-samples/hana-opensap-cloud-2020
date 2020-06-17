@@ -95,7 +95,18 @@ module.exports = (app) => {
 		res.type("text/html").status(200).send(output)
 	})
 
-	//Manual Promisefy readFile
+	/**
+	 * @swagger
+	 *
+	 * /rest/promises/promises:
+	 *   get:
+	 *     summary: Manual Promisefy readFile
+	 *     tags:
+	 *       - promises
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */
 	app.get("/rest/promises/promises", (req, res) => {
 		var body = ""
 		readFilePromisified(global.__base + "async/file.txt")
@@ -107,7 +118,18 @@ module.exports = (app) => {
 			})
 	})
 
-	//Manual Promisefy readFile and catch error
+	/**
+	 * @swagger
+	 *
+	 * /rest/promises/promisesError:
+	 *   get:
+	 *     summary: Manual Promisefy readFile and catch error
+	 *     tags:
+	 *       - promises
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */	
 	app.get("/rest/promises/promisesError", (req, res) => {
 		var body = ""
 
@@ -120,7 +142,18 @@ module.exports = (app) => {
 			})
 	})
 
-	//Simple Database Select Promises
+	/**
+	 * @swagger
+	 *
+	 * /rest/promises/promisesDB1:
+	 *   get:
+	 *     summary: Simple Database Select Promises
+	 *     tags:
+	 *       - promises
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */		
 	app.get("/rest/promises/promisesDB1", (req, res) => {
 		let db = new promisedDB(req.db)
 		db.preparePromisified("select SESSION_USER from \"DUMMY\"")
@@ -143,7 +176,18 @@ module.exports = (app) => {
 			})
 	})
 
-	//Simple Database Call Stored Procedure via Promises
+	/**
+	 * @swagger
+	 *
+	 * /rest/promises/promisesDB2:
+	 *   get:
+	 *     summary: Simple Database Call Stored Procedure via Promises
+	 *     tags:
+	 *       - promises
+	 *     responses:
+	 *       '200':
+	 *         description: Output
+	 */			
 	app.get("/rest/promises/promisesDB2", (req, res) => {
 		let db = new promisedDB(req.db)
 		let hdbext = require("@sap/hdbext")
