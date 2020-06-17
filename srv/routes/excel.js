@@ -7,7 +7,7 @@ var path = require("path")
 
 module.exports = function (app) {
 
-	app.get("/", (req, res) => {
+	app.get("/rest/excel", (req, res) => {
 		var output =
 			`<H1>Excel Examples</H1></br>
 			<a href="./download">/download</a> - Download data in Excel XLSX format</br>`
