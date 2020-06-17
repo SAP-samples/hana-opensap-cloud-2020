@@ -140,7 +140,7 @@ module.exports = function (app) {
 	 *       description: Uploaded zip file with tables as JSON
 	 *       required: true
 	 *       content:
-	 *         application/zip:
+	 *         application/octet-stream:
 	 *           schema:
 	 *             type: string
 	 *             format: binary

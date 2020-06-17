@@ -84,7 +84,7 @@
     {
 		"source": "/rest(.*)",
 		"destination": "srv_api",
-		"csrfProtection": true,
+		"csrfProtection": false,
 		"authenticationType": "xsuaa",
 		"scope": {
 			"GET": "$XSAPPNAME.Display",

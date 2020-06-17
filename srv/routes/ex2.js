@@ -3,7 +3,7 @@
 
 module.exports = (app) => {
 
-	app.get("/toc", (req, res) => {
+	app.get("/rest/ex2/toc", (req, res) => {
 		let output =
 			`<H1>Exercise #2</H1></br>
 			<a href="./">/</a> - HANA DB Client</br>
