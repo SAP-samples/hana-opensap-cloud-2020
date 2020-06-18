@@ -14,13 +14,13 @@ sap.ui.require(["sap/ui/core/Core", "sap/ui/core/Component"], (oCore, Component)
 				}
 			}
 		} catch (e) {
-			return "";
+			return ""
 		}
-		return "";
+		return ""
 	}
 
 	function getSessionInfo() {
-		var aUrl = "/rest/user";
+		var aUrl = "/rest/user"
 
 		return onLoadSession(
 			jQuery.ajax({
@@ -28,7 +28,7 @@ sap.ui.require(["sap/ui/core/Core", "sap/ui/core/Component"], (oCore, Component)
 				method: "GET",
 				dataType: "json",
 				async: false
-			}).responseText);
+			}).responseText)
 	}
 
 	Component.create({
@@ -41,9 +41,9 @@ sap.ui.require(["sap/ui/core/Core", "sap/ui/core/Component"], (oCore, Component)
 			let oCont = new ComponentContainer({
 				component: oComp,
 				height: "100%"
-			});
+			})
 
-			let username = getSessionInfo();
+			let username = getSessionInfo()
 			oCore.loadLibrary("sap.f", {
 				async: true
 			}).then(() => {
@@ -57,10 +57,10 @@ sap.ui.require(["sap/ui/core/Core", "sap/ui/core/Component"], (oCore, Component)
 					profile: new sap.f.Avatar({
 						initials: username
 					})
-				}).placeAt("content");
-				oCont.placeAt("content");
-			});
-		});
-	});
+				}).placeAt("content")
+				oCont.placeAt("content")
+			})
+		})
+	})
 
-});
+})
