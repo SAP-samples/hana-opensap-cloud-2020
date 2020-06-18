@@ -3,10 +3,14 @@
 module.exports = {
     fill: function () {
         let tableOfContents =
+
+            "</p>" +
+            "<H1>Main Testing Entry Points</H1></br>" +
+            "<a href=\"/api/api-docs/\">/api/api-docs</a> - Swagger UI</br>" +
+            "<a href=\"/\">/</a> - Launchpad</br>" +            
+
             "</p>" +
             "<H1>Overall Node.js Examples Table of Contents</H1></br>" +
-            "<a href=\"/rest/intro/\">/rest/intro</a> - Node.js HANA Database Examples</br>" +
-            "<a href=\"/rest/myNode/\">/rest/myNode</a> - Node.js Some Basic Examples</br>" +
             "<a href=\"/rest/ex2/toc/\">/rest/ex2/toc</a> - Node.js Exercises #2</br>" +
             "<a href=\"/rest/auth/\">/rest/auth</a> - Authorizations</br>" +
             "<a href=\"/rest/excAsync/\">/rest/excAsync</a> - Node.js Asynchronous Non-Blocking I/O Examples</br>" +
