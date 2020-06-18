@@ -1,6 +1,7 @@
 using {
     opensap.PurchaseOrder.Headers as Headers,
-    opensap.PurchaseOrder.Items as Items
+    opensap.PurchaseOrder.Items as Items,
+    opensap.PurchaseOrder.POWorklist as POWorklist
 } from '../db/schema';
 using {
     opensap.MD.Addresses as Addr,
@@ -42,7 +43,10 @@ service POService @(impl : './handlers/po-service.js')@(path : '/POService') {
     entity POItems @(
         title               : '{i18n>poService}',
         odata.draft.enabled : true
-    )                       as projection on Items;
+    )                       as projection on Items { *, poHeader: redirected to POs};
+
+    @readonly
+    entity PO_Worklist as projection on POWorklist;
 
     function sleep() returns Boolean;
 

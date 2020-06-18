@@ -63,25 +63,20 @@ module.exports = {
 
             "</p>" +
             "<H1>OData V2 Table of Contents</H1></br>" +
-            "<a href=\"/xsodata/businessPartners.xsodata/?$format=json\">businessPartners.xsodata</a> Business Partners Service</br>" +
-            "<a href=\"/xsodata/businessPartners.xsodata/$metadata\">businessPartners.xsodata/$metadata</a> Business Partners Service Metadata</br>" +
-            "<a href=\"/xsodata/businessPartners.xsodata/BusinessPartners?$format=json\">businessPartners.xsodata/BusinessPartners</a> Business Partners Data</br>" +
-            "<a href=\"/xsodata/businessPartners.xsodata/BusinessPartners?$format=json&$top=3&$skip=5\">businessPartners.xsodata/BusinessPartners/?$skip=5&$top=3</a> Business Partners Data - Skip 5, Only Return Top 3</br>" +
+            "<a href=\"/odata/v2/MasterDataService/BusinessPartners\">/odata/v2/MasterDataService/BusinessPartners</a> Business Partners Service</br>" +
+            "<a href=\"/odata/v2/MasterDataService/$metadata\">/odata/v2/MasterDataService/$metadata</a> Business Partners Service Metadata</br>" +
+            "<a href=\"/odata/v2/MasterDataService/BusinessPartners?$top=3&$skip=5\">/odata/v2/MasterDataService/BusinessPartners?$skip=5&$top=3</a> Business Partners Data - Skip 5, Only Return Top 3</br>" +
 
-            "<a href=\"/xsodata/purchaseOrders.xsodata/?$format=json\">purchaseOrders.xsodata</a> Purchase Orders Service</br>" +
-            "<a href=\"/xsodata/purchaseOrders.xsodata/$metadata\">purchaseOrders.xsodata/$metadata</a> Purchase Orders Service Metadata</br>" +
-            "<a href=\"/xsodata/purchaseOrders.xsodata/POHeader?$format=json&$top=10\">purchaseOrders.xsodata/POHeader</a> Purchase Orders Service - Header Data</br>" +
-            "<a href=\"/xsodata/purchaseOrders.xsodata/POHeader?$format=json&$top=10&$expand=POItem\">purchaseOrders.xsodata/POHeader/?$expand=POItem</a> Purchase Orders Service - Header Data with Expanded Items</br>" +
+            "<a href=\"/odata/v2/POService/POs\">/odata/v2/POService/POs</a> Purchase Orders Service</br>" +
+            "<a href=\"/odata/v2/POService/$metadata\">/odata/v2/POService/$metadata</a> Purchase Orders Service Metadata</br>" +
+            "<a href=\"/odata/v2/POService/POs?$top=10\">/odata/v2/POService/POs</a> Purchase Orders Service - Header Data</br>" +
+            "<a href=\"/odata/v2/POService/POs?$top=10&$expand=item\">/odata/v2/POService/POs?$top=10&$expand=item</a> Purchase Orders Service - Header Data with Expanded Items</br>" +
+            "<a href=\"/odata/v2/POService/PO_Worklist?$top=10\">/odata/v2/POService/PO_Worklist?$top=10/a> Purchase Orders Worklist View</br>" +            
 
-            "<a href=\"/xsodata/poExt.xsodata/?$format=json\">poExt.xsodata</a> PO Extended Service</br>" +
-            "<a href=\"/xsodata/poExt2.xsodata/?$format=json\">poExt2.xsodata</a> PO Extended Service #2</br>" +
+            "<a href=\"/odata/v2/POService/POItems\">/odata/v2/POService/POItems</a> PO Items View</br>" +
+            "<a href=\"/odata/v2/MasterDataService/Products\">/odata/v2/MasterDataService/Products</a> Products Service</br>" +
 
-            "<a href=\"/xsodata/poItemsView.xsodata/?$format=json\">poItemsView.xsodata</a> PO Items</br>" +
-            "<a href=\"/xsodata/poWorklist.xsodata/?$format=json\">poWorklist.xsodata</a> PO Worklist</br>" +
-            "<a href=\"/xsodata/products.xsodata/?$format=json\">products.xsodata</a> Products Service</br>" +
-
-            "<a href=\"/user/xsodata/user.xsodata/?$format=json\">user.xsodata</a> User Service</br>" +
-            "<a href=\"/user/xsodata/user.xsodata/$metadata\">user.xsodata/$metadata</a> User Service Metadata </br>";
+            "<a href=\"/odata/v2/MasterDataService/User\">/odata/v2/MasterDataService/User</a> User Service</br>" 
 
         return tableOfContents
 
