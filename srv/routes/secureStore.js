@@ -170,7 +170,6 @@ module.exports = (app) => {
 	 *       '200':
 	 *         description: Info
 	 */
-	//Secure Store Delete
 	app.delete("/rest/secureStore/:key?", async (req, res) => {
 		const hdbext = require("@sap/hdbext")
 		const key = req.params.key
