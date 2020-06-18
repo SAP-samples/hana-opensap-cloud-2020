@@ -29,6 +29,6 @@ module.exports = function (app) {
         } catch (err) {
             return res.type("text/plain").status(500).send(`ERROR: ${err.toString()}`)
         } 
-	});
+	})
 
-};
+}

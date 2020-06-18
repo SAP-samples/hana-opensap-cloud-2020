@@ -29,22 +29,15 @@ module.exports = {
             "<a href=\"/rest/await/\">/rest/await</a> - Node.js Async/Await</br>" +
             "<a href=\"/rest/es6/\">/rest/es6</a> - Node.js ES6 & ES2017 Examples</br>" +
             "<a href=\"/rest/es2018/\">/rest/es2018</a> - Node.js ES2018 Examples</br>" +
+            "<a href=\"/rest/multiply/5/10\">/rest/multiply</a> - Multiply</br>" +
+            "<a href=\"/rest/outboundTest/hana\">/rest/outboundTest</a> - Outbound HTTP</br>" +
+
 
             "</p>" +
-            "<H1>Node.js CD&S Services Table of Contents</H1></br>" +
-            "<a href=\"/rest/\">/rest/</a> - CD&S Service</br>" +
-            "<a href=\"/odata/v4/opensap.hana.CatalogService/$metadata\">/odata/v4/opensap.hana.CatalogService/$metadata</a> - CD&S Service Metadata</br>" +
-            "<a href=\"/odata/v4/opensap.hana.CatalogService/Buyer\">/odata/v4/opensap.hana.CatalogService/Buyer</a> - CD&S Service Buyer Entity</br>" +
-            "<a href=\"/odata/v4/opensap.hana.CatalogService/CURRENCY\">/odata/v4/opensap.hana.CatalogService/CURRENCY</a> - CD&S Service CURRENCY Entity</br>" +
-            "<a href=\"/odata/v4/opensap.hana.CatalogService/POItems\">/odata/v4/opensap.hana.CatalogService/POItems</a> - CD&S Service POItems Entity</br>" +
-            "<a href=\"/odata/v4/opensap.hana.CatalogService/POItemsView\">/odata/v4/opensap.hana.CatalogService/POItemsView</a> - CD&S Service POItemsView Entity</br>" +
-            "<a href=\"/odata/v4/opensap.hana.CatalogService/POs\">/odata/v4/opensap.hana.CatalogService/POs</a> - CD&S Service POs Entity</br>" +
-            "<a href=\"/odata/v4/opensap.hana.CatalogService/User\">/odata/v4/opensap.hana.CatalogService/User</a> - CD&S Service User Entity</br>" +
-
-            "</p>" +
-            "<H1>XSJS Compatibility Mode Table of Contents</H1></br>" +
-            "<a href=\"/xsjs/index.xsjs\">/xsjs/</a> - XS Home Page</br>" +
-            "<a href=\"/xsjs/antivirus.xsjs\">/xsjs/antivirus.xsjs</a> - XSJS Antivirus API Example</br>" +
+            "<H1>Node.js CAP Services Table of Contents</H1></br>" +
+            "<a href=\"/odata/test\">/odata/test</a> - CAP Service Test for OData V4 and REST endpoints</br>" +
+            
+           
             "<a href=\"/xsjs/clientFilter.xsjs\">/xsjs/clientFilter.xsjs</a> - XSJS Model with Client Column Filter via Analaytic Privilege</br>" +
             "<a href=\"/xsjs/excel.xsjs\">/xsjs/excel.xsjs</a> - XSJS Calling Node.js Excel Module Example</br>" +
             "<a href=\"/xsjs/exercisesMaster.xsjs?cmd=getSessionInfo\">/xsjs/exercisesMaster.xsjs</a> - XSJS Simple Example</br>" +
@@ -69,7 +62,7 @@ module.exports = {
             "<a href=\"/sap/hana/democontent/epm/services/outboundTest.xsjs?cmd=Images&search=hana\">/sap/hana/democontent/epm/services/outboundTest.xsjs</a> - XSJS Outbound HTTP</br>" +
 
             "</p>" +
-            "<H1>XSODATA Table of Contents</H1></br>" +
+            "<H1>OData V2 Table of Contents</H1></br>" +
             "<a href=\"/xsodata/businessPartners.xsodata/?$format=json\">businessPartners.xsodata</a> Business Partners Service</br>" +
             "<a href=\"/xsodata/businessPartners.xsodata/$metadata\">businessPartners.xsodata/$metadata</a> Business Partners Service Metadata</br>" +
             "<a href=\"/xsodata/businessPartners.xsodata/BusinessPartners?$format=json\">businessPartners.xsodata/BusinessPartners</a> Business Partners Data</br>" +

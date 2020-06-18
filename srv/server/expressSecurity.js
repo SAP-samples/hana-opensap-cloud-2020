@@ -9,7 +9,7 @@ module.exports = (app) => {
                 defaultSrc: ["'self'","sapui5.hana.ondemand.com"],
                 styleSrc: ["'self'", "sapui5.hana.ondemand.com", "'unsafe-inline'"],
                 scriptSrc: ["'self'", "sapui5.hana.ondemand.com", "'unsafe-inline'", "'unsafe-eval'", "cdnjs.cloudflare.com"],
-                imgSrc: ["'self'", "sapui5.hana.ondemand.com", "data:"]
+                imgSrc: ["'self'", "sapui5.hana.ondemand.com", "www.loc.gov", "data:"]
             }
         })) 
 
