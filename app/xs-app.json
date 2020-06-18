@@ -62,7 +62,7 @@
 
 	},    
     {
-		"source": "/odata(.*)",
+		"source": "/odata/(.*)",
 		"destination": "srv_api",
 		"csrfProtection": true,
 		"authenticationType": "xsuaa",
