@@ -314,6 +314,10 @@ annotate Products with @(
     title       : '{i18n>products}',
     description : '{i18n>products}'
 ) {
+    productId     @(
+        title       : '{i18n>product}',
+        description : '{i18n>product}'
+    );
     typeCode      @(
         title       : '{i18n>typeCode}',
         description : '{i18n>typeCode}'
@@ -368,13 +372,13 @@ annotate Products with @(
     );
 }
 
-    entity ProductLog {
-        key PRODUCTID : String(10);
-        key LOGID     : Integer;
-        key DATETIME  : DateTime;
-        key USERNAME  : String(80);
-            LOGTEXT   : String(500);
-    };
+entity ProductLog {
+    key PRODUCTID : String(10);
+    key LOGID     : Integer;
+    key DATETIME  : DateTime;
+    key USERNAME  : String(80);
+        LOGTEXT   : String(500);
+};
 
 define view ProductViewSub as
     select from Products as prod {
@@ -593,7 +597,7 @@ define view ProductValuesView as
         PO_ORDERS.CurrencyCode as![CurrencyCode],
         sum(
             PO_ORDERS.Amount
-        )                       as![POGrossAmount]
+        )                      as![POGrossAmount]
     }
     group by
         Product_Id,

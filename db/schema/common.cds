@@ -76,8 +76,7 @@ context opensap.common {
   );
 
   type QuantityT : Decimal(13, 3)@(
-    title         : '{i18n>quantity}',
-    Measures.Unit : Units.Quantity
+    title         : '{i18n>quantity}'
   );
 
   type UnitT : String(3)@title : '{i18n>quantityUnit}';

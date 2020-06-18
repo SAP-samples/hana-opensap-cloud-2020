@@ -107,11 +107,11 @@ annotate pos.POs with @( // header-level annotations
             Value                   : currency.symbol,
             ![@Common.FieldControl] : #ReadOnly
         },
-      {
+        {
             $Type                   : 'UI.DataField',
             Value                   : currency.name,
             ![@Common.FieldControl] : #ReadOnly
-        },        
+        },
         ]},
         FieldGroup #AdministrativeData : {Data : [
         {
@@ -192,7 +192,7 @@ UI : {
         $Type             : 'UI.DataField',
         Value             : product.name,
         ![@UI.Importance] : #High
-    },    
+    },
     {
         $Type             : 'UI.DataField',
         Value             : deliveryDate,
