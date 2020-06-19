@@ -8,6 +8,7 @@ using {
     opensap.MD.Employees as Empl,
     opensap.MD.BusinessPartners as BP,
     opensap.MD.Products as Prod,
+    opensap.MD.BuyerView as BuyerViewNative,
     opensap.MD
 } from '../db/schema';
 
@@ -43,25 +44,29 @@ service POService @(impl : './handlers/po-service.js')@(path : '/POService') {
     entity POItems @(
         title               : '{i18n>poService}',
         odata.draft.enabled : true
-    )                       as projection on Items { *, poHeader: redirected to POs};
+    )                       as projection on Items {
+        * , poHeader : redirected to POs
+    };
 
     @readonly
-    entity PO_Worklist as projection on POWorklist;
+    entity PO_Worklist      as projection on POWorklist;
 
     function sleep() returns Boolean;
 
 }
 
-service MasterDataService @(path : '/MasterDataService') {
+service MasterDataService @(impl : './handlers/md-service.js')@(path : '/MasterDataService') {
     entity Addresses                             as projection on Addr;
     entity Employees                             as projection on Empl;
     entity User                                  as projection on UserDetails;
 
     entity BusinessPartners @(
-        title               : '{i18n>businessParnters}',
-        odata.draft.enabled : true
+        title               : '{i18n>businessParnters}'
     )                                            as projection on BP;
 
-    entity Products @(title : '{i18n>products}') as projection on Prod;
+    entity Products @(title : '{i18n>products}') as projection on Prod {
+        * , partner : redirected to BusinessPartners
+    };
 
+    entity Buyer                                 as projection on BuyerViewNative;
 }

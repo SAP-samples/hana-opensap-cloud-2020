@@ -64,7 +64,9 @@ module.exports = async (app) => {
         });
 
     const odatav2proxy = require("@sap/cds-odata-v2-adapter-proxy");
-    app.use(odatav2proxy({ model: global.__base + "/gen/csn.json", path: "odata/v2", port: process.env.PORT || 4000 }));
+    app.use(odatav2proxy({ model: global.__base + "/gen/csn.json", path: "odata/v2", 
+                           port: process.env.PORT || 4000,
+                           disableNetworkLog: false }));
 
 
     app.get ('/odata/test',(_,res) => res.send (index.html))

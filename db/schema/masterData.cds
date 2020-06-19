@@ -47,7 +47,8 @@ entity Employees : cuid, temporal {
     phoneNumber    : common.PhoneNumber;
     email          : common.Email;
     loginName      : String(12);
-    address        : Association to one Addresses;
+    @cascade : {all}
+    address        : Composition of one Addresses;
     currency       : Currency;
     salaryAmount   : Decimal(15, 2);
     accountNumber  : String(10);
@@ -88,11 +89,12 @@ type PartnerRole : Integer enum {
 }
 
 entity BusinessPartners : cuid, managed {
-    partnerRole                  : PartnerRole;
+    partnerRole                  : PartnerRole default 1;
     email                        : common.Email;
     phoneNumber                  : common.PhoneNumber;
     webAddress                   : String(1024);
-    address                      : Association to one Addresses;
+    @cascade : {all}
+    address                      : Composition of one Addresses; 
     companyName                  : String(80);
     legalForm                    : String(10);
     currency                     : Currency;
@@ -177,34 +179,34 @@ view BPOrders3View as
 
 define view BuyerView as
     select from BusinessPartners {
-        ID                          as![Id],
-        email                       as![EmailAddress],
-        companyName                 as![CompanyName],
-        address.city                as![City],
-        address.postalCode          as![PostalCode],
-        address.street              as![Street],
-        address.building            as![Building],
-        address.country.code        as![Country],
-        address.country.name        as![CountryName],
-        address.region              as![Region],
-        createdByEmployee.loginName as![CreatedBy]
+        key ID                          as![Id],
+            email                       as![EmailAddress],
+            companyName                 as![CompanyName],
+            address.city                as![City],
+            address.postalCode          as![PostalCode],
+            address.street              as![Street],
+            address.building            as![Building],
+            address.country.code        as![Country],
+            address.country.name        as![CountryName],
+            address.region              as![Region],
+            createdByEmployee.loginName as![CreatedBy]
     }
     where
         partnerRole = 1;
 
 define view SupplierView as
     select from BusinessPartners {
-        ID                          as![Id],
-        email                       as![EmailAddress],
-        companyName                 as![CompanyName],
-        address.city                as![City],
-        address.postalCode          as![PostalCode],
-        address.street              as![Street],
-        address.building            as![Building],
-        address.country.code        as![Country],
-        address.country.name        as![CountryName],
-        address.region              as![Region],
-        createdByEmployee.loginName as![CreatedBy]
+        key ID                          as![Id],
+            email                       as![EmailAddress],
+            companyName                 as![CompanyName],
+            address.city                as![City],
+            address.postalCode          as![PostalCode],
+            address.street              as![Street],
+            address.building            as![Building],
+            address.country.code        as![Country],
+            address.country.name        as![CountryName],
+            address.region              as![Region],
+            createdByEmployee.loginName as![CreatedBy]
     }
     where
         partnerRole = 2;

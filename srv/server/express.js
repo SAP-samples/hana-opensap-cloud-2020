@@ -22,7 +22,7 @@ module.exports = function (app) {
 	})
 	hanaOptions.hana.pooling = true
 
-	app.use(bodyParser.json())
+//	app.use(bodyParser.json())
 
 	require('./healthCheck')(app, { hdbext: HDBConn, hanaOptions: hanaOptions })
 	require('./overloadProtection')(app)
@@ -30,7 +30,7 @@ module.exports = function (app) {
 	app.use(require('express-status-monitor')())
 
 //	app.use(express.static('../app/webapp'))
-	app.use(logging.middleware({ appContext: appContext, logNetwork: true }))
+	app.use(logging.middleware({ appContext: appContext, logNetwork: false }))
 
 	app.use(
 		HDBConn.middleware(hanaOptions.hana)

@@ -52,7 +52,7 @@ function upsertVariant(req, res) {
 
 module.exports = function(app ) {
 	var bodyParser = require("body-parser")
-	app.use(bodyParser.json())
+	//app.use(bodyParser.json())
 
 	/**
 	 * @swagger
@@ -105,7 +105,7 @@ module.exports = function(app ) {
 	 *       '200':
 	 *         description: Output
 	 */		
-	app.post("/sap/bc/lrep/variants/", (req, res) => {
+	app.post("/sap/bc/lrep/variants/", bodyParser, (req, res) => {
 		upsertVariant(req, res)
 	})
 
@@ -135,7 +135,7 @@ module.exports = function(app ) {
 	 *       '200':
 	 *         description: Output
 	 */		
-	app.put("/sap/bc/lrep/variants/:fileName", (req, res) => {
+	app.put("/sap/bc/lrep/variants/:fileName", bodyParser, (req, res) => {
 		var body = req.body
 		var client = req.db
 		var fileNameInput = req.params.fileName
@@ -249,7 +249,7 @@ module.exports = function(app ) {
 	 *       '200':
 	 *         description: Output
 	 */		
-	app.post("/sap/bc/lrep/changes/", (req, res) => {
+	app.post("/sap/bc/lrep/changes/", bodyParser, (req, res) => {
 		upsertVariant(req, res)
 	})
 

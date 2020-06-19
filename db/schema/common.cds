@@ -125,7 +125,7 @@ context opensap.common {
     assert.enum
   );
 
-  type Email : String(255)@title : '{i18n>email}'  @assert.format : '[\\w|-]+@\\w[\\w|-]*\\.[a-z]{2,3}';
+  type Email : String(255)@title : '{i18n>email}'  @assert.format : '^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$'; // '[\\w|-]+@\\w[\\w|-]*\\.[a-z]{2,3}';
   type PhoneNumber : String(30)@title : '{i18n>phoneNumber}'  @assert.format : '((?:\+|00)[17](?: |\-)?|(?:\+|00)[1-9]\d{0,2}(?: |\-)?|(?:\+|00)1\-\d{3}(?: |\-)?)?(0\d|\([0-9]{3}\)|[1-9]{0,3})(?:((?: |\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\-)[0-9]{3}(?: |\-)[0-9]{4})|([0-9]{7}))';
 }
 
