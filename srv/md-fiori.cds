@@ -130,3 +130,46 @@ annotate mds.Addresses with @( // header-level annotations
     }
     ] 
 );
+
+annotate mds.BusinessPartners with @( // header-level annotations
+    // ---------------------------------------------------------------------------
+    // List Report
+    // ---------------------------------------------------------------------------
+    // Address List
+    UI        : {
+        LineItem            : [
+        {
+            $Type             : 'UI.DataField',
+            Value             : ID,
+            ![@UI.Importance] : #High
+        },
+        {
+            $Type             : 'UI.DataField',
+            Value             : companyName,
+            ![@UI.Importance] : #High
+        },
+        {
+            $Type             : 'UI.DataField',
+            Value             : email,
+            ![@UI.Importance] : #High
+        },
+        {
+            $Type             : 'UI.DataField',
+            Value             : address.country.name,
+            ![@UI.Importance] : #Medium
+        }
+        ],
+        PresentationVariant : {SortOrder : [
+        {
+            $Type      : 'Common.SortOrderType',
+            Property   : createdAt,
+            Descending : false
+        },
+        {
+            $Type      : 'Common.SortOrderType',
+            Property   : ID,
+            Descending : false
+        }
+        ]}
+    }
+);
