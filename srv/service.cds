@@ -13,7 +13,7 @@ using {
 } from '../db/schema';
 
 using BUYER as BuyerView from '../db/schema';
-using USER_DETAILS as UserDetails from '../db/schema';
+using USERDATA_USER_LOCAL as UserDetails from '../db/schema';
 
 service POService @(impl : './handlers/po-service.js')@(path : '/POService') {
 

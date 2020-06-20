@@ -1,5 +1,5 @@
 {
-  "UserData.User": {
+  "USERDATA_USER_LOCAL": {
     "target": {
       "object": "USERDATA_USER",
       "grantor": "hdi-user-service"
