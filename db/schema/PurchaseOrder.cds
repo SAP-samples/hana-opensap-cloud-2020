@@ -12,7 +12,8 @@ namespace opensap.PurchaseOrder;
 
 
 entity Headers : managed, cuid, common.Amount {
-    item                         : Association to many Items
+    @cascade : {all}
+    item                         : Composition of many Items
                                        on item.poHeader = $self;
     noteId                       : common.BusinessKey null;
     //    partner                      : UUID;

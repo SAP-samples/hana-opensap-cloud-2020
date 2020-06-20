@@ -18,9 +18,9 @@ async function sleep(req) {
 const cds = require('@sap/cds')
 module.exports = cds.service.impl(function () {
 
-  const { POs } = this.entities()
+  const { POs, POnoDraft } = this.entities()
 
-  this.after(['CREATE', 'UPDATE', 'DELETE'], POs, async (po, req) => {
+  this.after(['CREATE', 'UPDATE', 'DELETE'], [POs, POnoDraft], async (po, req) => {
     const header = req.data
     req.on('succeeded', () => {
       global.it || console.log(`< emitting: poChanged ${header.ID}`)

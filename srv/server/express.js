@@ -1,6 +1,6 @@
 'use strict';
 
-const bodyParser = require('body-parser')
+//const bodyParser = require('body-parser')
 
 module.exports = function (app) {
 

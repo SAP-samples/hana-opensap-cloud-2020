@@ -862,9 +862,6 @@ sap.ui.define([
 		callBPCreate: function () {
 			var oModel = this.getOwnerComponent().getModel("bpModel");
 			var result = this.getView().getModel().getData();
-			let base = {}
-			base.d = {}
-			base.d.results = [{}]
 			var oEntry ={}
 			oEntry.address = {}
 			oEntry.address.validFrom = new Date(2000, 1, 1).toJSON()

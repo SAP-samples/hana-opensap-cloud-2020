@@ -18,55 +18,66 @@ using USER_DETAILS as UserDetails from '../db/schema';
 service POService @(impl : './handlers/po-service.js')@(path : '/POService') {
 
     @readonly
-    entity Addresses        as projection on Addr;
+    entity Addresses                             as projection on Addr;
 
     @readonly
-    entity Employees        as projection on Empl;
+    entity Employees                             as projection on Empl;
 
     @readonly
-    entity BusinessPartners as projection on BP;
+    entity BusinessPartners                      as projection on BP;
 
     @readonly
-    entity Buyer            as projection on BuyerView;
+    entity Buyer                                 as projection on BuyerView;
 
     @readonly
-    entity Products         as projection on Prod;
+    entity Products                              as projection on Prod;
 
     entity POs @(
         title               : '{i18n>poService}',
         odata.draft.enabled : true
-    )                       as projection on Headers;
+    )                                            as projection on Headers {
+        * , item : redirected to POItems
+    };
+
+    entity POnoDraft @(
+        title               : '{i18n>poService}',
+        odata.draft.enabled : false
+    )                                            as projection on Headers {
+        * , item : redirected to POItemsNoDraft
+    };
 
     event poChange : {
         po : POs;
     }
 
-    entity POItems @(
-        title               : '{i18n>poService}',
-        odata.draft.enabled : true
-    )                       as projection on Items {
+    entity POItems @(title : '{i18n>poService}') as projection on Items {
         * , poHeader : redirected to POs
     };
 
+    entity POItemsNoDraft @(
+        title               : '{i18n>poService}',
+        odata.draft.enabled : false
+    )                                            as projection on Items {
+
+        * , poHeader : redirected to POnoDraft
+    };
+
     @readonly
-    entity PO_Worklist      as projection on POWorklist;
+    entity PO_Worklist                           as projection on POWorklist;
 
     function sleep() returns Boolean;
 
 }
 
 service MasterDataService @(impl : './handlers/md-service.js')@(path : '/MasterDataService') {
-    entity Addresses                             as projection on Addr;
-    entity Employees                             as projection on Empl;
-    entity User                                  as projection on UserDetails;
+    entity Addresses                                             as projection on Addr;
+    entity Employees                                             as projection on Empl;
+    entity User                                                  as projection on UserDetails;
+    entity BusinessPartners @(title : '{i18n>businessParnters}') as projection on BP;
 
-    entity BusinessPartners @(
-        title               : '{i18n>businessParnters}'
-    )                                            as projection on BP;
-
-    entity Products @(title : '{i18n>products}') as projection on Prod {
+    entity Products @(title : '{i18n>products}')                 as projection on Prod {
         * , partner : redirected to BusinessPartners
     };
 
-    entity Buyer                                 as projection on BuyerViewNative;
+    entity Buyer                                                 as projection on BuyerViewNative;
 }
