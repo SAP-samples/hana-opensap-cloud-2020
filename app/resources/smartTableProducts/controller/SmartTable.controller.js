@@ -1,4 +1,4 @@
-sap.ui.controller("sap.openSAP.smartTable.controller.SmartTable", {
+sap.ui.controller("sap.openSAP.smartTableProducts.controller.SmartTable", {
 	onInit: function() {
 		var oMessageProcessor = new sap.ui.core.message.ControlMessageProcessor();
 		var oMessageManager = sap.ui.getCore().getMessageManager();
@@ -12,7 +12,6 @@ sap.ui.controller("sap.openSAP.smartTable.controller.SmartTable", {
 				processor: oMessageProcessor
 			})
 		);
-
 	},
 
 	onSemanticEmailPress: function(oEvent) {
