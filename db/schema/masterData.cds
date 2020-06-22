@@ -94,7 +94,7 @@ entity BusinessPartners : cuid, managed {
     phoneNumber                  : common.PhoneNumber;
     webAddress                   : String(1024);
     @cascade : {all}
-    address                      : Composition of one Addresses; 
+    address                      : Composition of one Addresses;
     companyName                  : String(80);
     legalForm                    : String(10);
     currency                     : Currency;
@@ -301,7 +301,7 @@ entity Products : managed, common.Quantity {
         weightUnit                   : String(3);
         currency                     : Currency;
         price                        : Decimal(15, 2);
-        picUrl                       : String(255);
+        //        picUrl                       : String(255);
         width                        : Decimal(13, 3);
         depth                        : Decimal(13, 3);
         height                       : Decimal(13, 3);
@@ -310,6 +310,8 @@ entity Products : managed, common.Quantity {
                                            on createdByEmployee.email = createdBy;
         @readonly modifiedByEmployee : Association to one Employees
                                            on modifiedByEmployee.email = modifiedBy;
+        @cascade : {all}
+        image                        : Composition of one ProductImages;
 }
 
 annotate Products with @(
@@ -373,6 +375,23 @@ annotate Products with @(
         description : '{i18n>dimensionUnit}'
     );
 }
+
+entity ProductImages {
+    key product   : Association to Products;
+        image     : LargeBinary @Core.MediaType : imageType;
+        imageType : String      @Core.IsMediaType;
+}
+
+annotate ProductImages with {
+    image     @(
+        title       : '{i18n>productImage}',
+        description : '{i18n>productImage}'
+    );
+    imageType @(
+        title       : '{i18n>productImageType}',
+        description : '{i18n>productImageType}'
+    );
+};
 
 entity ProductLog {
     key PRODUCTID : String(10);

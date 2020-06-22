@@ -175,7 +175,7 @@ define view![POWorklist] as
             item.product.name          as![ProductName],
             item.product.desc          as![ProductDesc],
             item.product.price         as![ProductPrice],
-            item.product.picUrl        as![ProductURL],
+    //        item.product.picUrl        as![ProductURL],
             partner.address.city       as![ParnterCity],
             partner.address.postalCode as![ParnterPostalCode],
             item.grossAmount           as![GrossAmount_1],
