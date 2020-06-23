@@ -310,6 +310,10 @@ entity Products : managed, common.Quantity {
                                            on createdByEmployee.email = createdBy;
         @readonly modifiedByEmployee : Association to one Employees
                                            on modifiedByEmployee.email = modifiedBy;
+        imageUrl                     : String @(UI : {
+            IsImageURL,
+            HiddenFilter
+        });
         @cascade : {all}
         image                        : Composition of one ProductImages;
 }
@@ -373,6 +377,10 @@ annotate Products with @(
     dimensionUnit @(
         title       : '{i18n>dimensionUnit}',
         description : '{i18n>dimensionUnit}'
+    );
+    imageUrl      @(
+        title       : '{i18n>productImage}',
+        description : '{i18n>productImage}'
     );
 }
 

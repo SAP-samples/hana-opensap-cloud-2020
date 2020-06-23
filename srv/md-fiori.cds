@@ -47,7 +47,7 @@ annotate mds.Addresses with @( // header-level annotations
     // Object Page
     // ---------------------------------------------------------------------------
     // Page Header
-     UI        : {
+    UI        : {
         HeaderInfo                     : {
             TypeName       : '{i18n>addrService}',
             TypeNamePlural : '{i18n>addrServices}',
@@ -94,7 +94,7 @@ annotate mds.Addresses with @( // header-level annotations
             $Type                   : 'UI.DataField',
             Value                   : country.name,
             ![@Common.FieldControl] : #ReadOnly
-        },         
+        },
         {
             $Type : 'UI.DataField',
             Value : region
@@ -103,7 +103,7 @@ annotate mds.Addresses with @( // header-level annotations
             $Type : 'UI.DataField',
             Value : building
         }
-            
+
         ]},
         FieldGroup #AdministrativeData : {Data : [
         {
@@ -117,8 +117,7 @@ annotate mds.Addresses with @( // header-level annotations
         ]}
     },
     // Page Facets
-    UI.Facets : [
-    {
+    UI.Facets : [{
         $Type  : 'UI.CollectionFacet',
         ID     : 'AddrDetails',
         Label  : '{i18n>details}',
@@ -127,49 +126,91 @@ annotate mds.Addresses with @( // header-level annotations
             Label  : '{i18n>details}',
             Target : '@UI.FieldGroup#Details'
         }]
-    }
-    ] 
+    }]
 );
 
 annotate mds.BusinessPartners with @( // header-level annotations
+// ---------------------------------------------------------------------------
+// List Report
+// ---------------------------------------------------------------------------
+// Address List
+UI : {
+    LineItem            : [
+    {
+        $Type             : 'UI.DataField',
+        Value             : ID,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type             : 'UI.DataField',
+        Value             : companyName,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type             : 'UI.DataField',
+        Value             : email,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type             : 'UI.DataField',
+        Value             : address.country.name,
+        ![@UI.Importance] : #Medium
+    }
+    ],
+    PresentationVariant : {SortOrder : [
+    {
+        $Type      : 'Common.SortOrderType',
+        Property   : createdAt,
+        Descending : false
+    },
+    {
+        $Type      : 'Common.SortOrderType',
+        Property   : ID,
+        Descending : false
+    }
+    ]}
+});
+
+
+annotate mds.Products with @( // header-level annotations
     // ---------------------------------------------------------------------------
     // List Report
     // ---------------------------------------------------------------------------
     // Address List
-    UI        : {
+    UI : {
         LineItem            : [
         {
             $Type             : 'UI.DataField',
-            Value             : ID,
+            Value             : productId,
             ![@UI.Importance] : #High
         },
         {
             $Type             : 'UI.DataField',
-            Value             : companyName,
+            Value             : category,
             ![@UI.Importance] : #High
         },
         {
             $Type             : 'UI.DataField',
-            Value             : email,
+            Value             : name,
             ![@UI.Importance] : #High
         },
         {
             $Type             : 'UI.DataField',
-            Value             : address.country.name,
-            ![@UI.Importance] : #Medium
+            Value             : imageUrl,
+            ![@UI.Importance] : #High
         }
         ],
-        PresentationVariant : {SortOrder : [
-        {
+        PresentationVariant : {SortOrder : [{
             $Type      : 'Common.SortOrderType',
-            Property   : createdAt,
+            Property   : productId,
             Descending : false
-        },
-        {
-            $Type      : 'Common.SortOrderType',
-            Property   : ID,
-            Descending : false
-        }
-        ]}
-    }
+        }]}
+    },
+    UI : {HeaderInfo : {
+        TypeName       : '{i18n>product}',
+        TypeNamePlural : '{i18n>products}',
+        Title          : {Value : productId},
+        Description    : {Value : name},
+        ImageUrl       : imageUrl
+    }, },
 );

@@ -1,2 +1,2 @@
-GET http://localhost:4004/MasterDataService/ProductImages('HT-1002')/image HTTP/1.1
+GET http://localhost:4004/MasterDataService/Products('HT-1000')/image HTTP/1.1
 Content-Type: application/octet-stream

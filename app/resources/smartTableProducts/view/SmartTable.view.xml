@@ -35,7 +35,7 @@
 					<!-- layout data used to make the table growing but the filter bar fixed -->
 					<smartTable:layoutData>
 						<FlexItemData growFactor="1" baseSize="0%"/>
-					</smartTable:layoutData>
+					</smartTable:layoutData>					
 				</smartTable:SmartTable>
 			</VBox>
 		</semantic:content>
