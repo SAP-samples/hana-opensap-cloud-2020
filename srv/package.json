@@ -25,6 +25,7 @@
         "memory-cache": "^0.2.0",
         "node-xlsx": "~0.15",
         "node-zip": "^1.1",
+        "jszip": "^3.5.0",
         "opossum": "^5.0",
         "opossum-prometheus": "^0.2",
         "overload-protection": "^1.2",
