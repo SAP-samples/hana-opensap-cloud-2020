@@ -62,8 +62,7 @@
                     "options": {
                         "model": [
                             "db",
-                            "srv",
-                            "srv/cds"
+                            "srv"
                         ]
                     }
                 },
@@ -82,8 +81,7 @@
                     "options": {
                         "model": [
                             "db",
-                            "srv",
-                            "srv/cds"
+                            "srv"
                         ]
                     }
                 }
