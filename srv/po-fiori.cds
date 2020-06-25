@@ -41,7 +41,7 @@ annotate pos.POs with @( // header-level annotations
         },
         {
             $Type      : 'Common.SortOrderType',
-            Property   : partner,
+            Property   : partner_ID,
             Descending : false
         }
         ]}
@@ -80,7 +80,15 @@ annotate pos.POs with @( // header-level annotations
         }
         ]},
         FieldGroup #Details            : {Data : [
-
+        {
+            $Type : 'UI.DataField',
+            Value : partner_ID
+        },
+        {
+            $Type                   : 'UI.DataField',
+            Value                   : partner.companyName,
+            ![@Common.FieldControl] : #ReadOnly
+        },
         {
             $Type             : 'UI.DataField',
             Value             : noteId,
@@ -185,7 +193,7 @@ UI : {
     LineItem            : [
     {
         $Type             : 'UI.DataField',
-        Value             : product.productId,
+        Value             : product_productId,
         ![@UI.Importance] : #High
     },
     {
@@ -211,7 +219,7 @@ UI : {
     ],
     PresentationVariant : {SortOrder : [{
         $Type      : 'Common.SortOrderType',
-        Property   : product,
+        Property   : product_productId,
         Descending : false
     }]}
 });

@@ -23,7 +23,7 @@ entity Addresses : cuid, temporal {
     longitude   : Double;
 }
 
-annotate Addresses with @cds.odata.valuelist {
+annotate Addresses with  {
     ID          @title : '{i18n>addressId}';
     city        @title : '{i18n>city}';
     postalCode  @title : '{i18n>postalCode}';
@@ -57,7 +57,7 @@ entity Employees : cuid, temporal {
     employeePicUrl : String(255);
 }
 
-annotate Employees with @cds.odata.valuelist {
+annotate Employees with  {
     ID             @title : '{i18n>employeeId}';
     nameFirst      @title : '{i18n>fname}';
     nameMiddle     @title : '{i18n>mname}';
@@ -107,7 +107,7 @@ entity BusinessPartners : cuid, managed {
 
 annotate BusinessPartners with @(
     title       : '{i18n>businessParnters}',
-    description : '{i18n>businessParnters}'
+    description : '{i18n>businessParnters}',
 ) {
     ID          @(
         title       : '{i18n>partnerId}',
@@ -241,30 +241,30 @@ define view BusinessPartnersView with parameters IM_PR : String(1) as
 
 define view partnerRoles as
     select from BusinessPartners {
-        @UI.lineItem       : [{importance : Importance.High}]
-        @UI.fieldGroup     : [{position : 10}]
-        @EndUserText.label : [{
-            language : 'EN',
-            text     : 'Partner Role'
-        }]
+            @UI.lineItem       : [{importance : Importance.High}]
+            @UI.fieldGroup     : [{position : 10}]
+            @EndUserText.label : [{
+                language : 'EN',
+                text     : 'Partner Role'
+            }]
         key partnerRole,
 
-        @UI.lineItem       : [{importance : Importance.High}]
-        @UI.fieldGroup     : [{position : 20}]
-        @EndUserText.label : [{
-            language : 'EN',
-            text     : 'Role Description'
-        }]
-        case
-            when
-                partnerRole = 1
-            then
-                'Buyer'
-            when
-                partnerRole = 2
-            then
-                'Supplier'
-        end as![PARTNERDESC] : String,
+            @UI.lineItem       : [{importance : Importance.High}]
+            @UI.fieldGroup     : [{position : 20}]
+            @EndUserText.label : [{
+                language : 'EN',
+                text     : 'Role Description'
+            }]
+            case
+                when
+                    partnerRole = 1
+                then
+                    'Buyer'
+                when
+                    partnerRole = 2
+                then
+                    'Supplier'
+            end as![PARTNERDESC] : String,
     }
     group by
         partnerRole
@@ -318,21 +318,26 @@ entity Products : managed, common.Quantity {
         image                        : Composition of one ProductImages;
 }
 
-annotate Products with @cds.odata.valuelist @(
+annotate Products with @(
     title       : '{i18n>products}',
     description : '{i18n>products}'
 ) {
     productId     @(
-        title       : '{i18n>product}',
-        description : '{i18n>product}',
-        valueList         : {
-            collectionPath       : 'Products',
-            searchSupported      : false,
-            parameterInOut       : [{
-                localDataProperty : 'productId',
-                valueListProperty : 'productId'
-            }],
-            parameterDisplayOnly : [{valueListProperty : 'name'}]
+        title            : '{i18n>product}',
+        description      : '{i18n>product}',
+        Common.ValueList : {
+            CollectionPath : 'Products',
+            Parameters     : [
+            {
+                $Type             : 'Common.ValueListParameterInOut',
+                LocalDataProperty : 'productId',
+                ValueListProperty : 'productId'
+            },
+            {
+                $Type             : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'name'
+            }
+            ]
         }
     );
     typeCode      @(
@@ -483,7 +488,7 @@ define view ProductsValueHelp as
         name
     };
 
-define view productCategoryVH @cds.odata.valuelist as
+define view productCategoryVH as
     select from Products distinct {
         @UI.lineItem       : [{importance : Importance.High}]
         @UI.fieldGroup     : [{position : 10}]

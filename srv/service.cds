@@ -81,7 +81,6 @@ service MasterDataService @(impl : './handlers/md-service.js')@(path : '/MasterD
         * , partner : redirected to BusinessPartners
     };
 
-      
     entity partnerRoles                                          as projection on partRoles;
     entity Buyer                                                 as projection on BuyerViewNative;
     entity ProductImages                                         as projection on ProdImages;

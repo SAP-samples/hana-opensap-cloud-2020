@@ -28,7 +28,6 @@ module.exports = cds.service.impl(function () {
     })
   })
 
-
   this.on('sleep', async (req) => {
     if (req._.req.db) {
       req._.req.loggingContext.getTracer(__filename).info('Inside CDS Sleep Function Handler')

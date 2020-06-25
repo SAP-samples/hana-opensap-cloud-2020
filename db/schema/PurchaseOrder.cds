@@ -53,8 +53,22 @@ annotate Headers with @(
     );
 
     partner         @(
-        title       : '{i18n>partner_id}',
-        description : '{i18n>partner_id}'
+        title            : '{i18n>partner_id}',
+        description      : '{i18n>partner_id}',
+        Common.ValueList : {
+            CollectionPath : 'BusinessPartners',
+            Parameters     : [
+            {
+                $Type             : 'Common.ValueListParameterInOut',
+                LocalDataProperty : 'partner_ID',
+                ValueListProperty : 'ID'
+            },
+            {
+                $Type             : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'companyName'
+            }
+            ]
+        }
     );
 
     lifecycleStatus @(
@@ -175,7 +189,7 @@ define view![POWorklist] as
             item.product.name          as![ProductName],
             item.product.desc          as![ProductDesc],
             item.product.price         as![ProductPrice],
-    //        item.product.picUrl        as![ProductURL],
+            //        item.product.picUrl        as![ProductURL],
             partner.address.city       as![ParnterCity],
             partner.address.postalCode as![ParnterPostalCode],
             item.grossAmount           as![GrossAmount_1],

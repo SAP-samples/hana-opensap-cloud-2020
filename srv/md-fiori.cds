@@ -157,17 +157,17 @@ UI : {
         ![@UI.Importance] : #Medium
     },
     {
-        $Type             : 'UI.DataField',
-        Value             : partnerRole,
-        ![@UI.Importance] : #Low,
-        ![@valueList]         : {
-                                 collectionPath : 'partnerRoles',
-                                 searchSupported : false,
-                                 parameterInOut : [ {
-                                    localDataProperty : 'partnerRole',
-                                    valueListProperty : 'partnerRole'
-                                 } ]
-                              }
+        $Type                : 'UI.DataField',
+        Value                : partnerRole,
+        ![@UI.Importance]    : #Low,
+        ![@Common.ValueList] : {
+            CollectionPath : 'partnerRoles',
+            Parameters     : [{
+                $Type             : 'Common.ValueListParameterInOut',
+                LocalDataProperty : 'partnerRole',
+                ValueListProperty : 'partnerRole'
+            }]
+        }
     }
     ],
     PresentationVariant : {SortOrder : [
@@ -190,7 +190,7 @@ annotate mds.Products with @( // header-level annotations
     // List Report
     // ---------------------------------------------------------------------------
     // Address List
-    UI : {
+    UI        : {
         LineItem            : [
         {
             $Type             : 'UI.DataField',
@@ -219,11 +219,100 @@ annotate mds.Products with @( // header-level annotations
             Descending : false
         }]}
     },
-    UI : {HeaderInfo : {
-        TypeName       : '{i18n>product}',
-        TypeNamePlural : '{i18n>products}',
-        Title          : {Value : productId},
-        Description    : {Value : name},
-        ImageUrl       : imageUrl
-    }, },
+    UI        : {
+        HeaderInfo                     : {
+            TypeName       : '{i18n>product}',
+            TypeNamePlural : '{i18n>products}',
+            Title          : {Value : productId},
+            Description    : {Value : name},
+            ImageUrl       : imageUrl
+        },
+        HeaderFacets                   : [
+        {
+            $Type             : 'UI.ReferenceFacet',
+            Target            : '@UI.FieldGroup#Description',
+            ![@UI.Importance] : #Medium
+        },
+        {
+            $Type             : 'UI.ReferenceFacet',
+            Target            : '@UI.FieldGroup#AdministrativeData',
+            ![@UI.Importance] : #Medium
+        }
+        ],
+        FieldGroup #Description        : {Data : [
+        {
+            $Type : 'UI.DataField',
+            Value : productId
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : name
+        }
+        ]},
+        FieldGroup #Details            : {Data : [
+
+        {
+            $Type             : 'UI.DataField',
+            Value             : typeCode,
+            ![@UI.Importance] : #Medium
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : desc
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : partner_ID
+        },
+        {
+            $Type                   : 'UI.DataField',
+            Value                   : partner.companyName,
+            ![@Common.FieldControl] : #ReadOnly
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : price
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : currency_code
+        },
+        {
+            $Type                   : 'UI.DataField',
+            Value                   : currency.symbol,
+            ![@Common.FieldControl] : #ReadOnly
+        }
+
+
+        ]},
+        FieldGroup #AdministrativeData : {Data : [
+        {
+            $Type : 'UI.DataField',
+            Value : createdBy
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : modifiedBy
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : createdAt
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : modifiedAt
+        }
+        ]}
+    },
+    // Page Facets
+    UI.Facets : [{
+        $Type  : 'UI.CollectionFacet',
+        ID     : 'ProdDetails',
+        Label  : '{i18n>details}',
+        Facets : [{
+            $Type  : 'UI.ReferenceFacet',
+            Label  : '{i18n>details}',
+            Target : '@UI.FieldGroup#Details'
+        }]
+    }],
 );

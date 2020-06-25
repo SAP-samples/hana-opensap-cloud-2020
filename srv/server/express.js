@@ -29,7 +29,7 @@ module.exports = function (app) {
 	require('./expressSecurity')(app)
 	app.use(require('express-status-monitor')())
 
-//	app.use(express.static('../app/webapp'))
+	//app.use(express.static('../app/webapp'))
 	app.use(logging.middleware({ appContext: appContext, logNetwork: false }))
 
 	app.use(
