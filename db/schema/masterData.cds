@@ -23,7 +23,7 @@ entity Addresses : cuid, temporal {
     longitude   : Double;
 }
 
-annotate Addresses with {
+annotate Addresses with @cds.odata.valuelist {
     ID          @title : '{i18n>addressId}';
     city        @title : '{i18n>city}';
     postalCode  @title : '{i18n>postalCode}';
@@ -57,7 +57,7 @@ entity Employees : cuid, temporal {
     employeePicUrl : String(255);
 }
 
-annotate Employees with {
+annotate Employees with @cds.odata.valuelist {
     ID             @title : '{i18n>employeeId}';
     nameFirst      @title : '{i18n>fname}';
     nameMiddle     @title : '{i18n>mname}';
@@ -247,7 +247,7 @@ define view partnerRoles as
             language : 'EN',
             text     : 'Partner Role'
         }]
-        partnerRole,
+        key partnerRole,
 
         @UI.lineItem       : [{importance : Importance.High}]
         @UI.fieldGroup     : [{position : 20}]
@@ -264,7 +264,7 @@ define view partnerRoles as
                 partnerRole = 2
             then
                 'Supplier'
-        end as![PARTNERDESC],
+        end as![PARTNERDESC] : String,
     }
     group by
         partnerRole
@@ -318,13 +318,22 @@ entity Products : managed, common.Quantity {
         image                        : Composition of one ProductImages;
 }
 
-annotate Products with @(
+annotate Products with @cds.odata.valuelist @(
     title       : '{i18n>products}',
     description : '{i18n>products}'
 ) {
     productId     @(
         title       : '{i18n>product}',
-        description : '{i18n>product}'
+        description : '{i18n>product}',
+        valueList         : {
+            collectionPath       : 'Products',
+            searchSupported      : false,
+            parameterInOut       : [{
+                localDataProperty : 'productId',
+                valueListProperty : 'productId'
+            }],
+            parameterDisplayOnly : [{valueListProperty : 'name'}]
+        }
     );
     typeCode      @(
         title       : '{i18n>typeCode}',
@@ -474,7 +483,7 @@ define view ProductsValueHelp as
         name
     };
 
-define view productCategoryVH as
+define view productCategoryVH @cds.odata.valuelist as
     select from Products distinct {
         @UI.lineItem       : [{importance : Importance.High}]
         @UI.fieldGroup     : [{position : 10}]

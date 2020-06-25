@@ -8,8 +8,9 @@ using {
     opensap.MD.Employees as Empl,
     opensap.MD.BusinessPartners as BP,
     opensap.MD.Products as Prod,
-    opensap.MD.ProductImages as ProdImages,    
+    opensap.MD.ProductImages as ProdImages,
     opensap.MD.BuyerView as BuyerViewNative,
+    opensap.MD.partnerRoles as partRoles,
     opensap.MD
 } from '../db/schema';
 
@@ -80,7 +81,9 @@ service MasterDataService @(impl : './handlers/md-service.js')@(path : '/MasterD
         * , partner : redirected to BusinessPartners
     };
 
+      
+    entity partnerRoles                                          as projection on partRoles;
     entity Buyer                                                 as projection on BuyerViewNative;
-    entity ProductImages as projection on ProdImages;
+    entity ProductImages                                         as projection on ProdImages;
     function loadProductImages() returns Boolean;
 }

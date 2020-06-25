@@ -155,6 +155,19 @@ UI : {
         $Type             : 'UI.DataField',
         Value             : address.country.name,
         ![@UI.Importance] : #Medium
+    },
+    {
+        $Type             : 'UI.DataField',
+        Value             : partnerRole,
+        ![@UI.Importance] : #Low,
+        ![@valueList]         : {
+                                 collectionPath : 'partnerRoles',
+                                 searchSupported : false,
+                                 parameterInOut : [ {
+                                    localDataProperty : 'partnerRole',
+                                    valueListProperty : 'partnerRole'
+                                 } ]
+                              }
     }
     ],
     PresentationVariant : {SortOrder : [
