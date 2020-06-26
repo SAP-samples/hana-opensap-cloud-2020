@@ -3,12 +3,15 @@ using {
     opensap.PurchaseOrder.Items as Items,
     opensap.PurchaseOrder.POWorklist as POWorklist
 } from '../db/schema';
+
+
 using {
     opensap.MD.Addresses as Addr,
     opensap.MD.Employees as Empl,
     opensap.MD.BusinessPartners as BP,
     opensap.MD.Products as Prod,
     opensap.MD.ProductImages as ProdImages,
+    opensap.MD.productCategoryVH as prodCat,
     opensap.MD.BuyerView as BuyerViewNative,
     opensap.MD.partnerRoles as partRoles,
     opensap.MD
@@ -18,6 +21,7 @@ using BUYER as BuyerView from '../db/schema';
 using USERDATA_USER_LOCAL as UserDetails from '../db/schema';
 
 service POService @(impl : './handlers/po-service.js')@(path : '/POService') {
+
 
     @readonly
     entity Addresses                             as projection on Addr;
@@ -33,6 +37,9 @@ service POService @(impl : './handlers/po-service.js')@(path : '/POService') {
 
     @readonly
     entity Products                              as projection on Prod;
+
+    @readonly
+    entity productCategoryVH                     as projection on prodCat;
 
     entity POs @(
         title               : '{i18n>poService}',
@@ -53,7 +60,7 @@ service POService @(impl : './handlers/po-service.js')@(path : '/POService') {
     }
 
     entity POItems @(title : '{i18n>poService}') as projection on Items {
-        * , poHeader : redirected to POs
+        * , poHeader : redirected to POs, product : redirected to Products
     };
 
     entity POItemsNoDraft @(
@@ -61,7 +68,7 @@ service POService @(impl : './handlers/po-service.js')@(path : '/POService') {
         odata.draft.enabled : false
     )                                            as projection on Items {
 
-        * , poHeader : redirected to POnoDraft
+        * , poHeader : redirected to POnoDraft, product : redirected to Products
     };
 
     @readonly
@@ -81,8 +88,11 @@ service MasterDataService @(impl : './handlers/md-service.js')@(path : '/MasterD
         * , partner : redirected to BusinessPartners
     };
 
+    @readonly
+    entity productCategoryVH                                     as select from prodCat;
+
     entity partnerRoles                                          as projection on partRoles;
     entity Buyer                                                 as projection on BuyerViewNative;
-    entity ProductImages                                         as projection on ProdImages;
+    entity ProductImages                                         as projection on ProdImages { *, product : redirected to Products};
     function loadProductImages() returns Boolean;
 }

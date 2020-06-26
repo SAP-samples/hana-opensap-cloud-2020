@@ -292,7 +292,7 @@ define view SupplierViewVH as
 
 entity Products : managed, common.Quantity {
     key productId                    : String(10);
-        typeCode                     : String(2);
+        typeCode                     : String(2);        
         category                     : String(40);
         name                         : localized String;
         desc                         : localized String;
@@ -346,7 +346,8 @@ annotate Products with @(
     );
     category      @(
         title       : '{i18n>category}',
-        description : '{i18n>category}'
+        description : '{i18n>category}',
+        Common.ValueList: {entity: 'productCategoryVH', type: #fixed}
     );
     name          @(
         title       : '{i18n>name}',
@@ -496,7 +497,7 @@ define view productCategoryVH as
             language : 'EN',
             text     : 'Product Category'
         }]
-        category as![Product_Category]
+       key category as![Product_Category]
     };
 
 define view ProductsConsumption as

@@ -185,41 +185,105 @@ annotate pos.POs with @( // header-level annotations
 );
 
 annotate pos.POItems with @( // header-level annotations
-// ---------------------------------------------------------------------------
-// List Report
-// ---------------------------------------------------------------------------
-// PO Items List
-UI : {
-    LineItem            : [
-    {
-        $Type             : 'UI.DataField',
-        Value             : product_productId,
-        ![@UI.Importance] : #High
+    // ---------------------------------------------------------------------------
+    // List Report
+    // ---------------------------------------------------------------------------
+    // PO Items List
+    UI        : {
+        LineItem            : [
+        {
+            $Type             : 'UI.DataField',
+            Value             : product_productId,
+            ![@UI.Importance] : #High
+        },
+        {
+            $Type             : 'UI.DataField',
+            Value             : product.name,
+            ![@UI.Importance] : #High
+        },
+        {
+            $Type             : 'UI.DataField',
+            Value             : deliveryDate,
+            ![@UI.Importance] : #High
+        },
+        {
+            $Type             : 'UI.DataField',
+            Value             : quantity,
+            ![@UI.Importance] : #High
+        },
+        {
+            $Type             : 'UI.DataField',
+            Value             : quantityUnit,
+            ![@UI.Importance] : #High
+        }
+        ],
+        PresentationVariant : {SortOrder : [{
+            $Type      : 'Common.SortOrderType',
+            Property   : product_productId,
+            Descending : false
+        }]}
     },
-    {
-        $Type             : 'UI.DataField',
-        Value             : product.name,
-        ![@UI.Importance] : #High
+    // ---------------------------------------------------------------------------
+    // Object Page
+    // ---------------------------------------------------------------------------
+    // Page Header
+    UI        : {
+        HeaderInfo              : {
+            TypeName       : '{i18n>poService}',
+            TypeNamePlural : '{i18n>poServices}',
+            Title          : {Value : ID},
+        },
+        HeaderFacets            : [{
+            $Type             : 'UI.ReferenceFacet',
+            Target            : '@UI.FieldGroup#Description',
+            ![@UI.Importance] : #Medium
+        }],
+        FieldGroup #Description : {Data : [
+        {
+            $Type : 'UI.DataField',
+            Value : ID
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : product_productId
+        }
+        ]},
+        FieldGroup #Details     : {Data : [
+        {
+            $Type : 'UI.DataField',
+            Value : product_productId
+        },
+        {
+            $Type             : 'UI.DataField',
+            Value             : product.name,
+            ![@UI.Importance] : #High
+        },
+        {
+            $Type             : 'UI.DataField',
+            Value             : deliveryDate,
+            ![@UI.Importance] : #High
+        },
+        {
+            $Type             : 'UI.DataField',
+            Value             : quantity,
+            ![@UI.Importance] : #High
+        },
+        {
+            $Type             : 'UI.DataField',
+            Value             : quantityUnit,
+            ![@UI.Importance] : #High
+        }
+        ]}
     },
-    {
-        $Type             : 'UI.DataField',
-        Value             : deliveryDate,
-        ![@UI.Importance] : #High
-    },
-    {
-        $Type             : 'UI.DataField',
-        Value             : quantity,
-        ![@UI.Importance] : #High
-    },
-    {
-        $Type             : 'UI.DataField',
-        Value             : quantityUnit,
-        ![@UI.Importance] : #High
-    }
-    ],
-    PresentationVariant : {SortOrder : [{
-        $Type      : 'Common.SortOrderType',
-        Property   : product_productId,
-        Descending : false
-    }]}
-});
+    // Page Facets
+    UI.Facets : [{
+        $Type  : 'UI.CollectionFacet',
+        ID     : 'POItemsDetails',
+        Label  : '{i18n>details}',
+        Facets : [{
+            $Type  : 'UI.ReferenceFacet',
+            Label  : '{i18n>details}',
+            Target : '@UI.FieldGroup#Details'
+        }]
+    }]
+);

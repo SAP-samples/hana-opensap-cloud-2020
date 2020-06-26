@@ -136,7 +136,25 @@ annotate Items with {
         title               : '{i18n>product}',
         description         : '{i18n>product}',
         Common.FieldControl : #Mandatory,
-        Search.defaultSearchElement
+        Search.defaultSearchElement,
+         Common.ValueList : {
+            CollectionPath : 'Products',
+            Parameters     : [
+            {
+                $Type             : 'Common.ValueListParameterInOut',
+                LocalDataProperty : 'product_productId',
+                ValueListProperty : 'productId'
+            },
+            {
+                $Type             : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'category'
+            },            
+            {
+                $Type             : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'name'
+            }                    
+            ]
+        }
     );
 
     deliveryDate @(

@@ -17,7 +17,12 @@
         "dataSources": {
             "mainService": {
                 "uri": "/odata/v2/POService/",
-                "type": "OData" }
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "refreshAfterChange": true
+                }
+            }
         },
         "offline": false,
         "sourceTemplate": {
@@ -72,14 +77,13 @@
                 "type": "sap.ui.model.resource.ResourceModel",
                 "uri": "i18n/ObjectPage/POs/i18n.properties"
             },
-            
             "": {
                 "dataSource": "mainService",
                 "preload": true,
                 "settings": {
                     "defaultBindingMode": "TwoWay",
                     "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
+                    "refreshAfterChange": true,
                     "metadataUrlParams": {
                         "sap-value-list": "none"
                     }
@@ -97,9 +101,13 @@
     "sap.ui.generic.app": {
         "_version": "1.3.0",
         "settings": {
-            "forceGlobalRefresh": false,
+            "forceGlobalRefresh": true,
             "objectPageHeaderType": "Dynamic",
-            "showDraftToggle": false
+            "showDraftToggle": true,
+            "flexibleColumnLayout": {
+                "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+                "defaultThreeColumnLayoutType": "ThreeColumnsEndExpanded"
+            }
         },
         "pages": {
             "ListReport|POs": {
@@ -109,15 +117,40 @@
                     "list": true,
                     "settings": {
                         "condensedTableLayout": true,
+                        "variantManagementHidden": false,
                         "smartVariantManagement": true,
-                        "enableTableFilterInPageVariant": true
+                        "enableTableFilterInPageVariant": true,
+                        "isWorklist": true
                     }
                 },
                 "pages": {
                     "ObjectPage|POs": {
                         "entitySet": "POs",
                         "component": {
-                            "name": "sap.suite.ui.generic.template.ObjectPage"
+                            "name": "sap.suite.ui.generic.template.ObjectPage",
+                            "settings": {
+                                "navToListOnSave": true,
+                                "showRelatedApps": true,
+                                "tableType": "ResponsiveTable"
+                            }
+                        },
+                        "pages": {
+                            "ObjectPage|items": {
+                                "navigationProperty": "POItemsDetails",
+                                "entitySet": "POItems",
+                                "component": {
+                                    "name": "sap.suite.ui.generic.template.ObjectPage"
+                                },
+                                "pages": {
+                                    "ObjectPage|owner": {
+                                        "navigationProperty": "owner",
+                                        "entitySet": "POs",
+                                        "component": {
+                                            "name": "sap.suite.ui.generic.template.ObjectPage"
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
