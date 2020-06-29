@@ -1,14 +1,14 @@
 {
     "name": "hana-opensap-cloud-2020",
-    "version": "1.202006.0",
+    "version": "1.202007.0",
     "description": "openSAP HANA Course Exercise Materials Updated for HANA Cloud 2020",
-    "repository": "<Add your repository here>",
-    "license": "SAP SAMPLE CODE LICENSE",
-    "private": true,
+    "repository": "https://github.com/SAP-samples/hana-opensap-cloud-2020",
+    "license": "SEE LICENSE IN LICENSE",
+    "private": false,
     "dependencies": {
-        "@sap/cds": "^3.34.2",
-        "@sap/hana-client": "^2.4.196",
-        "@sap/xssec": "^3.0.3",
+        "@sap/cds": "^3.34.3",
+        "@sap/hana-client": "^2.5.86",
+        "@sap/xssec": "^3.0.5",
         "@sap/audit-logging": "3.1",
         "express": "^4",
         "passport": "^0.4.0"

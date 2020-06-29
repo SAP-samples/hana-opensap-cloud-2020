@@ -28,7 +28,7 @@ The exercises in this course in this version/branch are primarily designed so th
 
 HANA Cloud Service trial startup instructions coming soon
 
-- @sap Node.js packages have moved from https://npm.sap.com to the default registry https://registry.npmjs.org. As future versions of @sap modules are going to be published only there, please make sure to adjust your registry with:
+- @sap Node.js packages have moved from <https://npm.sap.com> to the default registry <https://registry.npmjs.org>. As future versions of @sap modules are going to be published only there, please make sure to adjust your registry with:
 
 ```shell
 npm config delete @sap:registry
@@ -44,5 +44,5 @@ This project is provided "as-is": there is no guarantee that raised issues will 
 
 ## License
 
-Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. 
+Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
 This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSE) file.
