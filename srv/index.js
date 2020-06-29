@@ -1,4 +1,8 @@
 
+const Sdk = require('@dynatrace/oneagent-sdk')
+const DynaT = Sdk.createInstance()
+console.log(DynaT.getCurrentState())
+
 const ExpressServer = require('./express-server')
 global.__base = __dirname + "/"
 
