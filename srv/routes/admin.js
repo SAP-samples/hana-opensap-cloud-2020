@@ -39,7 +39,7 @@ module.exports = function (app) {
 	 *
 	 * /admin/tables:
 	 *   get:
-	 *     summary: Get a list of all tables in the Roadmap Schema
+	 *     summary: Get a list of all tables in the local container Schema
 	 *     tags:
 	 *       - Admin 
 	 *     responses:

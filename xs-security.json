@@ -19,8 +19,8 @@
             "description": "delete"
         },
         {
-            "name": "$XSAPPNAME.DataGenerator",
-            "description": "data generator"
+            "name": "$XSAPPNAME.Admin",
+            "description": "admin"
         },
         {
             "name": "xs_authorization.read",
@@ -69,10 +69,21 @@
                 "$XSAPPNAME.Create",
                 "$XSAPPNAME.Edit",
                 "$XSAPPNAME.Delete",
+                "$XSAPPNAME.Display"
+            ],
+            "attribute-references": [
+                "client"
+            ]
+        },
+        {
+            "name": "Admin",
+            "description": "Application Admin",
+            "scope-references": [
+                "$XSAPPNAME.Create",
+                "$XSAPPNAME.Edit",
+                "$XSAPPNAME.Delete",
                 "$XSAPPNAME.Display",
-                "$XSAPPNAME.DataGenerator",
-                "$XSAPPNAME.ODATASERVICEUSER",
-                "$XSAPPNAME.ODATASERVICEADMIN"
+                "$XSAPPNAME.Admin"
             ],
             "attribute-references": [
                 "client"

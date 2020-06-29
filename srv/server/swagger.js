@@ -1,3 +1,36 @@
+
+async function convertEdmxToOpenAPI(csn, entity, path, swaggerSpec) {
+    let metadata = await cds.compile.to.edmx(csn, {
+        odataVersion: 'v4', service: entity
+    })
+    const {
+        parse,
+        convert
+    } = require('odata2openapi')
+    const converter = require('swagger2openapi')
+    const odataOptions = {}         
+    let convOptions = {}
+    convOptions.anchors = true
+    let service = await parse(metadata)
+    let swagger = await convert(service.entitySets, odataOptions, service.version)
+    let output = await converter.convertObj(swagger, convOptions)
+    Object.keys(output.openapi.paths).forEach((key) => {
+        let val = output.openapi.paths[key]
+        Object.keys(val).forEach((item) => {
+            val[item].tags = [entity]
+        })
+        swaggerSpec.paths[`${path}${key}`] = val
+    })
+    Object.keys(output.openapi.components.schemas).forEach((key) => {
+        let val = output.openapi.components.schemas[key]
+        swaggerSpec.components.schemas[key] = val
+    })
+    Object.keys(output.openapi.components.requestBodies).forEach((key) => {
+        let val = output.openapi.components.requestBodies[key]
+        swaggerSpec.components.requestBodies[key] = val
+    })    
+}
+
 function swagger(app) {
 
     this.getOpenAPI = async () => {
@@ -11,50 +44,17 @@ function swagger(app) {
                     version: '1.0.0',
                     "x-odata-version": '4.0'
                 },
-                tags: [{
-                    name: "openSAP"
-                }],
             },
             apis: ['./routes/*']
         }
         var swaggerSpec = swaggerJSDoc(options)
-
-        //const odataOptions = { basePath: '/odata/v4/opensap.hana.CatalogService/' }
+        swaggerSpec.components.requestBodies = []
         try {
-           /*  const {
-                parse,
-                convert
-            } = require('odata2openapi');
-
             const cds = require("@sap/cds")
             const csn = await cds.load([global.__base + "/gen/csn.json"])
-            let metadata = cds.compile.to.swgr(csn, {
-                version: 'v4', service: 'all'
-            })
-            console.log(JSON.stringify(metadata, null, 4)) */
-            return swaggerSpec
-
-/* 
-             let convOptions = {}
-            convOptions.anchors = true
-            const converter = require('swagger2openapi')
-            let service = await parse(metadata)
-			let swagger = await convert(service.entitySets, odataOptions, service.version)
-			Object.keys(swagger.paths).forEach(function (key) {
-				let val = swagger.paths[key]
-				swaggerSpec.paths[`/srv_api/odata/v4/teamtask${key}`] = val
-			})
-			swaggerSpec.definitions = swagger.definitions
-            return swaggerSpec */
-            
-        /*     let service = await parse(metadata)
-            let swagger = await convert(service.entitySets, odataOptions, service.version)
-            Object.keys(swagger.paths).forEach(function (key) {
-                let val = swagger.paths[key]
-                //   swaggerSpec.paths[`/srv_api/odata/v4/teamtask${key}`] = val
-            })
-            swaggerSpec.definitions = swagger.definitions
-            return swaggerSpec */
+            await convertEdmxToOpenAPI(csn, 'MasterDataService', '/odata/v4/MasterDataService', swaggerSpec)
+            await convertEdmxToOpenAPI(csn, 'POService', '/odata/v4/POService', swaggerSpec)            
+            return swaggerSpec 
         } catch (error) {
             app.logger.error(error)
             return

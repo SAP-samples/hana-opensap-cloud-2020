@@ -1,5 +1,5 @@
 'use strict';
- 
+
 module.exports = async (app) => {
 
 	const swaggerUi = require('swagger-ui-express')
@@ -10,7 +10,10 @@ module.exports = async (app) => {
 		res.send(swaggerSpec)
 	})
 	let options = {
-		explorer: true
+		explorer: true,
+		swaggerOptions: {
+			docExpansion: "none"
+		}
 	}
 	app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, options))
 
