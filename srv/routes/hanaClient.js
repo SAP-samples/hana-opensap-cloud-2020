@@ -47,10 +47,10 @@ module.exports = function(app) {
 	app.get("/rest/hanaClient/toc", (req, res) => {
 		let output =
 			`<H1>Low Level HANA Client Examples</H1></br>
-		    <a href="./">/</a> - Select SESSION_USER</br>	
-			<a href="./err">/err</a> - Select and throw error (intentional)</br>
-			<a href="./context">/context</a> - Select SESSION_CONTEXT</br>
-			<a href=./userstore">/userstore</a> - Select via User Store</br>` +			
+		    <a href="../">/</a> - Select SESSION_USER</br>	
+			<a href="../err">/err</a> - Select and throw error (intentional)</br>
+			<a href="../context">/context</a> - Select SESSION_CONTEXT</br>
+			<a href=../userstore">/userstore</a> - Select via User Store</br>` +			
 			require(global.__base + "utils/exampleTOC").fill()
 		res.type("text/html").status(200).send(output)
 	})

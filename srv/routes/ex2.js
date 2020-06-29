@@ -6,24 +6,23 @@ module.exports = (app) => {
 	app.get("/rest/ex2/toc", (req, res) => {
 		let output =
 			`<H1>Exercise #2</H1></br>
-			<a href="./">/</a> - HANA DB Client</br>
-			<a href="./express">/express</a> - Simple Database Select Via Client Wrapper/Middelware - In-line Callbacks</br>
-			<a href="./waterfall">/waterfall</a> - Simple Database Select Via Client Wrapper/Middelware - Async Waterfall</br>	
-			<a href="./promises">/promises</a> - Simple Database Select Via Client Wrapper/Middelware - Promises</br>	
-			<a href="./await">/await</a> - Simple Database Select Via Client Wrapper/Middelware - Await</br>	
-			<a href="./procedures">/procedures</a> - Simple Database Call Stored Procedure</br>		
-			<a href="./procedures2">/procedures2</a> - Database Call Stored Procedure With Inputs</br>		
-			<a href="./proceduresParallel">/proceduresParallel</a> - Call 2 Database Stored Procedures in Parallel</br>	
-			<a href="./whoAmI">/whoAmI</a> - Current User Info</br>	
-			<a href="./env">/env</a> - Environment Info</br>
-			<a href="./cfApi">/cfApi</a> - Current Cloud Foundry API</br>	
-			<a href="./space">/space</a> - Current Space</br>
-			<a href="./userinfo">/userinfo</a> - Detailed User Info</br>	
-			<a href="./hdb">/hdb</a> - HANA DB Query</br>	
-			<a href="./tables">/tables</a> - All Local Tables</br>	
-			<a href="./views">/views</a> - All Local Views</br>				
-			<a href="./os">/os</a> - OS Info</br>	
-			<a href="./osUser">/osUser</a> - OS User</br>` +			
+			<a href="../">/</a> - HANA DB Client</br>
+			<a href="../express">/express</a> - Simple Database Select Via Client Wrapper/Middelware - In-line Callbacks</br>
+			<a href="../waterfall">/waterfall</a> - Simple Database Select Via Client Wrapper/Middelware - Async Waterfall</br>	
+			<a href="../promises">/promises</a> - Simple Database Select Via Client Wrapper/Middelware - Promises</br>	
+			<a href="../await">/await</a> - Simple Database Select Via Client Wrapper/Middelware - Await</br>	
+			<a href="../procedures">/procedures</a> - Simple Database Call Stored Procedure</br>		
+			<a href="../procedures2">/procedures2</a> - Database Call Stored Procedure With Inputs</br>		
+			<a href="../proceduresParallel">/proceduresParallel</a> - Call 2 Database Stored Procedures in Parallel</br>	
+			<a href="../whoAmI">/whoAmI</a> - Current User Info</br>	
+			<a href="../env">/env</a> - Environment Info</br>
+			<a href="../cfApi">/cfApi</a> - Current Cloud Foundry API</br>	
+			<a href="../space">/space</a> - Current Space</br>
+			<a href="../hdb">/hdb</a> - HANA DB Query</br>	
+			<a href="../tables">/tables</a> - All Local Tables</br>	
+			<a href="../views">/views</a> - All Local Views</br>				
+			<a href="../os">/os</a> - OS Info</br>	
+			<a href="../osUser">/osUser</a> - OS User</br>` +			
 			require(global.__base + "utils/exampleTOC").fill()
 		res.type("text/html").status(200).send(output)
 	})
