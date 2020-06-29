@@ -1,11 +1,11 @@
 const dbClass = require("sap-hdbext-promisfied")
 const circuitBreaker = require('opossum')
+const PrometheusMetrics = require('opossum-prometheus')
 const breakerOptions = {
   timeout: 3000, // If our function takes longer than 3 seconds, trigger a failure
   errorThresholdPercentage: 50, // When 50% of requests fail, trip the circuit
   resetTimeout: 10000 // After 10 seconds, try again.
 }
-
 async function sleep(req) {
   let db = new dbClass(req)
   const hdbext = require("@sap/hdbext")
@@ -13,7 +13,23 @@ async function sleep(req) {
   const results = await db.callProcedurePromisified(sp, [])
   return results
 }
-
+const breaker = new circuitBreaker(sleep, breakerOptions)
+const prometheus = new PrometheusMetrics([breaker])
+breaker.fallback(() => {
+  return false
+})
+breaker.on('open', () => {
+  console.log(`Circuit Breaker has been opened!`)  
+  console.log(prometheus.metrics)
+})
+breaker.on('close', () => {
+  console.log(`Circuit Breaker has been closed`)
+  console.log(prometheus.metrics)
+})
+breaker.on('halfOpen', () => {
+  console.log(`Circuit Breaker is half open`)
+  console.log(prometheus.metrics)
+})
 
 const cds = require('@sap/cds')
 module.exports = cds.service.impl(function () {
@@ -31,10 +47,7 @@ module.exports = cds.service.impl(function () {
   this.on('sleep', async (req) => {
     if (req._.req.db) {
       req._.req.loggingContext.getTracer(__filename).info('Inside CDS Sleep Function Handler')
-      const breaker = new circuitBreaker(sleep, breakerOptions)
-      breaker.fallback(() => {
-        return false
-      })
+     
       try {
         if (!await breaker.fire(req._.req.db)) {
           throw { "Error": "Query Timeout" }
