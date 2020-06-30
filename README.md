@@ -2,6 +2,9 @@
 
 Software Development on SAP HANA
 openSAP HANA7 Course Exercises Updated for SAP Cloud Platform, HANA Cloud Service, and Cloud Application Programming Model (July 2020)
+Inpsired by both the HANA Native and Cloud Application Programming Model openSAP courses
+- <https://open.sap.com/courses/hana7>
+- <https://open.sap.com/courses/cp7>
 
 ## Description
 
@@ -18,6 +21,9 @@ We’ll also focus on real-world problems and opportunities such as:
 - New Cloud Application Programming Model concepts for service enablement and UI annotations and Fiori UI creation
 - More open source components and techniques
 
+Introduction video and call for community ideas: <https://www.youtube.com/watch?v=XLPNWOTCKdM>
+Please come share your enhancement ideas directly via the project issues on this github repo.
+
 ## Requirements
 
 Basic programming knowledge including HTML, JavaScript, and SQL
@@ -26,7 +32,7 @@ The exercises in this course in this version/branch are primarily designed so th
 
 ## Download and Installation
 
-HANA Cloud Service trial startup instructions coming soon
+HANA Cloud Service trial startup instructions: <https://saphanacloudservices.com/hana-cloud/learning-article/starting-a-sap-hana-cloud-trial-when-you-have-an-existing-sap-cloud-platform-trial/>
 
 - @sap Node.js packages have moved from <https://npm.sap.com> to the default registry <https://registry.npmjs.org>. As future versions of @sap modules are going to be published only there, please make sure to adjust your registry with:
 
