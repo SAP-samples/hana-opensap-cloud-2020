@@ -12,7 +12,7 @@ module.exports = async (app) => {
         kind: "hana",
         logLevel: "error"
     }
-    cds.connect(cdsOptions)
+    cds.connect.to('db', cdsOptions)
 
     //CDS OData V4 Handler
     cds.serve('POService')
