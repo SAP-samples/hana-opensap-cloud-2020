@@ -8,6 +8,6 @@
   },
   "scripts": {
     "postinstall": "node .build.js",
-    "start": "node node_modules/@sap/hdi-deploy/deploy.js  --auto-undeploy"
+    "start": "node node_modules/@sap/hdi-deploy/deploy.js  --auto-undeploy --exit"
   }
 }

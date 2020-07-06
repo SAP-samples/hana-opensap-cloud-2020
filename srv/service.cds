@@ -72,7 +72,8 @@ service POService @(impl : './handlers/po-service.js')@(path : '/POService') {
     };
 
     @readonly
-    entity PO_Worklist                           as projection on POWorklist;
+    @Analytics.query : true
+    view PO_Worklist as select from POWorklist;
 
     function sleep() returns Boolean;
 
@@ -89,10 +90,14 @@ service MasterDataService @(impl : './handlers/md-service.js')@(path : '/MasterD
     };
 
     @readonly
-    entity productCategoryVH                                     as select from prodCat;
+    view productCategoryVH as select from prodCat;
 
-    entity partnerRoles                                          as projection on partRoles;
-    entity Buyer                                                 as projection on BuyerViewNative;
-    entity ProductImages                                         as projection on ProdImages { *, product : redirected to Products};
+    view partnerRoles as select from partRoles;
+    view Buyer as select from BuyerViewNative;
+
+    entity ProductImages                                         as projection on ProdImages {
+        * , product : redirected to Products
+    };
+
     function loadProductImages() returns Boolean;
 }
