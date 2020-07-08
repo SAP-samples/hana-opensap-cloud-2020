@@ -89,5 +89,10 @@
                 "client"
             ]
         }
-    ]
+    ],
+    "oauth2-configuration": {
+        "redirect-uris": [
+            "http://localhost:5000/login/callback"
+        ]
+    }
 }

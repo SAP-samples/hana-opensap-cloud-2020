@@ -39,7 +39,7 @@ service POService @(impl : './handlers/po-service.js')@(path : '/POService') {
     entity Products                              as projection on Prod;
 
     @readonly
-    entity productCategoryVH                     as projection on prodCat;
+    view productCategoryVH as select from prodCat;
 
     entity POs @(
         title               : '{i18n>poService}',
