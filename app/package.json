@@ -1,10 +1,20 @@
 {
 	"name": "web-approuter",
 	"dependencies": {
+		"@sapui5/ts-types": "1.71.x",
+		"@sap/ui5-builder-webide-extension": "1.0.x",
 		"@sap/approuter": "^8.1.3",
-		"dotenv": "^8.2.0"
+		"dotenv": "^8.2.0",
+		"@sap/html5-repo-mock": "1.4.x"
 	},
 	"scripts": {
-		"start": "node node_modules/@sap/approuter/approuter.js"
+		"start": "node node_modules/@sap/approuter/approuter.js",
+		"build": "ui5 build --include-task=generateManifestBundle generateCachebusterInfo",
+		"start-local": "node node_modules/@sap/html5-repo-mock/index.js"
+	},
+	"ui5": {
+		"dependencies": [
+			"@sap/ui5-builder-webide-extension"
+		]
 	}
 }

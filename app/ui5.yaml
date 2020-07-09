@@ -1,0 +1,18 @@
+specVersion: '1.0'
+metadata:
+  name: web-approuter
+type: application
+resources:
+  configuration:
+    propertiesFileSourceEncoding: UTF-8
+builder:
+  customTasks:
+  - name: webide-extension-task-updateManifestJson
+    afterTask: generateVersionInfo
+    configuration:
+      appFolder: resources
+      destDir: dist
+  - name: webide-extension-task-resources
+    afterTask: webide-extension-task-updateManifestJson
+    configuration:
+      nameSpace: ns
