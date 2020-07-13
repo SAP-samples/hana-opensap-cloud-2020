@@ -54,7 +54,7 @@ modules:
       properties:
         key: ServiceName_1
         service: '~{the-service-name}'
-    - name: hdi_user_db
+    - name: hana-opensap-cloud-2020-user-db
       group: SERVICE_REPLACEMENTS
       properties:
         key: hdi-user-service
@@ -99,7 +99,10 @@ resources:
 # ------------------------------------------------------------
  - name: hana-opensap-cloud-2020-user-db
 # ------------------------------------------------------------  
+   type: com.sap.xs.hdi-container
    parameters:
+     service: hana  # or 'hanatrial' on trial landscapes
+     service-plan: hdi-shared
      config:
        schema: OPENSAP_HANA_USER
    properties:
