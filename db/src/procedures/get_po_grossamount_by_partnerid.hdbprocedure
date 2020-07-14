@@ -1,0 +1,19 @@
+PROCEDURE "get_po_grossamount_by_partnerid"( 
+	        out ex_po_by_partnerid table ( partner_id nvarchar(36),
+	                                       purchaseorderid nvarchar(36),
+                                           productid nvarchar(20),
+                                           currency_code nvarchar(5), 
+                                           grossamount decimal(15,2), 
+                                           quantity decimal(13,3) ) ) 
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   READS SQL DATA AS
+BEGIN
+
+ lt_bp = select id from OPENSAP_MD_BUSINESSPARTNERS;
+
+ ex_po_by_partnerid = MAP_MERGE( :lt_bp,
+                           "get_po_by_partnerid_tf"(:lt_bp.id) );
+
+
+END

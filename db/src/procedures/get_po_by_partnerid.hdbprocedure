@@ -1,0 +1,21 @@
+PROCEDURE "get_po_by_partnerid" ( in im_partner_id nvarchar(36),
+                      out ex_po table ( partner_id nvarchar(36), 
+                                        purchaseorderid nvarchar(36),
+                                        productid nvarchar(20),
+                                        currency_code nvarchar(5), 
+                                        grossamount decimal(15,2), 
+                                        quantity decimal(13,3) ) ) 
+       LANGUAGE SQLSCRIPT 
+       SQL SECURITY INVOKER
+       READS SQL DATA AS 
+BEGIN 
+
+  ex_po = select header.PARTNER_ID as partner_id, 
+                 item.POHEADER_ID as purchaseorderid,
+                 item.PRODUCT_PRODUCTID as productid, item.currency_code,  
+                 item.grossamount, item.quantity
+                   from OPENSAP_PURCHASEORDER_HEADERS as header inner join OPENSAP_PURCHASEORDER_ITEMS as item
+                        on header.ID = item.poheader_ID 
+                                 where header.PARTNER_ID = :im_partner_id;
+
+END;

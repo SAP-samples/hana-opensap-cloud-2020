@@ -1,0 +1,30 @@
+FUNCTION "get_po_avg_by_partnerid_tf" (
+	       in im_partnerid nvarchar(36), 
+	       in im_items table(purchaseorderid nvarchar(36), 	   
+	                         productid nvarchar(20),	     
+	                         currency_code nvarchar(5), 	      
+	                         grossamount decimal(15,2),	  
+	                         quantity decimal(13,3)))
+       RETURNS table( partnerid nvarchar(36), 
+                      avgitemprice decimal(32,16), 
+                      avgorderquantity decimal(32,16), 
+                      currency_code nvarchar(5)) 
+       LANGUAGE SQLSCRIPT 
+       SQL SECURITY INVOKER AS 
+BEGIN 
+ 
+ lt_quantities = select sum(quantity) sumquantity, currency_code
+                       from :im_items group by purchaseorderid, currency_code;
+                       
+ lt_avgquantities = select avg(sumquantity) avgquantity, currency_code 
+                       from :lt_quantities group by currency_code;
+                       
+ lt_avgprice = select avg(grossamount/quantity) avgprice, currency_code 
+                       from :im_items group by currency_code;
+ 
+ return select :im_partnerid as partnerid, avgprice avgitemprice, 
+                 avgquantity avgorderquantity, avgprice.currency_code
+		           from :lt_avgquantities as avgqty 
+		                inner join :lt_avgprice  as avgprice 
+		                          on avgprice.currency_code = avgqty.currency_code;
+END;
