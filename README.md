@@ -28,7 +28,7 @@ Please come share your enhancement ideas directly via the project issues on this
 
 Basic programming knowledge including HTML, JavaScript, and SQL
 Baseline SAP HANA development knowledge from one of the previous SAP HANA courses on openSAP would be helpful
-The exercises in this course in this version/branch are primarily designed so that you can execute them on SAP Cloud Platform and HANA Cloud Service as of July 2020. They have also been tested in HANA 2.0 SPS 04 and SPS 05 with XSA on premise.
+The exercises in this course in this version/branch are primarily designed so that you can execute them on SAP Cloud Platform and SAP HANA Cloud service as of July 2020. They have also been tested in SAP HANA 2.0 SPS 04 and SPS 05 with XSA on premise.
 
 ## Download and Installation
 
