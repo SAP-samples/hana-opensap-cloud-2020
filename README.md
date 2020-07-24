@@ -1,14 +1,14 @@
 # hana-opensap-cloud-2020
 
 Software Development on SAP HANA
-openSAP HANA7 Course Exercises Updated for SAP Cloud Platform, HANA Cloud Service, and Cloud Application Programming Model (July 2020)
+openSAP HANA7 Course Exercises Updated for SAP Cloud Platform, HANA Cloud service, and Cloud Application Programming Model (July 2020)
 Inpsired by both the HANA Native and Cloud Application Programming Model openSAP courses
 - <https://open.sap.com/courses/hana7>
 - <https://open.sap.com/courses/cp7>
 
 ## Description
 
-With the delivery of SAP HANA 2.0 SPS 05 and HANA Cloud Service, we see many new features in both the underlying SAP HANA infrastructure and in the custom development aspects of SAP HANA native development. In this course, we’ll start from the assumption that students are familiar with the basics of the previous courses. This will allow us to dive deeper on key topics from real world applications. We’ll also cover new functionality added in SAP HANA 2.0 SPS 05 and HANA Cloud Services, especially the evolution of the core programming model to focus on Cloud Application Programming Model.
+With the delivery of SAP HANA 2.0 SPS 05 and SAP HANA Cloud service, we see many new features in both the underlying SAP HANA infrastructure and in the custom development aspects of SAP HANA native development. In this course, we’ll start from the assumption that students are familiar with the basics of the previous courses. This will allow us to dive deeper on key topics from real world applications. We’ll also cover new functionality added in SAP HANA 2.0 SPS 05 and SAP HANA Cloud services, especially the evolution of the core programming model to focus on Cloud Application Programming Model.
 
 Developers taking this course should be able to get up to speed quickly and begin leveraging these new features to enhance their own productivity, as well as tap into powerful new features of SAP HANA itself. Students will learn how to use Business Application Studio or Visual Studio Code to develop both HDI and XSA/CF-based applications for SAP HANA on-premise or on SAP Cloud Platform.
 
