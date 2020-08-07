@@ -18,7 +18,7 @@ entity Headers : managed, cuid, common.Amount {
     noteId                       : common.BusinessKey null;
     //    partner                      : UUID;
     partner                      : Association to one MD.BusinessPartners;
-    lifecycleStatus              : common.StatusT default 1;
+    lifecycleStatus              : common.StatusT default 'N';
     approvalStatus               : common.StatusT;
     confirmStatus                : common.StatusT;
     orderingStatus               : common.StatusT;

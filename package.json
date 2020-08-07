@@ -1,12 +1,12 @@
 {
     "name": "hana-opensap-cloud-2020",
-    "version": "1.202007.0",
+    "version": "1.202008.1",
     "description": "openSAP HANA Course Exercise Materials Updated for HANA Cloud 2020",
     "repository": "https://github.com/SAP-samples/hana-opensap-cloud-2020",
     "license": "SEE LICENSE IN LICENSE",
     "private": false,
     "dependencies": {
-        "@sap/cds": "^3.34",
+        "@sap/cds": "^4.1",
         "@sap/hana-client": "^2.5",
         "@sap/xssec": "^3.0",
         "@sap/audit-logging": "3.1",
@@ -17,7 +17,7 @@
         "chai": "^4.2",
         "chai-as-promised": "^7.1",
         "chai-subset": "^1.6",
-        "sqlite3": "^4"
+        "sqlite3": "^5"
     },
     "scripts": {
         "dbbuild": "cds build && cd ./db && npm start",
@@ -99,8 +99,7 @@
             "version": "v4"
         },
         "hana": {
-            "deploy-format": "hdbtable",
-            "syntax": "hdi"
+            "deploy-format": "hdbtable"
         },
         "requires": {
             "db": {

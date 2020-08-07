@@ -1,11 +1,11 @@
 {
 	"name": "web-approuter",
 	"dependencies": {
-		"@sapui5/ts-types": "1.71.x",
+		"@sapui5/ts-types": "1.80.x",
 		"@sap/ui5-builder-webide-extension": "1.0.x",
-		"@sap/approuter": "^8.1",
+		"@sap/approuter": "^8.4",
 		"dotenv": "^8.2",
-		"@sap/html5-repo-mock": "1.4.x"
+		"@sap/html5-repo-mock": "1.5.x"
 	},
 	"scripts": {
 		"start": "node node_modules/@sap/approuter/approuter.js",

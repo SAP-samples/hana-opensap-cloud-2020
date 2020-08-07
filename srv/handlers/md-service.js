@@ -25,8 +25,8 @@ module.exports = cds.service.impl(function () {
     //  })
   })
 
-  this.after(['READ'], Products, async (each) =>{
-    each.imageUrl = `/odata/v4/MasterDataService/ProductImages('${each.productId}')/image`
+  this.after('each', Products, async (row) =>{
+   row.imageUrl = `/odata/v4/MasterDataService/ProductImages('${row.productId}')/image`
   })
 
   this.on('loadProductImages', async (req) => {

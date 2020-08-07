@@ -2,8 +2,9 @@
 module.exports = async (app) => {
 
     const cds = require("@sap/cds")
-    const {index} = require ('@sap/cds/lib/utils/app/index_html')
-    //console.log(index)
+   // const {index} = require ('@sap/cds/lib/utils/app/index_html')
+
+    const index = require ('@sap/cds/app/index.js')
 
     let odataURL = "/odata/v4/"
     let restURL = "/rest/"
