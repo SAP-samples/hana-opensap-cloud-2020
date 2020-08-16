@@ -55,7 +55,7 @@
     },
     "scripts": {
         "postinstall": "npm dedupe && node .build.js",
-        "cds": "node ./node_modules/@sap/cds/bin/cds.js serve gen/csn.json",
+        "cds": "cds serve ",
         "start": "node index.js",
         "watch": "nodemon -w . -i node_modules/**,.git/** -e cds -x npm run build"
     },
