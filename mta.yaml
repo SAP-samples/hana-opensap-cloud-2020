@@ -131,4 +131,4 @@ resources:
 # ------------------------------------------------------------ 
    type: org.cloudfoundry.existing-service
    parameters:
-     service-name: CROSS_SCHEMA_SFLIGH       
+     service-name: CROSS_SCHEMA_SFLIGHT       
