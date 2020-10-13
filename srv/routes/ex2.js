@@ -238,7 +238,7 @@ module.exports = (app) => {
 				res.type("text/plain").status(500).send(`ERROR: ${err.toString()}`)
 				return
 			}
-			//(Input Parameters, callback(errors, Output Scalar Parameters, [Output Table Parameters])
+			//(Input Parameters, callback(errors, Output Scalar Parameters, [Output Table Parameters]))
 			sp({}, (err, parameters, results) => {
 				if (err) {
 					res.type("text/plain").status(500).send(`ERROR: ${err.toString()}`)
