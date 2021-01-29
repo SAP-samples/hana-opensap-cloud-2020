@@ -241,16 +241,11 @@ define view BusinessPartnersView with parameters IM_PR : String(1) as
 
 define view partnerRoles as
     select from BusinessPartners {
-            @UI.lineItem       : [{importance : Importance.High}]
-            @UI.fieldGroup     : [{position : 10}]
             @EndUserText.label : [{
                 language : 'EN',
                 text     : 'Partner Role'
             }]
         key partnerRole,
-
-            @UI.lineItem       : [{importance : Importance.High}]
-            @UI.fieldGroup     : [{position : 20}]
             @EndUserText.label : [{
                 language : 'EN',
                 text     : 'Role Description'
@@ -273,16 +268,11 @@ define view partnerRoles as
 
 define view SupplierViewVH as
     select from SupplierView {
-        @UI.lineItem       : [{importance : Importance.High}]
-        @UI.fieldGroup     : [{position : 10}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Supplier ID'
         }]
         Id          as![Supplier_Id],
-
-        @UI.lineItem       : [{importance : Importance.High}]
-        @UI.fieldGroup     : [{position : 20}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Supplier Name'
@@ -347,7 +337,7 @@ annotate Products with @(
     category      @(
         title       : '{i18n>category}',
         description : '{i18n>category}',
-        Common.ValueList: {entity: 'productCategoryVH', type: #fixed}
+        Common.ValueList: {CollectionPath: 'categoryVH', }
     );
     name          @(
         title       : '{i18n>name}',
@@ -466,8 +456,6 @@ define view ProductView as
 
 define view ProductsValueHelp as
     select from Products {
-        @UI.lineItem       : [{importance : Importance.High}]
-        @UI.fieldGroup     : [{position : 10}]
         @EndUserText.label : [
         {
             language : 'EN',
@@ -479,9 +467,6 @@ define view ProductsValueHelp as
         }
         ]
         productId,
-
-        @UI.lineItem       : [{importance : Importance.High}]
-        @UI.fieldGroup     : [{position : 20}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Product Name'
@@ -491,8 +476,6 @@ define view ProductsValueHelp as
 
 define view productCategoryVH as
     select from Products distinct {
-        @UI.lineItem       : [{importance : Importance.High}]
-        @UI.fieldGroup     : [{position : 10}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Product Category'
@@ -502,8 +485,6 @@ define view productCategoryVH as
 
 define view ProductsConsumption as
     select from Products {
-        @UI.lineItem       : [{importance : Importance.High}]
-        @UI.fieldGroup     : [{position : 10}]
         @EndUserText.label : [
         {
             language : 'EN',
@@ -524,9 +505,6 @@ define view ProductsConsumption as
             parameterDisplayOnly : [{valueListProperty : 'Product_Name'}]
         }
         productId                  as![Product_Id],
-
-        @UI.lineItem       : [{importance : Importance.High}]
-        @UI.fieldGroup     : [{position : 20}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Product Category'
@@ -540,53 +518,35 @@ define view ProductsConsumption as
             }]
         }
         category                   as![Product_Category],
-
-        @UI.lineItem       : [{importance : Importance.Medium}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Currency'
         }]
-        @UI.fieldGroup     : [{position : 30}]
         currency.code              as![Product_Currency],
-
-        @UI.lineItem       : [{importance : Importance.Medium}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Product Price'
         }]
-        @UI.fieldGroup     : [{exclude : true}]
         price                      as![Product_Price],
-
-        @UI.lineItem       : [{importance : Importance.Medium}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Type Code'
         }]
-        @UI.fieldGroup     : [{position : 40}]
         typeCode                   as![Product_TypeCode],
-
-        @UI.lineItem       : [{importance : Importance.Medium}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Weight'
         }]
-        @UI.fieldGroup     : [{exclude : true}]
         weightMeasure              as![Product_WeightMeasure],
-
-        @UI.lineItem       : [{importance : Importance.Low}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Weight Unit'
         }]
-        @UI.fieldGroup     : [{exclude : true}]
         weightUnit                 as![Product_WeightUnit],
-
-        @UI.lineItem       : [{importance : Importance.Medium}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Supplier ID'
         }]
-        @UI.fieldGroup     : [{position : 50}]
         @valueList         : {
             collectionPath       : 'SupplierVH',
             searchSupported      : false,
@@ -597,32 +557,23 @@ define view ProductsConsumption as
             parameterDisplayOnly : [{valueListProperty : 'Supplier_CompanyName'}]
         }
         partner.ID                 as![Supplier_Id],
-
-        @UI.lineItem       : [{importance : Importance.High}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Supplier'
         }]
-        @UI.fieldGroup     : [{position : 60}]
         partner.companyName        as![Supplier_CompanyName],
-
-        @UI.lineItem       : [{importance : Importance.Medium}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Supplier City'
         }]
-        @UI.fieldGroup     : [{position : 70}]
         partner.address.city       as![Supplier_City],
         partner.address.postalCode as![Supplier_PostalCode],
         partner.address.street     as![Supplier_Street],
         partner.address.building   as![Supplier_Building],
-
-        @UI.lineItem       : [{importance : Importance.Medium}]
         @EndUserText.label : [{
             language : 'EN',
             text     : 'Supplier Country'
         }]
-        @UI.fieldGroup     : [{position : 80}]
         @valueList         : {
             collectionPath       : 'Countries',
             searchSupported      : false,

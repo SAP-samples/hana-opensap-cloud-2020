@@ -1,9 +1,6 @@
 
     {
         "file_suffixes": {
-         "hdbcollection": {
-          "plugin_name": "com.sap.hana.di.collection"
-         },
          "hdbsystemversioning": {
           "plugin_name": "com.sap.hana.di.systemversioning"
          },
@@ -27,9 +24,6 @@
          },
          "hdbindex": {
           "plugin_name": "com.sap.hana.di.index"
-         },
-         "hdbfulltextindex": {
-          "plugin_name": "com.sap.hana.di.fulltextindex"
          },
          "hdbconstraint": {
           "plugin_name": "com.sap.hana.di.constraint"
@@ -55,9 +49,6 @@
          "hdbresultcache": {
           "plugin_name": "com.sap.hana.di.resultcache"
          },
-         "hdbcds": {
-          "plugin_name": "com.sap.hana.di.cds"
-         },
          "hdbfunction": {
           "plugin_name": "com.sap.hana.di.function"
          },
@@ -67,12 +58,7 @@
          "hdbvirtualfunctionconfig": {
           "plugin_name": "com.sap.hana.di.virtualfunction.config"
          },
-         "hdbhadoopmrjob": {
-          "plugin_name": "com.sap.hana.di.virtualfunctionpackage.hadoop"
-         },
-         "jar": {
-          "plugin_name": "com.sap.hana.di.virtualfunctionpackage.hadoop"
-         },
+
          "hdbtabletype": {
           "plugin_name": "com.sap.hana.di.tabletype"
          },
@@ -84,9 +70,6 @@
          },
          "hdbvirtualprocedureconfig": {
           "plugin_name": "com.sap.hana.di.virtualprocedure.config"
-         },
-         "hdbafllangprocedure": {
-          "plugin_name": "com.sap.hana.di.afllangprocedure"
          },
          "hdblibrary": {
           "plugin_name": "com.sap.hana.di.library"
@@ -129,24 +112,6 @@
          },
          "hdbsearchruleset": {
           "plugin_name": "com.sap.hana.di.searchruleset"
-         },
-         "hdbtextconfig": {
-          "plugin_name": "com.sap.hana.di.textconfig"
-         },
-         "hdbtextdict": {
-          "plugin_name": "com.sap.hana.di.textdictionary"
-         },
-         "hdbtextrule": {
-          "plugin_name": "com.sap.hana.di.textrule"
-         },
-         "hdbtextinclude": {
-          "plugin_name": "com.sap.hana.di.textrule.include"
-         },
-         "hdbtextlexicon": {
-          "plugin_name": "com.sap.hana.di.textrule.lexicon"
-         },
-         "hdbtextminingconfig": {
-          "plugin_name": "com.sap.hana.di.textminingconfig"
          },
          "txt": {
           "plugin_name": "com.sap.hana.di.copyonly"

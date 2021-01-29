@@ -11,9 +11,9 @@
       <resourceUri>OPENSAP_MD_BUSINESSPARTNERS</resourceUri>
     </DataSource>
   </dataSources>
-  <calculationViews>
-    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner" partitionedExecution="false">
-      <viewAttributes>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner" partitionedExecution="false">
+    <viewAttributes>
         <viewAttribute id="CITY" measureType="simple"/>
         <viewAttribute id="POSTALCODE" measureType="simple"/>
         <viewAttribute id="STREET" measureType="simple"/>
@@ -25,10 +25,9 @@
         <viewAttribute id="EMAIL" measureType="simple"/>
         <viewAttribute id="COMPANYNAME" measureType="simple"/>
         <viewAttribute id="LEGALFORM" measureType="simple"/>
-        <viewAttribute hidden="true" id="JOIN$ID$ADDRESS_ID"/>
-      </viewAttributes>
-      <calculatedViewAttributes/>
-      <restrictedViewAttributes/>
+      <viewAttribute hidden="true" id="JOIN$ID$ADDRESS_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
       <input node="OPENSAP_MD_ADDRESSES">
         <mapping xsi:type="Calculation:AttributeMapping" target="CITY" source="CITY"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="POSTALCODE" source="POSTALCODE"/>
@@ -46,9 +45,9 @@
         <mapping xsi:type="Calculation:AttributeMapping" target="LEGALFORM" source="LEGALFORM"/>
         <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ID$ADDRESS_ID" source="ADDRESS_ID"/>
       </input>
-      <joinAttribute name="JOIN$ID$ADDRESS_ID"/>
-    </calculationView>
-  </calculationViews>
+    <joinAttribute name="JOIN$ID$ADDRESS_ID"/>
+  </calculationView>
+</calculationViews>
   <logicalModel id="Join_1">
     <attributes>
       <attribute id="ID" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
@@ -107,8 +106,8 @@
     <baseMeasures/>
     <calculatedMeasures/>
     <restrictedMeasures/></logicalModel>
-  <layout>
-    <shapes>
+<layout>
+  <shapes>
       <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
         <upperLeftCorner x="40" y="85"/>
         <rectangleSize height="0" width="0"/>
@@ -126,5 +125,5 @@
         <rectangleSize width="250"/>
       </shape>
     </shapes>
-  </layout>
+</layout>
 </Calculation:scenario>

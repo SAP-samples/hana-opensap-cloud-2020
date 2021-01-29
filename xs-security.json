@@ -1,6 +1,6 @@
 {
     "xsappname": "openSAPHANA2020-ex",
-    "tenant-mode": "dedicated",
+    "tenant-mode": "shared",
     "scopes": [
         {
             "name": "$XSAPPNAME.Display",
@@ -92,7 +92,9 @@
     ],
     "oauth2-configuration": {
         "redirect-uris": [
-            "http://localhost:5000/login/callback"
+            "http://localhost:5000",
+            "http://localhost:5000/login/callback",
+            "https://*applicationstudio.cloud.sap/login/callback"
         ]
     }
 }

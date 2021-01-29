@@ -234,12 +234,7 @@ define view![PURCHASE_ORDER_ITEM_VIEW] as
 
 define view POHeaderConsumption as
     select from Headers {
-        @UI.lineItem   : [{importance : Importance.High}]
-        @UI.fieldGroup : [{position : 10}]
         ID,
-
-        @UI.lineItem   : [{importance : Importance.Medium}]
-        @UI.fieldGroup : [{position : 20}]
         @valueList     : {
             collectionPath       : 'SupplierVH',
             searchSupported      : false,
@@ -250,103 +245,33 @@ define view POHeaderConsumption as
             parameterDisplayOnly : [{valueListProperty : 'Supplier_CompanyName'}]
         }
         partner.ID                   as partnerID,
-
-        @UI.lineItem   : [{importance : Importance.High}]
-        @UI.fieldGroup : [{position : 30}]
         partner.companyName,
-
-        @UI.lineItem   : [{importance : Importance.High}]
-        @UI.fieldGroup : [{position : 40}]
         partner.address.city,
-
-        @UI.fieldGroup : [{position : 41}]
         modifiedAt,
-
-        @UI.fieldGroup : [{position : 42}]
         modifiedByEmployee.loginName as ![modifiedBy],
-
-        @UI.fieldGroup : [{position : 43}]
         createdAt,
-
-        @UI.fieldGroup : [{position : 44}]
         createdByEmployee.loginName  as ![createdBy],
-
-
-        @UI.lineItem   : [{importance : 'High'}]
-        @UI.fieldGroup : [{position : 50}]
         grossAmount,
-
-
-        @UI.fieldGroup : [{position : 51}]
         netAmount,
-
-        @UI.fieldGroup : [{position : 52}]
         taxAmount,
-
-        @UI.lineItem   : [{importance : 'Low'}]
-        @UI.fieldGroup : [{position : 60}]
         currency.code,
-
-
-        @UI.fieldGroup : [{position : 61}]
         noteId,
-
-        @UI.lineItem   : [{importance : 'High'}]
-        @UI.fieldGroup : [{position : 70}]
         approvalStatus,
-
-        @UI.fieldGroup : [{position : 71}]
         confirmStatus,
-
-        @UI.fieldGroup : [{position : 72}]
         lifecycleStatus,
-
-
-        @UI.fieldGroup : [{position : 73}]
         orderingStatus
     };
 
 define view POItemConsumption as
     select from Items {
-        @UI.lineItem   : [{importance : Importance.High}]
-        @UI.fieldGroup : [{position : 10}]
         poHeader.ID,
-
-        @UI.lineItem   : [{importance : Importance.High}]
-        @UI.fieldGroup : [{position : 30}]
         product.productId,
-
-        @UI.lineItem   : [{importance : Importance.High}]
-        @UI.fieldGroup : [{position : 40}]
         product.name,
-
-        @UI.lineItem   : [{importance : 'High'}]
-        @UI.fieldGroup : [{position : 50}]
-        grossAmount,
-
-        @UI.fieldGroup : [{position : 51}]
         netAmount,
-
-        @UI.fieldGroup : [{position : 52}]
         taxAmount,
-
-        @UI.lineItem   : [{importance : 'Low'}]
-        @UI.fieldGroup : [{position : 60}]
         currency.code,
-
-        @UI.lineItem   : [{importance : 'High'}]
-        @UI.fieldGroup : [{position : 70}]
         quantity,
-
-        @UI.lineItem   : [{importance : 'Low'}]
-        @UI.fieldGroup : [{position : 71}]
         quantityUnit,
-
-        @UI.lineItem   : [{importance : 'High'}]
-        @UI.fieldGroup : [{position : 80}]
         deliveryDate,
-
-        @UI.lineItem   : [{importance : 'High'}]
-        @UI.fieldGroup : [{position : 81}]
         product.category
     };

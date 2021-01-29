@@ -20,7 +20,7 @@ using {
 using BUYER as BuyerView from '../db/schema';
 using USERDATA_USER_LOCAL as UserDetails from '../db/schema';
 
-service POService @(impl : '../srv/handlers/po-service.js')@(path : '/POService') {
+service POService @(impl : './handlers/po-service.js')@(path : '/odata/v4/POService') {
 
 
     @readonly
@@ -56,7 +56,7 @@ service POService @(impl : '../srv/handlers/po-service.js')@(path : '/POService'
     };
 
     event poChange : {
-        po : POs;
+        po : Headers;
     }
 
     entity POItems @(title : '{i18n>poService}') as projection on Items {
@@ -72,7 +72,6 @@ service POService @(impl : '../srv/handlers/po-service.js')@(path : '/POService'
     };
 
     @readonly
-    @Analytics.query : true
     view PO_Worklist as select from POWorklist;
 
 
@@ -80,7 +79,7 @@ service POService @(impl : '../srv/handlers/po-service.js')@(path : '/POService'
 
 }
 
-service MasterDataService @(impl : '../srv/handlers/md-service.js')@(path : '/MasterDataService') {
+service MasterDataService @(impl : './handlers/md-service.js')@(path : '/odata/v4/MasterDataService') {
     entity Addresses                                             as projection on Addr;
     entity Employees                                             as projection on Empl;
     entity User                                                  as projection on UserDetails;

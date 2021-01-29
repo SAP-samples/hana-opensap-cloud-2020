@@ -2,8 +2,12 @@ const cds = require('@sap/cds')
 const Sdk = require('@dynatrace/oneagent-sdk')
 const DynaT = Sdk.createInstance()
 console.log(DynaT.getCurrentState())
-console.log(`CDS Custom Boostrap from /srv/server.js`)
+
+const proxy = require('@sap/cds-odata-v2-adapter-proxy')
 global.__base = __dirname + "/"
+console.log(global.__base)
+console.log(`CDS Custom Boostrap from /srv/server.js`)
+
 process.on('uncaughtException', function (err) {
     console.error(err.name + ': ' + err.message, err.stack.replace(/.*\n/, '\n')) // eslint-disable-line
 })
@@ -11,50 +15,71 @@ process.on('uncaughtException', function (err) {
 const TextBundle = require("@sap/textbundle").TextBundle
 global.__bundle = new TextBundle("../_i18n/i18n", require("./utils/locale").getLocale())
 
-// handle bootstrapping events...
-cds.on('bootstrap', async (app) => {
-    // add your own middleware before any by cds are added
- 
-})
+cds.on('bootstrap', app => app.use(proxy({
+    services: {
+        "/MasterDataService/": "MasterDataService",
+        "/POService/": "POService"
+    }
+})))
 
-cds.on('served', () => {
-    // add more middleware after all cds servies
-})
+//module.exports = cds.server
 
 
 // delegate to default server.js:
 module.exports = async (o) => {
-    o.port = process.env.PORT || 4000
+    o.port = process.env.PORT || 4004
     //API route (Disabled by default)
-    o.baseDir = process.cwd()
-    //this.publicDir = path.join(this.baseDir, '../app')
+    o.baseDir = global.__base
     o.routes = []
 
     const express = require('express')
     let app = express()
     app.express = express
-    app.baseDir = process.cwd()
-    o.app = app  
-    
+    app.baseDir = o.baseDir
+    o.app = app
+
     const path = require('path')
     const fileExists = require('fs').existsSync
     let expressFile = path.join(app.baseDir, 'server/express.js')
     if (fileExists(expressFile)) {
         await require(expressFile)(app)
     }
-    o.app.httpServer = await cds.server(o)
 
-    const glob = require('glob')
+    //CDS REST Handler
+    let restURL = "/rest/"
+    cds.serve('POService')
+        .from(global.__base + "/gen/csn.json")
+        .to("rest")
+        .at(restURL + 'POService')
+        .with(require("./handlers/po-service"))        
+        .in(app)
+        .catch((err) => {
+            app.logger.error(err);
+        })
+
+    cds.serve('MasterDataService')
+        .from(global.__base + "/gen/csn.json")
+        .to("rest")
+        .at(restURL + 'MasterDataService')
+        .with(require("./handlers/md-service"))          
+        .in(app)
+        .catch((err) => {
+            app.logger.error(err);
+        })
+
+
+
+    o.app.httpServer = await cds.server(o)
     //Load routes
-    let baseDir = process.cwd()
-    let routesDir = path.join(baseDir, 'routes/**/*.js')
+    const glob = require('glob')
+    let routesDir = path.join(global.__base, 'routes/**/*.js')
     let files = glob.sync(routesDir)
     this.routerFiles = files;
     if (files.length !== 0) {
         for (let file of files) {
-            await require(file)(app, app.httpServer)
+            await require(file)(app, o.app.httpServer)
         }
     }
-
+    
     return o.app.httpServer
-}
+}  

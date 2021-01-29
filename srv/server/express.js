@@ -11,7 +11,7 @@ module.exports = function (app) {
 
 	const swagger = require('./swagger')
 	app.swagger = new swagger(app)
-
+    require('./expressSecurity')(app)
 	const xsenv = require("@sap/xsenv")
 	xsenv.loadEnv()
 	const HDBConn = require("@sap/hdbext")
@@ -26,7 +26,7 @@ module.exports = function (app) {
 
 	require('./healthCheck')(app, { hdbext: HDBConn, hanaOptions: hanaOptions })
 	require('./overloadProtection')(app)
-	require('./expressSecurity')(app)
+
 	app.use(require('express-status-monitor')())
 
 	//app.use(express.static('../app/webapp'))

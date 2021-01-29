@@ -193,16 +193,11 @@ define view iso_us_states_and_territories as
 
 define view counties as
   select from sap.common.Countries {
-    @UI.lineItem       : [{importance : Importance.High}]
-    @UI.fieldGroup     : [{position : 10}]
     @EndUserText.label : [{
       language : 'EN',
       text     : 'Country Name'
     }]
     name,
-
-    @UI.lineItem       : [{importance : Importance.High}]
-    @UI.fieldGroup     : [{position : 20}]
     @EndUserText.label : [{
       language : 'EN',
       text     : 'Country Code'

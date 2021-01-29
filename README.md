@@ -2,6 +2,8 @@
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/hana-opensap-cloud-2020)](https://api.reuse.software/info/github.com/SAP-samples/hana-opensap-cloud-2020)
 
+The [change log](CHANGELOG.md) describes notable changes in this package.
+
 Software Development on SAP HANA
 openSAP HANA7 Course Exercises Updated for SAP Business Technology Platform, SAP HANA Cloud, and Cloud Application Programming Model (January 2021)
 Inpsired by both the HANA Native and Cloud Application Programming Model openSAP courses

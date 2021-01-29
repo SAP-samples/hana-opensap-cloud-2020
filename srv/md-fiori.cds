@@ -159,15 +159,7 @@ UI : {
     {
         $Type                : 'UI.DataField',
         Value                : partnerRole,
-        ![@UI.Importance]    : #Low,
-        ![@Common.ValueList] : {
-            CollectionPath : 'partnerRoles',
-            Parameters     : [{
-                $Type             : 'Common.ValueListParameterInOut',
-                LocalDataProperty : 'partnerRole',
-                ValueListProperty : 'partnerRole'
-            }]
-        }
+        ![@UI.Importance]    : #Low
     }
     ],
     PresentationVariant : {SortOrder : [

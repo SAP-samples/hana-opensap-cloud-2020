@@ -1,32 +1,71 @@
 {
     "name": "hana-opensap-cloud-2020",
-    "version": "1.202008.1",
+    "version": "1.202101.1",
     "description": "openSAP HANA Course Exercise Materials Updated for HANA Cloud 2020",
     "repository": "https://github.com/SAP-samples/hana-opensap-cloud-2020",
     "license": "SEE LICENSE IN LICENSE",
     "private": false,
     "dependencies": {
-        "@sap/cds": "^4.1",
-        "@sap/hana-client": "^2.5",
+        "@sap/cds": "^4.4",
+        "@sap/hana-client": "^2.7",
         "@sap/xssec": "^3.0",
-        "@sap/audit-logging": "3.1",
+        "@sap/audit-logging": "^3.2",
         "express": "^4.17",
-        "passport": "^0.4"
+        "passport": "^0.4",
+        "@sap/cds-odata-v2-adapter-proxy": "^1.5.4",
+        "@cloudnative/health-connect": "^2.1.0",
+        "@dynatrace/oneagent-sdk": "^1.4.1",
+        "@sap/hdbext": "^7.1.1",
+        "sap-hdbext-promisfied": "^2.202101.1",
+        "@sap/logging": "^6.0.2",
+        "@sap/textbundle": "^3.1.0",
+        "@sap/xsenv": "^3.1.0",
+        "lodash.merge": "^4.6.2",
+        "accept-language-parser": "latest",
+        "body-parser": "^1.19.0",
+        "event-loop-lag": "^1.4.0",
+        "express-status-monitor": "^1.3.3",
+        "helmet": "^4.4.1",
+        "memory-cache": "^0.2.0",
+        "node-xlsx": "^0.16.1",
+        "node-zip": "^1.1.1",
+        "jszip": "^3.5.0",
+        "opossum": "^5.1.3",
+        "opossum-prometheus": "^0.3.0",
+        "overload-protection": "^1.2.1",
+        "pg": "^8.5.1",
+        "swagger-jsdoc": "^6.0.2",
+        "odata2openapi": "^1.3.2",
+        "swagger2openapi": "^7.0.5",
+        "uuid": "^8.3.2",
+        "swagger-ui-express": "^4.1.6",
+        "then-request": "^6.0.2",
+        "dotenv": "^8.2.0",
+        "latest-version": "^5.1.0",
+        "async": "latest",
+        "ws": "^7.4.2",
+        "xmldoc": "^1.1.2",
+        "winston": "^3.3.3",
+        "elementtree": "latest",
+        "compression": "^1.7.4"
+    },
+    "engines": {
+        "node": "^10.0.0 || ^12.0.0 || ^14.0.0"
     },
     "devDependencies": {
         "chai": "^4.2",
         "chai-as-promised": "^7.1",
         "chai-subset": "^1.6",
-        "sqlite3": "^5"
+        "sqlite3": "5.0.0"
     },
     "scripts": {
         "dbbuild": "cds build && cd ./db && npm start",
         "userbuild": "cds build && cd ./user_db && npm start",
         "srv": "cds build && cd ./srv && npm start",
         "env": "cp ./default-env.json ./db/default-env.json && cp ./default-env.json ./srv/default-env.json",
-        "build": "npx cds build/all --clean",
-        "start": "npx cds run",
-        "watch": "npx cds watch",
+        "build": "cds build",
+        "start": "cds run",
+        "watch": "cds watch",
         "mocha": "npx mocha || echo",
         "jest": "npx jest --verbose",
         "test": "npm run jest -s"
@@ -87,8 +126,15 @@
                 }
             ]
         },
-        "features": {
-            "snapi": true
+        "cov2ap": {
+            "targetPath": "odata/v4",
+            "path": "odata/v2",
+            "disableNetworkLog": false
+        },
+        "preview": {
+            "ui5": {
+                "version": "1.85.3"
+            }
         },
         "i18n": {
             "folders": [
