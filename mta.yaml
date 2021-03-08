@@ -22,7 +22,7 @@ modules:
  - name: hana-opensap-cloud-2020-srv
  # ------------------------------------------------------------
    type: nodejs
-   path: .
+   path: srv
    parameters:
      memory: 512M
      disk-quota: 1024M   
