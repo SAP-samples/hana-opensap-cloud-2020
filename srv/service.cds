@@ -36,10 +36,10 @@ service POService @(impl : './handlers/po-service.js')@(path : '/odata/v4/POServ
     entity Buyer                                 as projection on BuyerView;
 
     @readonly
-    entity Products                              as projection on Prod;
+    entity Products @(cds.redirection.target:false)                            as projection on Prod;
 
     @readonly
-    view productCategoryVH as select from prodCat;
+    view productCategoryVH  @(cds.redirection.target:false)  as select from prodCat;
 
     entity POs @(
         title               : '{i18n>poService}',
