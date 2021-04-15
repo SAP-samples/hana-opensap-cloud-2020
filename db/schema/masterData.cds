@@ -233,7 +233,7 @@ define view BusinessPartnersView with parameters IM_PR : String(1) as
     select from BPViewWithDesc {
         ID,
         partnerRole,
-        PartnerRoleDesc email,
+        PartnerRoleDesc as email, 
         companyName
     }
     where

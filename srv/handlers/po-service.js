@@ -40,7 +40,7 @@ module.exports = cds.service.impl(function () {
     const header = req.data
     req.on('succeeded', () => {
       global.it || console.log(`< emitting: poChanged ${header.ID}`)
-      this.emit('poChange', header)
+      this.emit('poChange', header.ID)
     })
   })
 

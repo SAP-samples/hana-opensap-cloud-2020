@@ -92,7 +92,7 @@ context opensap.common {
     Cancelled  = 'X';
   }
 
-  abstract entity Amount {
+  aspect Amount { 
     currency    : Currency;
     grossAmount : AmountT;
     netAmount   : AmountT;
@@ -105,7 +105,7 @@ context opensap.common {
     taxAmount   @(title : '{i18n>taxAmount}');
   }
 
-  abstract entity Quantity {
+  aspect Quantity {
     quantity     : QuantityT;
     quantityUnit : UnitT;
   }

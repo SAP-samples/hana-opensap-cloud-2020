@@ -56,7 +56,7 @@ service POService @(impl : './handlers/po-service.js')@(path : '/odata/v4/POServ
     };
 
     event poChange : {
-        po : Headers;
+        po : type of POs:ID;
     }
 
     entity POItems @(title : '{i18n>poService}') as projection on Items {

@@ -9,8 +9,8 @@
         "@cloudnative/health-connect": "^2.1.0",
         "@dynatrace/oneagent-sdk": "^1.4.1",
         "@sap/audit-logging": "^5.0",
-        "@sap/cds": "^4.6.5",
-        "@sap/cds-odata-v2-adapter-proxy": "^1.5.10",
+        "@sap/cds": "^5.0",
+        "@sap/cds-odata-v2-adapter-proxy": "^1.6",
         "@sap/hana-client": "^2.7.26",
         "@sap/hdbext": "^7.1.4",
         "@sap/logging": "^6.0.2",
@@ -38,7 +38,7 @@
         "opossum-prometheus": "^0.3.0",
         "overload-protection": "^1.2.1",
         "passport": "^0.4",
-        "pg": "^8.5.1",
+        "pg": "^8.6",
         "sap-hdbext-promisfied": "^2.202103.1",
         "swagger-jsdoc": "^6.1.0",
         "swagger-ui-express": "^4.1.6",
@@ -56,7 +56,7 @@
         "chai": "^4.3.4",
         "chai-as-promised": "^7.1",
         "chai-subset": "^1.6",
-        "sqlite3": "5.0.0"
+        "sqlite3": "^5.0.2"
     },
     "scripts": {
         "dbbuild": "cds build && cd ./db && npm start",
