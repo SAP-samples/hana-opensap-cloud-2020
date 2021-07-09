@@ -1,6 +1,7 @@
 # hana-opensap-cloud-2020
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/hana-opensap-cloud-2020)](https://api.reuse.software/info/github.com/SAP-samples/hana-opensap-cloud-2020)
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/SAP-samples/hana-opensap-cloud-2020)
 
 The [change log](CHANGELOG.md) describes notable changes in this package.
 
