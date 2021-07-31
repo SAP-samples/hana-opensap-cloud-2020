@@ -26,7 +26,8 @@ We’ll also focus on real-world problems and opportunities such as:
 - New Cloud Application Programming Model concepts for service enablement and UI annotations and Fiori UI creation
 - More open source components and techniques
 
-Introduction video and call for community ideas: <https://www.youtube.com/watch?v=XLPNWOTCKdM>
+Video series that goes along with this repo: [https://youtube.com/playlist?list=PL6RpkC85SLQAHZ_V3cZsTok0T6BvI4HT1](https://youtube.com/playlist?list=PL6RpkC85SLQAHZ_V3cZsTok0T6BvI4HT1)
+
 Please come share your enhancement ideas directly via the project issues on this github repo.
 
 ## Requirements
