@@ -20,6 +20,12 @@
             "service": "sap-approuter-userapi"
         },
         {
+            "source": "/graphql/(.*)",
+            "destination": "srv_api",
+            "csrfProtection": false,
+            "authenticationType": "none"
+        },
+        {
             "source": "/socket.io/(.*)",
             "destination": "srv_api",
             "csrfProtection": true,

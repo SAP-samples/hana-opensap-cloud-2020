@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,13 +9,13 @@
 	<title>Bookshop</title>
 	<script>
 		window["sap-ushell-config"] = {
-			defaultRenderer: "fiori2",			
-			applications: {				
+			defaultRenderer: "fiori2",
+			applications: {
 				"exercise-chat": {
 					title: "WebSocket Chat",
 					description: "Node.js WebSocket Exercise",
 					additionalInformation: "SAPUI5.Component=sap.xs.exerciseChat",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/exerciseChat",
 					navigationMode: "embedded"
 				},
@@ -22,7 +23,7 @@
 					title: "Node.js Asynchronous",
 					description: "Node.js Asynchronous Exercise",
 					additionalInformation: "SAPUI5.Component=sap.xs.exerciseAsync",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/exerciseAsync",
 					navigationMode: "embedded"
 				},
@@ -30,7 +31,7 @@
 					title: "Mulitply Exercise",
 					description: "Simple Server Side Multiplication",
 					additionalInformation: "SAPUI5.Component=sap.openSAP.multiply",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/multiply",
 					navigationMode: "embedded"
 				},
@@ -38,7 +39,7 @@
 					title: "OData V2 Basic",
 					description: "OData V2 Basic Exericse",
 					additionalInformation: "SAPUI5.Component=sap.openSAP.odataBasic",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/odataBasic",
 					navigationMode: "embedded"
 				},
@@ -46,7 +47,7 @@
 					title: "OData V2 Advanced",
 					description: "OData V2 Advanced Exericse",
 					additionalInformation: "SAPUI5.Component=sap.openSAP.odataAdv",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/odataAdv",
 					navigationMode: "embedded"
 				},
@@ -54,7 +55,7 @@
 					title: "OData V2 BP Test",
 					description: "OData V2 BP Test with Deep Insert",
 					additionalInformation: "SAPUI5.Component=sap.openSAP.odataBPTest",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/odataBPTest",
 					navigationMode: "embedded"
 				},
@@ -62,7 +63,7 @@
 					title: "OData V2 Create",
 					description: "OData V2 Create PO/Item Deep Insert",
 					additionalInformation: "SAPUI5.Component=sap.openSAP.odataCreate",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/odataCreate",
 					navigationMode: "embedded"
 				},
@@ -70,7 +71,7 @@
 					title: "OData V2 CRUD Batch",
 					description: "OData V2 Create, Update and Delete with Batch",
 					additionalInformation: "SAPUI5.Component=sap.openSAP.odataCRUDBatch",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/odataCRUDBatch",
 					navigationMode: "embedded"
 				},
@@ -78,100 +79,117 @@
 					title: "OData V2 Test",
 					description: "OData V2 Test Frame",
 					additionalInformation: "SAPUI5.Component=sap.openSAP.odataTest",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/odataTest",
 					navigationMode: "embedded"
-				},								
+				},
 				"odatav4-CRUD": {
 					title: "OData V4 CRUD",
 					description: "OData V4 Create, Update and Delete",
 					additionalInformation: "SAPUI5.Component=sap.openSAP.odataCRUDV4",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/odataCRUDV4",
 					navigationMode: "embedded"
-				},	
+				},
 				"odatav4-fiori": {
 					title: "OData V4 with Fiori",
 					description: "OData V4 with Fiori Annotations",
-					additionalInformation: "SAPUI5.Component=sap.openSAP.poListV4",					
-					applicationType : "URL",
+					additionalInformation: "SAPUI5.Component=sap.openSAP.poListV4",
+					applicationType: "URL",
 					url: "/poListV4",
 					navigationMode: "embedded"
 				},
 				"smartTable-fiori": {
 					title: "SmartTable Example",
 					description: "SmartTable Example",
-					additionalInformation: "SAPUI5.Component=sap.openSAP.smartTable",					
-					applicationType : "URL",
+					additionalInformation: "SAPUI5.Component=sap.openSAP.smartTable",
+					applicationType: "URL",
 					url: "/smartTable",
 					navigationMode: "embedded"
 				},
 				"smartTable-products": {
 					title: "SmartTable Products Example",
 					description: "SmartTable ProductsExample",
-					additionalInformation: "SAPUI5.Component=sap.openSAP.smartTableProducts",					
-					applicationType : "URL",
+					additionalInformation: "SAPUI5.Component=sap.openSAP.smartTableProducts",
+					applicationType: "URL",
 					url: "/smartTableProducts",
 					navigationMode: "embedded"
-				},	
+				},
 				"products-fiori": {
 					title: "Products Fiori Example",
 					description: "Products Fiori Example",
-					additionalInformation: "SAPUI5.Component=sap.openSAP.productsfiori",					
-					applicationType : "URL",
+					additionalInformation: "SAPUI5.Component=sap.openSAP.productsfiori",
+					applicationType: "URL",
 					url: "/productsfiori",
 					navigationMode: "embedded"
-				},				
+				},
 				"po-fiori": {
 					title: "Purchase Orders Fiori Example",
 					description: "Purchase Orders Fiori Example",
-					additionalInformation: "SAPUI5.Component=sap.openSAP.pofiori",					
-					applicationType : "URL",
+					additionalInformation: "SAPUI5.Component=sap.openSAP.pofiori",
+					applicationType: "URL",
 					url: "/pofiori",
 					navigationMode: "embedded"
-				},																																
+				},
 				"swagger-ui": {
 					title: "Swagger API Tester",
 					description: "Test REST Services via Swagger UI",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/api/api-docs",
 					navigationMode: "embedded"
 				},
 				"status-ui": {
 					title: "System Monitoring",
 					description: "System Status for Node.js Process",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/status"
 				},
 				"odata-v4": {
 					title: "OData V4",
 					description: "OData V4 Service Endpoint",
-					applicationType : "URL",
-					url: "/odata/test"
-				},				
+					additionalInformation: "SAPUI5.Component=sap.openSAP.odataTest",
+					applicationType: "URL",
+					url: "/odataTest",
+					navigationMode: "embedded"
+				},
 				"rest-toc": {
 					title: "Rest Service TOC",
 					description: "Rest Service Table of Contents",
-					applicationType : "URL",
+					applicationType: "URL",
 					url: "/rest/ex2/toc/"
-				}				
-
-
+				},
+				"cap-graphql": {
+					title: "GraphQL",
+					description: "CAP GraphQL",
+						applicationType: "URL",
+					url: "/graphql/",
+					navigationMode: "embedded"
+				}
 			}
 		};
 	</script>
 
 	<script src="https://sapui5.hana.ondemand.com/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
 	<script src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
-    	data-sap-ui-libs="sap.m, sap.ushell, sap.collaboration, sap.ui.layout"
-    	data-sap-ui-compatVersion="edge"
-    	data-sap-ui-theme="sap_fiori_3_dark"
-    	data-sap-ui-frameOptions="allow"
-	></script>
+		data-sap-ui-libs="sap.m, sap.ushell, sap.collaboration, sap.ui.layout" data-sap-ui-compatVersion="edge"
+		data-sap-ui-theme="sap_horizon" data-sap-ui-frameOptions="allow"></script>
 	<script>
-		sap.ui.getCore().attachInit(()=> sap.ushell.Container.createRenderer().placeAt("content"))
+		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+			sap.ui.getCore().applyTheme("sap_horizon")
+		}
+		sap.ui.getCore().attachInit(function () {
+			sap.ushell.Container.createRenderer().placeAt('content')
+			sap.ui
+				.getCore()
+				.getConfiguration()
+				.setFlexibilityServices([{
+					connector: "SessionStorageConnector"
+				}])
+		})
 	</script>
 
 </head>
+
 <body class="sapUiBody" id="content"></body>
+
 </html>

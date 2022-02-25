@@ -1,77 +1,81 @@
 {
     "name": "hana-opensap-cloud-2020",
-    "version": "1.202101.1",
+    "version": "1.202202.1",
+    "private": false,
     "description": "openSAP HANA Course Exercise Materials Updated for HANA Cloud 2020",
     "repository": "https://github.com/SAP-samples/hana-opensap-cloud-2020",
     "license": "SEE LICENSE IN LICENSE",
-    "private": false,
+    "scripts": {
+        "build": "cds build",
+        "dbbuild": "cds build && cd ./db && npm start",
+        "env": "cp ./default-env.json ./db/default-env.json && cp ./default-env.json ./srv/default-env.json",
+        "jest": "npx jest --verbose",
+        "mocha": "npx mocha || echo",
+        "openapi": "cds compile srv --service all -o docs --to openapi --openapi:diagram",
+        "srv": "cds build && cd ./srv && npm start",
+        "start": "cds run",
+        "test": "npm run jest -s",
+        "userbuild": "cds build && cd ./user_db && npm start",
+        "watch": "cds watch"
+    },
+    "jest": {
+        "testEnvironment": "node"
+    },
     "dependencies": {
         "@cloudnative/health-connect": "^2.1.0",
         "@dynatrace/oneagent-sdk": "^1.4.1",
-        "@sap/audit-logging": "^5.0",
-        "@sap/cds": "^5.0",
-        "@sap/cds-odata-v2-adapter-proxy": "^1.6",
-        "@sap/hana-client": "^2.7.26",
-        "@sap/hdbext": "^7.1.4",
-        "@sap/logging": "^6.0.2",
-        "@sap/textbundle": "^4.0.0",
-        "@sap/xsenv": "^3.1.0",
-        "@sap/xssec": "^3.1.2",
+        "@graphql-tools/schema": "^8.3.1",
+        "@sap/audit-logging": "^5.5",
+        "@sap/cds": "^5.8.2",
+        "@sap/cds-odata-v2-adapter-proxy": "^1.8.9",
+        "@sap/hana-client": "^2.11.20",
+        "@sap/hdbext": "^7.6.2",
+        "@sap/logging": "^6.1.0",
+        "@sap/textbundle": "^4.1.0",
+        "@sap/xsenv": "^3.2.0",
+        "@sap/xssec": "^3.2.13",
         "accept-language-parser": "latest",
-        "async": "latest",
-        "body-parser": "^1.19.0",
+        "async": "^3.2.3",
+        "body-parser": "^1.19.2",
         "compression": "^1.7.4",
-        "dotenv": "^8.2.0",
+        "dotenv": "^16.0.0",
         "elementtree": "latest",
         "event-loop-lag": "^1.4.0",
-        "express": "^4.17",
+        "express": "^4.17.3",
+        "express-graphql": "^0.12.0",
         "express-status-monitor": "^1.3.3",
-        "helmet": "^4.4.1",
-        "jszip": "^3.5.0",
-        "latest-version": "^5.1.0",
+        "graphql": "^15.3.0",
+        "helmet": "^5.0.2",
+        "jszip": "^3.7.1",
+        "latest-version": "^6.0.0",
         "lodash.merge": "^4.6.2",
         "memory-cache": "^0.2.0",
-        "node-xlsx": "^0.16.1",
+        "node-xlsx": "^0.21.0",
         "node-zip": "^1.1.1",
         "odata2openapi": "^1.3.2",
-        "opossum": "^6.0",
+        "opossum": "^6.3",
         "opossum-prometheus": "^0.3.0",
-        "overload-protection": "^1.2.1",
-        "passport": "^0.4",
-        "pg": "^8.6",
-        "sap-hdbext-promisfied": "^2.202103.1",
+        "overload-protection": "^1.2.3",
+        "passport": "^0.5.2",
+        "pg": "^8.7.3",
+        "sap-hdbext-promisfied": "^2.202202.1",
         "swagger-jsdoc": "^6.1.0",
-        "swagger-ui-express": "^4.1.6",
-        "swagger2openapi": "^7.0.5",
+        "swagger-ui-express": "^4.3.0",
+        "swagger2openapi": "^7.0.8",
         "then-request": "^6.0.2",
         "uuid": "^8.3.2",
-        "winston": "^3.3.3",
-        "ws": "^7.4.4",
+        "winston": "^3.6.0",
+        "ws": "^8.5.0",
         "xmldoc": "^1.1.2"
     },
-    "engines": {
-        "node": "^10.0.0 || ^12.0.0 || ^14.0.0"
-    },
     "devDependencies": {
-        "chai": "^4.3.4",
+        "chai": "^4.3.6",
         "chai-as-promised": "^7.1",
         "chai-subset": "^1.6",
         "sqlite3": "^5.0.2"
     },
-    "scripts": {
-        "dbbuild": "cds build && cd ./db && npm start",
-        "userbuild": "cds build && cd ./user_db && npm start",
-        "srv": "cds build && cd ./srv && npm start",
-        "env": "cp ./default-env.json ./db/default-env.json && cp ./default-env.json ./srv/default-env.json",
-        "build": "cds build",
-        "start": "cds run",
-        "watch": "cds watch",
-        "mocha": "npx mocha || echo",
-        "jest": "npx jest --verbose",
-        "test": "npm run jest -s"
-    },
-    "jest": {
-        "testEnvironment": "node"
+    "engines": {
+        "node": "^12.18.0  || ^14.0.0 || ^16.0.0"
     },
     "cds": {
         "auth": {
@@ -133,7 +137,7 @@
         },
         "preview": {
             "ui5": {
-                "version": "1.85.3"
+                "version": "1.99.0"
             }
         },
         "i18n": {
@@ -145,14 +149,52 @@
             "version": "v4"
         },
         "hana": {
+            "journal": {
+                "enable-drop": false,
+                "change-mode": "alter"
+            },
             "deploy-format": "hdbtable"
+        },
+        "cdsc": {
+            "docs": true,
+            "beta": {
+                "sqlSnippets": true
+            }
+        },
+        "log": {
+            "service": true
+        },
+        "features": {
+            "preserve_computed": true,
+            "kibana_formatter": true,
+            "audit_personal_data": true,
+            "optimized_search": true,
+            "rest_new_adapter": true,
+            "graphql": true,
+            "assert_integrity": "db"
         },
         "requires": {
             "db": {
                 "kind": "hana"
             },
             "uaa": {
-                "kind": "xsuaa"
+                "[production]": {
+                    "kind": "xsuaa"
+                },
+                "[development]": {
+                    "kind": "dummy-auth"
+                }
+            },
+            "messaging": {
+                "[production]": {
+                    "kind": "enterprise-messaging"
+                },
+                "[development]": {
+                    "kind": "file-based-messaging"
+                },
+                "[hybrid!]": {
+                    "kind": "enterprise-messaging-shared"
+                }
             }
         }
     }

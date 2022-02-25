@@ -27,7 +27,7 @@ module.exports = (app) => {
         const passport = require("passport")
         const xssec = require("@sap/xssec")
         const xsenv = require("@sap/xsenv")
-    
+    /* 
         passport.use("JWT", new xssec.JWTStrategy(xsenv.getServices({
             uaa: {
                 tag: "xsuaa"
@@ -38,5 +38,5 @@ module.exports = (app) => {
             passport.authenticate("JWT", {
                 session: false
             })
-        ) 
+        )  */
 };
