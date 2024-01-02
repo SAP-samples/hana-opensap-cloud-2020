@@ -1,13 +1,13 @@
 # hana-opensap-cloud-2020
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/hana-opensap-cloud-2020)](https://api.reuse.software/info/github.com/SAP-samples/hana-opensap-cloud-2020)
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/SAP-samples/hana-opensap-cloud-2020)
 
 The [change log](CHANGELOG.md) describes notable changes in this package.
 
 Software Development on SAP HANA
 openSAP HANA7 Course Exercises Updated for SAP Business Technology Platform, SAP HANA Cloud, and Cloud Application Programming Model (January 2021)
-Inpsired by both the HANA Native and Cloud Application Programming Model openSAP courses
+Inspired by both the HANA Native and Cloud Application Programming Model openSAP courses
+
 - <https://open.sap.com/courses/hana7>
 - <https://open.sap.com/courses/cp7>
 
@@ -56,5 +56,5 @@ This project is provided "as-is": there is no guarantee that raised issues will 
 
 ## License
 
-Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+Copyright (c) 2024 SAP SE or an SAP affiliate company. All rights reserved.
 This project is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSES/Apache-2.0.txt) file.
