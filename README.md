@@ -4,9 +4,8 @@
 
 The [change log](CHANGELOG.md) describes notable changes in this package.
 
-Software Development on SAP HANA
-openSAP HANA7 Course Exercises Updated for SAP Business Technology Platform, SAP HANA Cloud, and Cloud Application Programming Model (January 2021)
-Inspired by both the HANA Native and Cloud Application Programming Model openSAP courses
+Software Development on SAP HANA — openSAP HANA7 Course Exercises updated for SAP Business Technology Platform, SAP HANA Cloud, and the Cloud Application Programming Model (January 2021).
+Inspired by both the HANA Native and Cloud Application Programming Model openSAP courses.
 
 - <https://open.sap.com/courses/hana7>
 - <https://open.sap.com/courses/cp7>
